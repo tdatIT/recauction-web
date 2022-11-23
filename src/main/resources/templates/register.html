@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:insert="fragments :: head">
+    <title id="pageTitle">Đăng ký</title>
+</head>
+<body>
+<!--================ Start Header Menu Area =================-->
+<header th:replace="fragments :: header">
+
+</header>
+<!--================ End Header Menu Area =================-->
+<!--================Login Box Area =================-->
+<section class="login_box_area section-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <div class="hover">
+                        <h4>Bạn đã sở hữu tài khoản</h4>
+                        <p>Vui lòng đăng nhập vào tài khoản của bạn để trải nghiệm dịch vụ.</p>
+                        <a class="button button-account" href="login">Đăng nhập ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner register_form_inner">
+                    <h3>Tạo tài khoản mới</h3>
+                    <form class="row login_form" th:action="@{/register}" method="post" id="register_form"
+                          th:object="${registerAcc}">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <input th:field="*{firstName}" type="text" class="form-control" placeholder="Họ"
+                                       required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input th:field="*{lastName}" type="text" class="form-control" placeholder="Tên"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input th:field="*{username}" type="text" class="form-control" placeholder="Username"
+                                   required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input th:field="*{encryptPassword}" type="password" class="form-control"
+                                   placeholder="Mật khẩu"
+                                   required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" placeholder="Xác nhận lại mật khẩu" required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input th:field="*{email}" type="text" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input th:field="*{phoneNumber}" type="text" class="form-control"
+                                   placeholder="Số điện thoại" required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="button button-register w-100">Đăng ký</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Box Area =================-->
+
+
+<footer th:replace="fragments :: footer">
+    <!--================ End footer Area  =================-->
+</footer>
+    <th:block th:replace="fragments :: js_block">
+    </th:block>
+</body>
+</html>

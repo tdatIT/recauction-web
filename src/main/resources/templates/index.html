@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: head">
+    <title id="pageTitle">Trang chủ</title>
+</head>
+<body>
+<!--================ Start Header Menu Area =================-->
+<header th:replace="fragments :: header">
+
+</header>
+<!--================ End Header Menu Area =================-->
+
+<main class="site-main">
+
+    <!--================ Hero banner start =================-->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="row no-gutters align-items-center pt-60px">
+                <div class="col-5 d-none d-sm-block">
+                    <div class="hero-banner__img">
+                        <img class="img-fluid" src="img/home/hero-banner.png" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
+                    <div class="hero-banner__content">
+                        <h4>Chào mừng đến với RecAuction</h4>
+                        <h1>Trả bao nhiêu ?</h1>
+                        <p>Your price we recommend !
+                            <br>Sở hữu sản phẩm với giá tiền và chất lượng mong muốn. Giá của bạn chúng tôi sẽ gợi ý !
+                        </p>
+                        <a class="button button-hero" href="#">Tạo phiên đấu giá ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ Hero banner start =================-->
+
+    <!--================ Hero Carousel start =================-->
+    <section class="section-margin mt-0">
+        <div class="owl-carousel owl-theme hero-carousel">
+            <div class="hero-carousel__slide">
+                <img src="img/home/hero-slide1.png" alt="" class="img-fluid">
+                <a href="#" class="hero-carousel__slideOverlay">
+                    <h3>Doanh mục sản phẩm khác</h3>
+                    <p>Xem tất cả sản phẩm đang được giao dịch</p>
+                </a>
+            </div>
+            <div class="hero-carousel__slide">
+                <img src="img/home/hero-slide2.png" alt="" class="img-fluid">
+                <a href="#" class="hero-carousel__slideOverlay">
+                    <h3>Thiết bị điện tử</h3>
+                    <p>Xem sản phẩm</p>
+                </a>
+            </div>
+            <div class="hero-carousel__slide">
+                <img src="img/home/hero-slide3.png" alt="" class="img-fluid">
+                <a href="#" class="hero-carousel__slideOverlay">
+                    <h3>Quần áo</h3>
+                    <p>Xem sản phẩm</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!--================ Hero Carousel end =================-->
+
+    <!-- ================ trending product section start ================= -->
+    <section class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Sản phẩm phổ biến trong các phiên</p>
+                <h2>Danh sách <span class="section-intro__style">sản phẩm sắp kết thúc phiên</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product1.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Accessories</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Quartz Belt Watch</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product2.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Beauty</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Women Freshwash</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product3.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Decor</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product4.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Decor</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product5.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Accessories</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Man Office Bag</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product6.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Kids Toy</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Charging Car</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product7.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Accessories</p>
+                            <h4 class="card-product__title"><a href="single-product.html">Blutooth Speaker</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="img/product/product8.png" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button><i class="ti-search"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-shopping-cart"></i></button>
+                                </li>
+                                <li>
+                                    <button><i class="ti-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>Kids Toy</p>
+                            <h4 class="card-product__title"><a href="#">Charging Car</a></h4>
+                            <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ trending product section end ================= -->
+
+
+    <!-- ================ offer section start ================= -->
+    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1"
+             data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5">
+                    <div class="offer__content text-center">
+                        <h3>Tham gia với vai trò là người bán</h3>
+                        <h4>Bạn có sản phẩm tham gia đấu giá</h4>
+                        <p>Chỉ cần 1 tài khoản được cấp quyền bạn sẽ trở thành nhà cung cấp</p>
+                        <a class="button button--active mt-3 mt-xl-4" href="#">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ offer section end ================= -->
+
+    <!-- ================ Best Selling item  carousel ================= -->
+    <section class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Các phiên mới được tạo</p>
+                <h2>Danh sách <span class="section-intro__style">sản phẩm</span></h2>
+            </div>
+            <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product1.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Accessories</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Quartz Belt Watch</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product2.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Beauty</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Women Freshwash</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product3.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product4.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product1.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Accessories</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Quartz Belt Watch</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product2.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Beauty</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Women Freshwash</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product3.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid" src="img/product/product4.png" alt="">
+                        <ul class="card-product__imgOverlay">
+                            <li>
+                                <button><i class="ti-search"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-shopping-cart"></i></button>
+                            </li>
+                            <li>
+                                <button><i class="ti-heart"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>Decor</p>
+                        <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
+                        <p class="card-product__price">Giá khởi điểm: $150.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ Best Selling item  carousel end ================= -->
+
+
+    <!-- ================ Subscribe section start ================= -->
+    <section class="subscribe-position">
+        <div class="container">
+            <div class="subscribe text-center">
+                <h3 class="subscribe__title">Nhận báo về các khuyến mãi của hệ thống</h3>
+                <p>Chúng tôi sẽ gợi ý cho bạn những khuyến mãi và những sản phẩm có tỷ lệ đấu giá thành công cao</p>
+                <div id="mc_embed_signup">
+                    <form target="_blank"
+                          action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                          method="get" class="subscribe-form form-inline mt-5 pt-1">
+                        <div class="form-group ml-sm-auto">
+                            <input class="form-control mb-1" type="email" name="EMAIL"
+                                   placeholder="Nhập vào địa chỉ email">
+                            <div class="info"></div>
+                        </div>
+                        <button class="button button-subscribe mr-auto mb-1" type="submit">Đăng ký ngay</button>
+                        <div style="position: absolute; left: -5000px;">
+                            <input tabindex="-1" value="" type="text">
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ================ Subscribe section end ================= -->
+
+
+</main>
+
+
+<!--================ Start footer Area  =================-->
+<footer th:replace="fragments :: footer">
+    <!--================ End footer Area  =================-->
+</footer>
+<th:block th:replace="fragments :: js_block">
+</th:block>
+</body>
+</html>

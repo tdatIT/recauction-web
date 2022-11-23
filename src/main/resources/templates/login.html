@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: head">
+    <title id="pageTitle">Đăng nhập</title>
+</head>
+<body>
+<!--================ Start Header Menu Area =================-->
+<header th:replace="fragments :: header">
+
+</header>
+<!--================Login Box Area =================-->
+<section class="login_box_area section-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <div class="hover">
+                        <h4>Bạn chưa có tài khoản</h4>
+                        <p>Chỉ với vài thao tác nhanh chóng bạn đã có ngay tài khoản</p>
+                        <a class="button button-account" href="register">Create an Account</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Đăng nhập vào tài khoản</h3>
+                    <form class="row login_form" method="post" action="/login" id="contactForm">
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Tài khoản">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="creat_account">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="button button-login w-100">Đăng nhập</button>
+                            <a href="#">Quên mật khẩu</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Box Area =================-->
+
+
+<footer th:replace="fragments :: footer">
+    <!--================ End footer Area  =================-->
+</footer>
+<th:block th:replace="fragments :: js_block">
+</th:block>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:fragment="head">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" th:href="@{/img/Fevicon.png}" type="image/png">
+        <link rel="stylesheet" th:href="@{/vendors/bootstrap/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/vendors/fontawesome/css/all.min.css}">
+        <link rel="stylesheet" th:href="@{/vendors/themify-icons/themify-icons.css}">
+        <link rel="stylesheet" th:href="@{/vendors/linericon/style.css}">
+        <link rel="stylesheet" th:href="@{/vendors/owl-carousel/owl.theme.default.min.css}">
+        <link rel="stylesheet" th:href="@{/vendors/owl-carousel/owl.carousel.min.css}">
+        <link rel="stylesheet" th:href="@{/vendors/nice-select/nice-select.css}">
+        <link rel="stylesheet" th:href="@{/vendors/nouislider/nouislider.min.css}">
+
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <title th:include=":: #pageTitle">Layout Generic Title</title>
+    </th:block>
+
+</head>
+<body>
+<!--================ Start Header Menu Area =================-->
+<header th:fragment="header" class="header_area">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <div class="nav navbar-nav menu_nav ml-auto mr-auto search-form">
+                        <input class="search-input form-control rounded" type="search" name="search"
+                               placeholder="Search..." onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'Search... '">
+                    </div>
+
+                    <ul class="nav-shop">
+                        <li class="nav-item"><a href=""><i class="ti-search"></i></a></li>
+                        <li class="nav-item">
+                            <button onclick="window.location.href='cart.html'"><i class="ti-shopping-cart"></i><span
+                                    class="nav-shop__circle">3</span></button>
+                        </li>
+                        <li class="nav-item"><a class="button button-now" href="category.html">Đấu giá ngay!</a></li>
+
+
+                        <li class="nav-item active submenu dropdown" sec:authorize="isAnonymous()">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false"><i class="ti-user"></i>
+                            </a>
+                            <ul class="dropdown-menu  dropdown-user">
+                                <li class="nav-user"><a class="btn-user" th:href="@{/login}">Đăng nhập</a></li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/register}">Đăng ký</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item active submenu dropdown" sec:authorize="isAuthenticated()">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false"><i class="ti-user"></i>
+                                <span></span>
+                            </a>
+                            <ul class="dropdown-menu  dropdown-user">
+                                <li class="nav-user"><a class="btn-user" sec:authentication="name"
+                                                        th:href="@{/account/info}">Xin chào </a></li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/account/edit}">Thay đổi thông
+                                    tin</a></li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/auction}">Quản lý phiên</a>
+                                </li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/logout}">Thoát</a></li>
+                            </ul>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<!--================ End Header Menu Area =================-->
+
+<footer th:fragment="footer" class="footer">
+    <div class="footer-area">
+        <div class="container">
+            <div class="row section_gap">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title large_title">RecAuction</h4>
+                        <p>
+                            Giá của bạn chúng tôi sẽ gợi ý cho bạn là phương châm hoạt động của sàn. Tạo ra môi trường
+                            mua sắm đúng với khách hàng là thượng đế.
+                        </p>
+                        <p>
+                            Chỉ với vài thao tác trên web, bạn đã có thể đăng sản phẩm cần mua ngay theo nhu cầu của
+                            mình.
+                            Không những thế, các người dùng khác với vai trò là nhà cung cấp có thể tham gia phiên đấu
+                            giá
+                            tăng sự cạnh tranh giá cả tạo nên những mức giá hấp dẫn.
+                        </p>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title">Các chính sách</h4>
+                        <ul class="list">
+                            <li><a href="#">Mua hàng</a></li>
+                            <li><a href="#">Bán hàng</a></li>
+                            <li><a href="#">Đổi trả</a></li>
+                            <li><a href="#">Vận chuyển</a></li>
+                            <li><a href="#">Thanh toán</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title">Liên kết</h4>
+                        <ul class="list">
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="#">Doanh mục</a></li>
+                            <li><a href="#">Giỏ haàng</a></li>
+                            <li><a href="#">Quản lý phiên</a></li>
+                            <li><a href="#">Tài khoản</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title">Liên hệ với chúng tôi</h4>
+                        <div class="ml-40">
+                            <p class="sm-head">
+                                <span class="fa fa-location-arrow"></span>
+                                HCMUTE
+                            </p>
+                            <p>1, Võ Văn Ngân, Hồ Chí Minh</p>
+
+                            <p class="sm-head">
+                                <span class="fa fa-phone"></span>
+                                Số điện thoại
+                            </p>
+                            <p>
+                                +123 456 7890 <br>
+                                +123 456 7890
+                            </p>
+
+                            <p class="sm-head">
+                                <span class="fa fa-envelope"></span>
+                                Email
+                            </p>
+                            <p>
+                                HCMUTE@recauction.com <br>
+                                https://hcmute.edu.vn/
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row d-flex">
+                <p class="col-lg-12 footer-text text-center">
+                    Đồ án môn Thương mại điện tử nhóm 02
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--================ End footer Area  =================-->
+<th:block th:fragment="js_block">
+    <script th:src="@{/vendors/jquery/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendors/skrollr.min.js}"></script>
+    <script th:src="@{/vendors/owl-carousel/owl.carousel.min.js}"></script>
+    <script th:src="@{/vendors/nice-select/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/vendors/jquery.ajaxchimp.min.js}"></script>
+    <script th:src="@{/vendors/mail-script.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+</th:block>
+</body>
+</html>
