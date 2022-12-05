@@ -29,7 +29,7 @@ public class Users {
     private int roleId;
     @Basic
     @Column(name = "isActive", nullable = false)
-    private boolean isActive = true;
+    private boolean isActive = false;
     @Basic
     @Column(name = "avatar", nullable = true, length = 255)
     private String avatar;

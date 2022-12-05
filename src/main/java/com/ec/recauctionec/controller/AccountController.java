@@ -16,7 +16,7 @@ public class AccountController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(value = {"/info","/"}, method = RequestMethod.GET)
     public String viewInfo(ModelMap modelMap) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -28,5 +28,6 @@ public class AccountController {
             return "redirect:/login";
         }
     }
+
 
 }

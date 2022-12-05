@@ -49,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/category",
                         "/all-session",
                         "/product").permitAll()
+                .antMatchers("/account",
+                        "/create-auction").authenticated()
                 .and()
                 .logout()
                 .invalidateHttpSession(true)

@@ -10,4 +10,6 @@ public interface UserService {
 
     void registerAccount(Users users);
 
+    void updateUser(Users user);
+
 }
