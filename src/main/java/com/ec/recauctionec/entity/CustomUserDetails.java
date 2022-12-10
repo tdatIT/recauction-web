@@ -10,27 +10,30 @@ import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
     @Autowired
-    Users user;
+    User user;
 
-    public CustomUserDetails(Users user) {
+    public CustomUserDetails(User user) {
         this.user = user;
+    }
+
+    public int getUserId() {
+        return user.getUserId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(
-                user.getRolesByRoleId()
-                        .getName()));
+                user.getRoleByRoleId().getName()));
     }
 
     @Override
     public String getPassword() {
-        return user.getEncryptPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getEmail();
     }
 
     @Override

@@ -1,45 +1,104 @@
 package com.ec.recauctionec.service.impl;
 
-import com.ec.recauctionec.entity.Users;
+import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.repositories.RoleRepo;
 import com.ec.recauctionec.repositories.UserRepo;
+import com.ec.recauctionec.repositories.VerificationTokenRepo;
+import com.ec.recauctionec.service.EmailService;
 import com.ec.recauctionec.service.UserService;
 import com.ec.recauctionec.variable.RoleConst;
+import com.ec.recauctionec.verification.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    VerificationTokenRepo verificationTokenRepo;
+    @Autowired
     UserRepo userRepo;
+    @Autowired
+    RoleRepo roleRepo;
+    @Autowired
+    EmailService emailService;
 
     @Override
-    public void registerAccount(Users users) {
+    public User registerAccount(User user) {
+
         //Create hash password
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encrypt_pass = encoder.encode(users.getEncryptPassword());
-        users.setEncryptPassword(encrypt_pass);
-        users.setCreateDate(new Date(new java.util.Date().getTime()));
-        users.setLevelUser(1);
-        users.setRoleId(RoleConst.USER);
-        userRepo.save(users);
+        String encrypt_pass = encoder.encode(user.getPassword());
+        user.setPassword(encrypt_pass);
+        user.setRoleId(RoleConst.USER);
+        user.setRoleByRoleId(roleRepo.findByRoleId(RoleConst.USER));
+        user.setCreateDate(new Date(new java.util.Date().getTime()));
+        user.setLevelUser(1);
+        return userRepo.save(user);
     }
 
     @Override
-    public Users findByUsername(String username) {
+    public User findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
 
     @Override
-    public Users findByEmail(String email) {
+    public User findByEmail(String email) {
         return userRepo.findByEmail(email);
     }
 
     @Override
-    public void updateUser(Users user) {
+    public void updateUser(User user) {
         userRepo.save(user);
+    }
+
+    @Override
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken();
+
+        myToken.setToken(token);
+        myToken.setUser(user);
+        verificationTokenRepo.save(myToken);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return verificationTokenRepo.findByToken(VerificationToken);
+    }
+
+    @Override
+    public void requestResetPassword(User us) {
+        VerificationToken token = verificationTokenRepo.findByUser(us);
+        if (token == null) {
+            String token_str = UUID.randomUUID().toString();
+            token = new VerificationToken();
+            token.setUser(us);
+            token.setToken(token_str);
+            verificationTokenRepo.save(token);
+            emailService.sendResetPassword(us, token_str);
+        }
+    }
+
+    @Override
+    public void resetPassword(String token, String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encrypt_pass = encoder.encode(password);
+        VerificationToken verificationToken = verificationTokenRepo.findByToken(token);
+        if (verificationToken != null) {
+            User us = verificationToken.getUser();
+            us.setPassword(encrypt_pass);
+            userRepo.save(us);
+        }
+    }
+
+    @Override
+    public void updateConfirmUser(User user) {
+        userRepo.save(user);
+        VerificationToken token = verificationTokenRepo.findByUser(user);
+        verificationTokenRepo.delete(token);
     }
 }

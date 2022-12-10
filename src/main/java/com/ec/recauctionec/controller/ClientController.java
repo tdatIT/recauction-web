@@ -1,57 +1,120 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.Users;
+import com.ec.recauctionec.dto.UserDTO;
+import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
 import com.ec.recauctionec.service.UserService;
+import com.ec.recauctionec.variable.Router;
+import com.ec.recauctionec.verification.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 
 @Controller
 public class ClientController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+
+    @RequestMapping(value = Router.HOME_PAGE, method = RequestMethod.GET)
     public String getHomePage(ModelMap modelMap) {
         return "index";
     }
 
 
     //get page sign up
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = Router.REGISTER_PAGE, method = RequestMethod.GET)
     public String getRegister(ModelMap modelMap) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            Users user = new Users();
-            modelMap.addAttribute("registerAcc", user);
+            UserDTO user = new UserDTO();
+            modelMap.addAttribute("register", user);
             return "register";
         } else
             return "redirect:/";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerNewAccount(@ModelAttribute Users register, ModelMap modelMap) {
+    @RequestMapping(value = Router.REGISTER_PAGE, method = RequestMethod.POST)
+    public String registerNewAccount(@ModelAttribute UserDTO register, ModelMap modelMap,
+                                     HttpServletRequest req, Errors errors) {
         try {
-            userService.registerAccount(register);
-            return "redirect:/home";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/register?error=true";
+            User notActiveAcc = userService.registerAccount(register.mappingClass());
+            String appUrl = req.getContextPath();
+            applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(notActiveAcc,
+                    req.getLocale(), appUrl));
+        } catch (RuntimeException ex) {
+            return "redirect:" + Router.REGISTER_PAGE + "?error=true";
         }
+        return "redirect:" + Router.LOGIN_PAGE;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = Router.LOGIN_PAGE, method = RequestMethod.GET)
     public String login(ModelMap modelMap) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = Router.FORGOT_PASS_PAGE, method = RequestMethod.GET)
+    public String showForgot(ModelMap modelMap) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "forgot";
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = Router.RESET_PASS, method = RequestMethod.POST)
+    public ResponseEntity resetPassword(@RequestParam String email) {
+        User us = userService.findByEmail(email);
+        try {
+            if (us != null) {
+                userService.requestResetPassword(us);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = Router.CONFIRM_RESET, method = RequestMethod.GET)
+    public String confirmResetPassword(@RequestParam("token") String token,
+                                       ModelMap modelMap) {
+        VerificationToken verificationToken = userService.getVerificationToken(token);
+        if (verificationToken == null) {
+            return "redirect:/";
+        }
+        User user = verificationToken.getUser();
+        Calendar cal = Calendar.getInstance();
+        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+            return "redirect:/";
+        }
+        modelMap.addAttribute("token", token);
+        return "reset-password";
+    }
+
+    @RequestMapping(value = Router.SET_PASS, method = RequestMethod.POST)
+    public String setNewPassword(@RequestParam("token") String token,
+                                 @RequestParam("password") String password) {
+        userService.resetPassword(token, password);
+        return "redirect:/login";
     }
 }

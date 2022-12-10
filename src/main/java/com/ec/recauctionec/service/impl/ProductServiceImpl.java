@@ -1,0 +1,52 @@
+package com.ec.recauctionec.service.impl;
+
+import com.ec.recauctionec.entity.Product;
+import com.ec.recauctionec.repositories.ProductRepo;
+import com.ec.recauctionec.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+    @Autowired
+    private ProductRepo productRepo;
+
+    @Override
+    public List<Product> findBySupplierId(int supplierId) {
+        return productRepo.findAllBySupplierIdActive(supplierId);
+    }
+
+    @Override
+    public List<Product> findByName(String name) {
+        return productRepo.findAllByProductNameIsLike(name);
+    }
+
+    @Override
+    public Product findById(int id) {
+        return productRepo.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void insertProduct(Product product) {
+        productRepo.save(product);
+    }
+
+    @Override
+    public void updateStatusProduct(Product product, int status) {
+        product.setStatus(status);
+        productRepo.save(product);
+    }
+
+    @Override
+    public void updateProduct(Product product) {
+        productRepo.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Product product) {
+        product.setDeleted(true);
+        productRepo.save(product);
+    }
+}

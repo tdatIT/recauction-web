@@ -1,15 +1,24 @@
 package com.ec.recauctionec.service;
 
-import com.ec.recauctionec.entity.Users;
+import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.verification.VerificationToken;
 
 
 public interface UserService {
-    Users findByUsername(String username);
+    User findByUsername(String username);
 
-    Users findByEmail(String email);
+    User findByEmail(String email);
 
-    void registerAccount(Users users);
+    User registerAccount(User users);
 
-    void updateUser(Users user);
+    void updateUser(User user);
 
+    void createVerificationToken(User user, String token);
+
+    VerificationToken getVerificationToken(String VerificationToken);
+
+    void requestResetPassword(User us);
+
+    void resetPassword(String token, String password);
+    void updateConfirmUser(User user);
 }

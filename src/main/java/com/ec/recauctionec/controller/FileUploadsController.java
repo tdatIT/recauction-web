@@ -1,7 +1,8 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.Users;
+import com.ec.recauctionec.entity.User;
 import com.ec.recauctionec.service.UserService;
+import com.ec.recauctionec.variable.Router;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 @Controller
-@RequestMapping(value = "/upload")
+@RequestMapping(value = Router.UPLOAD)
 public class FileUploadsController {
     @Autowired
     private UserService userService;
@@ -30,7 +31,7 @@ public class FileUploadsController {
             File file = new File(getUploadFolder(), filename);
             multipartFile.transferTo(file);
             //update user avatar
-            Users user = userService.findByUsername(username);
+            User user = userService.findByUsername(username);
             user.setAvatar(filename);
             userService.updateUser(user);
             return new ResponseEntity(HttpStatus.OK);

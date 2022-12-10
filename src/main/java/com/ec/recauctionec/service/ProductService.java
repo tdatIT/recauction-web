@@ -1,0 +1,21 @@
+package com.ec.recauctionec.service;
+
+import com.ec.recauctionec.dto.ProductDTO;
+import com.ec.recauctionec.entity.Product;
+
+import java.util.List;
+
+public interface ProductService {
+    List<Product> findBySupplierId(int supplierId);
+
+    List<Product> findByName(String name);
+
+    Product findById(int id);
+
+    void insertProduct(Product product);
+
+    void updateStatusProduct(Product product, int status);
+
+    void updateProduct(Product product);
+    void deleteProduct(Product product);
+}

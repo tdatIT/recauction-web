@@ -41,29 +41,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //authentication
         http.authorizeRequests()
                 .antMatchers("/",
-                        "/register",
-                        "/login",
-                        "/home",
-                        "/category",
-                        "/all-session",
-                        "/product").permitAll()
-                .antMatchers("/account",
-                        "/create-auction").authenticated()
+                        "/dang-ky",
+                        "/dang-nhap",
+                        "/trang-chu",
+                        "/doanh-muc",
+                        "/tat-ca-phien",
+                        "/san-pham").permitAll()
+                .antMatchers("/tai-khoan",
+                        "/tao-dau-gia").authenticated()
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/home")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/dang-xuat"))
+                .logoutSuccessUrl("/trang-chu")
                 .permitAll();
-        http.formLogin().loginPage("/login")
-                .usernameParameter("username")
+        http.formLogin().loginPage("/dang-nhap")
+                .usernameParameter("email")
                 .passwordParameter("password");
         http.formLogin()
                 .defaultSuccessUrl("/")
-                .failureUrl("/login?error=true");
+                .failureUrl("/dang-nhap?error=true");
         http.csrf().disable();
+
+
+        //authorize
+        //admin
+        http.authorizeRequests()
+                .antMatchers("/admin/**")
+                .access("hasRole('ADMIN')");
+        //supplier
+        http.authorizeRequests()
+                .antMatchers("/supplier/**")
+                .access("hasRole('SUPPLIER')");
+        //handle when user not have permission
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
     }
 }

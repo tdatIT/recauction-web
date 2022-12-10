@@ -50,7 +50,7 @@
                             <button onclick="window.location.href='cart.html'"><i class="ti-shopping-cart"></i><span
                                     class="nav-shop__circle">3</span></button>
                         </li>
-                        <li class="nav-item"><a class="button button-now" href="category.html">Đấu giá ngay!</a></li>
+                        <li class="nav-item"><a class="button button-now" href="/tao-dau-gia">Đấu giá ngay!</a></li>
 
 
                         <li class="nav-item active submenu dropdown" sec:authorize="isAnonymous()">
@@ -59,8 +59,8 @@
                                aria-expanded="false"><i class="ti-user"></i>
                             </a>
                             <ul class="dropdown-menu  dropdown-user">
-                                <li class="nav-user"><a class="btn-user" th:href="@{/login}">Đăng nhập</a></li>
-                                <li class="nav-user"><a class="btn-user" th:href="@{/register}">Đăng ký</a></li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/dang-nhap}">Đăng nhập</a></li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/dang-ky}">Đăng ký</a></li>
                             </ul>
                         </li>
                         <li class="nav-item active submenu dropdown" sec:authorize="isAuthenticated()">
@@ -72,11 +72,11 @@
                             <ul class="dropdown-menu  dropdown-user">
                                 <li class="nav-user"><a class="btn-user" sec:authentication="name"
                                                         th:href="@{/account/info}">Xin chào </a></li>
-                                <li class="nav-user"><a class="btn-user" th:href="@{/account/edit}">Thay đổi thông
+                                <li class="nav-user"><a class="btn-user" th:href="@{/tai-khoan/chinh-sua}">Thay đổi thông
                                     tin</a></li>
-                                <li class="nav-user"><a class="btn-user" th:href="@{/auction}">Quản lý phiên</a>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/dau-gia}">Quản lý phiên</a>
                                 </li>
-                                <li class="nav-user"><a class="btn-user" th:href="@{/logout}">Thoát</a></li>
+                                <li class="nav-user"><a class="btn-user" th:href="@{/dang-xuat}">Thoát</a></li>
                             </ul>
                     </ul>
                 </div>
