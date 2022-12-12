@@ -1,8 +1,10 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.dto.UserDTO;
+import com.ec.recauctionec.entity.Product;
 import com.ec.recauctionec.entity.User;
 import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
+import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.UserService;
 import com.ec.recauctionec.variable.Router;
 import com.ec.recauctionec.verification.VerificationToken;
@@ -23,17 +25,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 public class ClientController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    ProductService productService;
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
 
-    @RequestMapping(value = Router.HOME_PAGE, method = RequestMethod.GET)
+    @RequestMapping(value = {"",Router.HOME_PAGE}, method = RequestMethod.GET)
     public String getHomePage(ModelMap modelMap) {
+        List<Product>top5trending = productService.findTop5Trending();
+        modelMap.addAttribute("top5Trending",top5trending);
         return "index";
     }
 

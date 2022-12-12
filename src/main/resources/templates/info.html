@@ -2,8 +2,10 @@
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:insert="fragments :: head">
-    <title id="pageTitle">Thông tin tài khoản</title>
+<head>
+    <th:block th:replace="fragments :: head">
+    </th:block>
+    <title id="pageTitle">Thôn tin tài khoản</title>
 </head>
 <body>
 <!--================ Start Header Menu Area =================-->

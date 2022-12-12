@@ -2,6 +2,7 @@ package com.ec.recauctionec.repositories;
 
 
 import com.ec.recauctionec.entity.Product;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,4 +16,8 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     Product findByProductId(int productId);
 
+    List<Product> findAllByStatus(int status);
+
+    @Query("select p from Product p where p.status = 1 or p.status = 2 order by p.defaultPrice desc")
+    List<Product> findProductLimit(Pageable pageable);
 }

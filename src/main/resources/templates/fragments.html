@@ -4,11 +4,10 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:fragment="head">
-
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="icon" th:href="@{/img/Fevicon.png}" type="image/png">
+        <link rel="icon" th:href="@{/img/favicon.ico}" type="image/ico">
         <link rel="stylesheet" th:href="@{/vendors/bootstrap/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/vendors/fontawesome/css/all.min.css}">
         <link rel="stylesheet" th:href="@{/vendors/themify-icons/themify-icons.css}">
@@ -17,9 +16,7 @@
         <link rel="stylesheet" th:href="@{/vendors/owl-carousel/owl.carousel.min.css}">
         <link rel="stylesheet" th:href="@{/vendors/nice-select/nice-select.css}">
         <link rel="stylesheet" th:href="@{/vendors/nouislider/nouislider.min.css}">
-
         <link rel="stylesheet" th:href="@{/css/style.css}">
-        <title th:include=":: #pageTitle">Layout Generic Title</title>
     </th:block>
 
 </head>
@@ -29,7 +26,7 @@
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+                <a class="navbar-brand logo_h" href="/trang-chu"><img src="/img/rec-logo.png" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,10 +44,10 @@
                     <ul class="nav-shop">
                         <li class="nav-item"><a href=""><i class="ti-search"></i></a></li>
                         <li class="nav-item">
-                            <button onclick="window.location.href='cart.html'"><i class="ti-shopping-cart"></i><span
+                            <button onclick="window.location.href='#'"><i class="fa fa-light fa-gavel"></i><span
                                     class="nav-shop__circle">3</span></button>
                         </li>
-                        <li class="nav-item"><a class="button button-now" href="/tao-dau-gia">Đấu giá ngay!</a></li>
+                        <li class="nav-item"><a class="button button-now" href="/dau-gia/tao-phien">Đấu giá ngay!</a></li>
 
 
                         <li class="nav-item active submenu dropdown" sec:authorize="isAnonymous()">
@@ -177,6 +174,7 @@
 </footer>
 <!--================ End footer Area  =================-->
 <th:block th:fragment="js_block">
+    <script src="https://kit.fontawesome.com/ae7c745789.js" crossorigin="anonymous"></script>
     <script th:src="@{/vendors/jquery/jquery-3.2.1.min.js}"></script>
     <script th:src="@{/vendors/bootstrap/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/vendors/skrollr.min.js}"></script>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments :: head">
-	<title id="pageTitle">Thông báo</title>
+<head>
+	<th:block th:replace="fragments :: head">
+	</th:block>
+	<title id="pageTitle" th:text="${title}"></title>
 </head>
 <body>
 <!-- ================ Start Header Menu Area =================-->
@@ -15,7 +17,7 @@
 <section class="tracking_box_area section-margin--small">
 	<div class="container">
 		<div class="tracking_box_inner">
-			<h1 th:text="${messages}"></h1>
+			<h1 th:text="${message}"></h1>
 		</div>
 		<div class="mt-5">
 			<h4 th:text="${description}"></h4>

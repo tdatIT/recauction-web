@@ -4,6 +4,8 @@ import com.ec.recauctionec.entity.Product;
 import com.ec.recauctionec.repositories.ProductRepo;
 import com.ec.recauctionec.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +50,11 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Product product) {
         product.setDeleted(true);
         productRepo.save(product);
+    }
+
+    @Override
+    public List<Product> findTop5Trending() {
+        Pageable top5 = PageRequest.of(0, 5);
+        return productRepo.findProductLimit(top5);
     }
 }
