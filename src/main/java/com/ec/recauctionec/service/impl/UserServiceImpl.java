@@ -1,6 +1,7 @@
 package com.ec.recauctionec.service.impl;
 
 import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entity.Wallet;
 import com.ec.recauctionec.repositories.RoleRepo;
 import com.ec.recauctionec.repositories.UserRepo;
 import com.ec.recauctionec.repositories.VerificationTokenRepo;
@@ -16,7 +17,8 @@ import java.sql.Date;
 import java.util.UUID;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class
+UserServiceImpl implements UserService {
 
     @Autowired
     VerificationTokenRepo verificationTokenRepo;
@@ -97,6 +99,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateConfirmUser(User user) {
+        Wallet wallet = new Wallet();
+        wallet.setUser(user);
         userRepo.save(user);
         VerificationToken token = verificationTokenRepo.findByUser(user);
         verificationTokenRepo.delete(token);
