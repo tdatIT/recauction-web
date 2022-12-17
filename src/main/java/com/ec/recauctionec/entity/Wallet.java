@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
+@Table(name="wallet", schema = "reauction_db")
 public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

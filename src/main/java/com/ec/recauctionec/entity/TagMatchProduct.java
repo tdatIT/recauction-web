@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "tag_match_product", schema = "ec_final_project", catalog = "")
+@Table(name = "tag_match_product", schema = "recauction_db", catalog = "")
 @IdClass(TagMatchProductPK.class)
 public class TagMatchProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

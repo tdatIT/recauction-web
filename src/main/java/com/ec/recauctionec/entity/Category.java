@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Table(name="category", schema = "reauction_db")
 public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

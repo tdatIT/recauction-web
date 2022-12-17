@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name = "user_address", schema = "ec_final_project", catalog = "")
+@Table(name = "user_address", schema = "recauction_db", catalog = "")
 public class UserAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
