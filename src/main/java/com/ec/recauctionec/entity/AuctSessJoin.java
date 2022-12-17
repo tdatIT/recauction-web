@@ -10,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name = "auct_sess_join", schema = "ec_final_project", catalog = "")
+@Table(name = "auct_sess_join", schema = "recauction_db", catalog = "")
 public class AuctSessJoin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

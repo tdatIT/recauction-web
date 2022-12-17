@@ -12,6 +12,7 @@ import com.ec.recauctionec.verification.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.UUID;
@@ -29,6 +30,7 @@ UserServiceImpl implements UserService {
     @Autowired
     EmailService emailService;
 
+    @Transactional
     @Override
     public User registerAccount(User user) {
 

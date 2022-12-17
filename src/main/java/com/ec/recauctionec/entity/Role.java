@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Table(name="role", schema = "reauction_db")
 public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

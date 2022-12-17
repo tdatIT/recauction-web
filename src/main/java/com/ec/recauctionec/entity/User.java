@@ -10,6 +10,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
+@Table(name="user", schema = "reauction_db")
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

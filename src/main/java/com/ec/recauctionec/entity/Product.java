@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
+@Table(name = "product", schema = "recauction_db")
 public class Product {
     public static final int MANUAL = 1;
     public static final int AUTOMATIC = 2;

@@ -9,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Table(name="commission", schema = "reauction_db")
 public class Commission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
+@Table(name="orders", schema = "reauction_db")
 public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

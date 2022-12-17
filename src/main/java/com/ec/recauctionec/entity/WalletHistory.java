@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Table(name = "wallet_history", schema = "ec_final_project", catalog = "")
+@Table(name = "wallet_history", schema = "recauction_db", catalog = "")
 public class WalletHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
