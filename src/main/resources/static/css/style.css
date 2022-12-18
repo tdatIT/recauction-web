@@ -5009,6 +5009,21 @@ input[type="date"] {
     font-weight: 1000;
 } */
 
+.btn-create {
+    margin-left: 15px;
+    padding: 10px;
+}
+
+/* .icon-plus {
+    max-width: 112px;
+    max-height: 112px;
+    font-size: 90px;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 50px;
+    font-weight: 1000;
+} */
+
 #file-input {
     display: none;
 }
@@ -5042,4 +5057,21 @@ input[type="date"] {
 
 .center-row {
     align-items: center;
+}
+
+.form-check {
+    margin-left: 15px;
+    margin-top: 40px;
+}
+
+#output-show {
+    margin-top: 5px;
+    font-size: 20px;
+}
+.form-create-auction{
+    font-size: 16px;
+    background-color: #0C73BD;
+    padding: 40px;
+    color: #fff;
+    border-radius: 20px;
 }

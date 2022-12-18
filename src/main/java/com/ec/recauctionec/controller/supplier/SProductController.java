@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-    @RequestMapping("/supplier/san-pham")
+@RequestMapping("/supplier/san-pham")
 public class SProductController {
     @Autowired
     ProductService productService;

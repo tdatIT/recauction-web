@@ -1,5 +1,6 @@
 package com.ec.recauctionec.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class TagMatchProductPK implements Serializable {
     @Column(name = "tag_id", nullable = false)
     @Id

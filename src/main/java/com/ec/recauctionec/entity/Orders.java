@@ -1,5 +1,6 @@
 package com.ec.recauctionec.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 @Table(name="orders", schema = "reauction_db")
 public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

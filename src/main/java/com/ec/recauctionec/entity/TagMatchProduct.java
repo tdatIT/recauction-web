@@ -1,5 +1,6 @@
 package com.ec.recauctionec.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 @Table(name = "tag_match_product", schema = "recauction_db", catalog = "")
 @IdClass(TagMatchProductPK.class)
 public class TagMatchProduct {
