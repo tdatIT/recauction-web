@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -44,6 +43,9 @@ public class AuctionSession {
     @Column(name = "start_date", nullable = false)
     private Timestamp startDate;
     @Basic
+    @Column(name = "description", length = 255)
+    private String description;
+    @Basic
     @Column(name = "user_id", nullable = false)
     private int userId;
     @Basic
@@ -59,6 +61,9 @@ public class AuctionSession {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false,
             insertable = false, updatable = false)
     private User userByUserId;
+
+    @OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<AuctionImg> img;
 
 
 }

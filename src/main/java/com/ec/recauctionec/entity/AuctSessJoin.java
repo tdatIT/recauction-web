@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+
 @Table(name = "auct_sess_join", schema = "recauction_db", catalog = "")
 public class AuctSessJoin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,9 @@ public class AuctSessJoin {
     @Basic
     @Column(name = "status", nullable = false)
     private int status;
+    @Basic
+    @Column(name = "time", nullable = false)
+    private Timestamp time;
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false,
             insertable = false, updatable = false)

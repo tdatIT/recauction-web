@@ -1,6 +1,7 @@
 package com.ec.recauctionec.service.impl;
 
 import com.ec.recauctionec.dto.AuctionSessionDTO;
+import com.ec.recauctionec.entity.AuctionImg;
 import com.ec.recauctionec.entity.AuctionSession;
 import com.ec.recauctionec.entity.User;
 import com.ec.recauctionec.entity.Wallet;
@@ -8,11 +9,13 @@ import com.ec.recauctionec.repositories.AuctionRepo;
 import com.ec.recauctionec.repositories.UserRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.AuctionService;
+import com.ec.recauctionec.service.StorageImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,10 +30,12 @@ public class AuctionServiceImpl implements AuctionService {
     private UserRepo user;
     @Autowired
     private WalletRepo walletRepo;
+    @Autowired
+    private StorageImage storageImage;
 
     @Override
     public AuctionSession findById(int id) {
-        return null;
+        return auctionRepo.getById(id);
     }
 
     @Override
@@ -52,10 +57,22 @@ public class AuctionServiceImpl implements AuctionService {
             Wallet w_us = walletRepo.findByUserId(us.getUserId()).get(0);
             if (w_us.getAccountBalance() >= (dto.getReservePrice() * CHECK_AVAILABLE)
                     && auctionRepo.findActiveAuction(us.getUserId()).size() < CHECK_TOTAL_AUCTION) {
-                if (dto.isAuto()) {
-
-                }
                 auction.setUserId(us.getUserId());
+                if (dto.isAuto()) {
+                    //business logic process
+                }
+                if (dto.getImg() != null) {
+                    List<AuctionImg> imgs = new ArrayList<>();
+                    List<String> filenames = storageImage.storageMultiImage(dto.getImg());
+                    for (String name : filenames) {
+                        AuctionImg img = new AuctionImg();
+                        img.setImageFile(name);
+                        img.setAuction(auction);
+                        imgs.add(img);
+                    }
+                    auction.setImg(imgs);
+                }
+
                 auctionRepo.save(auction);
                 status = true;
             }

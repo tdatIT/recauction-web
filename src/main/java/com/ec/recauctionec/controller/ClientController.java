@@ -1,9 +1,12 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.dto.UserDTO;
+import com.ec.recauctionec.entity.AuctSessJoin;
+import com.ec.recauctionec.entity.AuctionSession;
 import com.ec.recauctionec.entity.Product;
 import com.ec.recauctionec.entity.User;
 import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
+import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.UserService;
 import com.ec.recauctionec.variable.Router;
@@ -18,14 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ClientController {
@@ -36,12 +35,14 @@ public class ClientController {
     ProductService productService;
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+    @Autowired
+    AuctionService auctionService;
 
 
-    @RequestMapping(value = {"",Router.HOME_PAGE}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", Router.HOME_PAGE}, method = RequestMethod.GET)
     public String getHomePage(ModelMap modelMap) {
-        List<Product>top5trending = productService.findTop5Trending();
-        modelMap.addAttribute("top5Trending",top5trending);
+        List<Product> top5trending = productService.findTop5Trending();
+        modelMap.addAttribute("top5Trending", top5trending);
         return "index";
     }
 
@@ -124,5 +125,24 @@ public class ClientController {
                                  @RequestParam("password") String password) {
         userService.resetPassword(token, password);
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/chi-tiet-dau-gia/{id}",method = RequestMethod.GET)
+    public String viewAuctionDetails(@PathVariable("id") int auctionId, ModelMap modelMap) {
+        AuctionSession auction = auctionService.findById(auctionId);
+        if (auction != null) {
+
+            List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
+            Collections.sort(joins, new Comparator<AuctSessJoin>() {
+                @Override
+                public int compare(AuctSessJoin o1, AuctSessJoin o2) {
+                    return Double.compare(o1.getPrice(), o2.getPrice());
+                }
+            });
+            modelMap.addAttribute("auction", auction);
+            modelMap.addAttribute("joins", joins);
+            return "view-auction-detail";
+        } else
+            return "redirect://404";
     }
 }
