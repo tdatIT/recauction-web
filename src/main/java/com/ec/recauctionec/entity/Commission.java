@@ -24,9 +24,8 @@ public class Commission {
     @Column(name = "amount_from_supplier", nullable = false, precision = 0)
     private double amountFromSupplier;
     @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false,
-            insertable = false, updatable = false)
-    private Orders ordersByOrderId;
+    @JoinColumn(name = "order_id")
+    private Orders order;
 
 
 }

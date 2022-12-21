@@ -12,7 +12,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name="supplier", schema = "reauction_db")
+@Table(name = "supplier", schema = "reauction_db")
 public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -30,6 +30,9 @@ public class Supplier {
     @Basic
     @Column(name = "owner_id", nullable = false)
     private int ownerId;
+    @Basic
+    @Column(name = "location", nullable = false)
+    private int location;
     @Basic
     @Column(name = "rating", nullable = false)
     private int rating;

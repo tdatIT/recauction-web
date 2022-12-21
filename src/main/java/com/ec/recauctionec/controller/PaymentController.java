@@ -103,7 +103,8 @@ public class PaymentController {
                 history.setPaymentId(paymentId);
                 history.setCreateDate(new Timestamp(new Date().getTime()));
                 history.setValue(total);
-
+                //Nap tien
+                history.setType(true);
                 walletHistoryRepo.save(history);
                 double oldBalance = wallet.getAccountBalance();
                 wallet.setAccountBalance(oldBalance + total);

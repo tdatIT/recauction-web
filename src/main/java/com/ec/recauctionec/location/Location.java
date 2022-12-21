@@ -23,5 +23,6 @@ public enum Location {
     HUYEN_CANGIO,
     HUYEN_CUCHI,
     HUYEN_HOCMON,
-    HUYEN_NHABE
+    HUYEN_NHABE,
+    DIFF
 }

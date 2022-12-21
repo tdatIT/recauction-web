@@ -51,7 +51,7 @@ public class AuctionSession {
     @Basic
     @Column(name = "product_tag_str", nullable = true, length = 255)
     private String productTagStr;
-    @OneToMany(mappedBy = "auctionSessionByAuctionSessId")
+    @OneToMany(mappedBy = "auctionSessionByAuctionSessId",fetch = FetchType.LAZY)
     private Collection<AuctSessJoin> auctSessJoinsByAuctionSessId;
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false,

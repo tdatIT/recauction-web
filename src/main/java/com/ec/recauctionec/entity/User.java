@@ -12,7 +12,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name="user", schema = "reauction_db")
+@Table(name = "user", schema = "reauction_db")
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -59,9 +59,12 @@ public class User {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false,
             insertable = false, updatable = false)
     private Role roleByRoleId;
-    @OneToMany(mappedBy = "userByUserId")
+    @OneToMany(mappedBy = "userByUserId",fetch = FetchType.LAZY)
     private Collection<UserAddress> userAddressesByUserId;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Wallet> walletsByUserId;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<Orders> orders;
 
 }

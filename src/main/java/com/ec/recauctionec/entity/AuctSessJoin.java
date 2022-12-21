@@ -15,6 +15,13 @@ import java.util.Collection;
 
 @Table(name = "auct_sess_join", schema = "recauction_db", catalog = "")
 public class AuctSessJoin {
+
+    public static final int NOT_CONFIRM = 1;
+    public static final int ACTIVE = 2;
+    public static final int LOSS = 3;
+    public static final int WIN = 4;
+    public static final int CANCEL = 0;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
@@ -42,8 +49,7 @@ public class AuctSessJoin {
     @JoinColumn(name = "auction_sess_id", referencedColumnName = "auction_sess_id", nullable = false,
             insertable = false, updatable = false)
     private AuctionSession auctionSessionByAuctionSessId;
-    @OneToMany(mappedBy = "auctSessJoinByAucWinId")
+    @OneToMany(mappedBy = "winAuction")
     private Collection<Orders> ordersById;
-
 
 }

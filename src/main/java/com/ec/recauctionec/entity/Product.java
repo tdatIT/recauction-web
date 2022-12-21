@@ -16,6 +16,7 @@ public class Product {
     public static final int MANUAL = 1;
     public static final int AUTOMATIC = 2;
     public static final int DISABLE = 0;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "product_id", nullable = false)
@@ -61,6 +62,9 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     private Collection<ProductImg> images;
+
+    @OneToMany(mappedBy = "product")
+    private Collection<Orders> orders;
 
 
 }

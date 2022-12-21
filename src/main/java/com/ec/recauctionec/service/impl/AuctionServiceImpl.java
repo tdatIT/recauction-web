@@ -1,10 +1,8 @@
 package com.ec.recauctionec.service.impl;
 
 import com.ec.recauctionec.dto.AuctionSessionDTO;
-import com.ec.recauctionec.entity.AuctionImg;
-import com.ec.recauctionec.entity.AuctionSession;
-import com.ec.recauctionec.entity.User;
-import com.ec.recauctionec.entity.Wallet;
+import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.repositories.AuctSessJoinRepo;
 import com.ec.recauctionec.repositories.AuctionRepo;
 import com.ec.recauctionec.repositories.UserRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
@@ -32,6 +30,8 @@ public class AuctionServiceImpl implements AuctionService {
     private WalletRepo walletRepo;
     @Autowired
     private StorageImage storageImage;
+    @Autowired
+    private AuctSessJoinRepo joinRepo;
 
     @Override
     public AuctionSession findById(int id) {
@@ -72,7 +72,6 @@ public class AuctionServiceImpl implements AuctionService {
                     }
                     auction.setImg(imgs);
                 }
-
                 auctionRepo.save(auction);
                 status = true;
             }
@@ -84,7 +83,38 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     @Transactional
-    public boolean cancelAuction(AuctionSessionDTO dto) {
-        return true;
+    public AuctSessJoin setWinAuctionSession(int auctionId) {
+        AuctionSession auction = auctionRepo.findById(auctionId).orElseThrow();
+        if (auction != null) {
+            AuctSessJoin winner =
+                    joinRepo.findBestPriceAuctionJoinByAuction(auction.getAuctionSessId());
+            for (AuctSessJoin join : auction.getAuctSessJoinsByAuctionSessId()) {
+                join.setStatus(AuctSessJoin.LOSS);
+                joinRepo.save(join);
+            }
+            winner.setStatus(AuctSessJoin.WIN);
+            auction.setComplete(true);
+            //save into db
+
+            auctionRepo.save(auction);
+            return joinRepo.save(winner);
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public boolean cancelAuction(int auctionId) {
+        AuctionSession auction = auctionRepo.findById(auctionId).orElseThrow();
+        if (auction != null) {
+            for (AuctSessJoin join : auction.getAuctSessJoinsByAuctionSessId()) {
+                join.setStatus(AuctSessJoin.LOSS);
+                joinRepo.save(join);
+            }
+            auction.setComplete(true);
+            auctionRepo.save(auction);
+            return true;
+        }
+        return false;
     }
 }

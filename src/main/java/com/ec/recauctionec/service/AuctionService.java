@@ -1,6 +1,7 @@
 package com.ec.recauctionec.service;
 
 import com.ec.recauctionec.dto.AuctionSessionDTO;
+import com.ec.recauctionec.entity.AuctSessJoin;
 import com.ec.recauctionec.entity.AuctionSession;
 import com.ec.recauctionec.entity.User;
 
@@ -13,9 +14,11 @@ public interface AuctionService {
 
     List<AuctionSession> findAllByDate(Date date);
 
-    List<AuctionSession> findAllByUserAndActive(int userId,Date dateFilter);
+    List<AuctionSession> findAllByUserAndActive(int userId, Date dateFilter);
 
     boolean createNewAuction(User us, AuctionSessionDTO dto);
 
-    boolean cancelAuction(AuctionSessionDTO dto);
+    AuctSessJoin setWinAuctionSession(int auctionId);
+
+    boolean cancelAuction(int auctionId);
 }

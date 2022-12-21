@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AuctionController {
     }
 
     @PostMapping(value = "/tao-phien")
-    public String createAuction(@ModelAttribute AuctionSessionDTO dto) {
+    public String createAuction(@Valid @ModelAttribute AuctionSessionDTO dto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         if (auctionService.createNewAuction(us, dto)) {

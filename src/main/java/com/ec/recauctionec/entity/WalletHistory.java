@@ -26,7 +26,7 @@ public class WalletHistory {
     private double value;
 
     @Basic
-    @Column(name = "payment_id", nullable = false)
+    @Column(name = "payment_id")
     private String paymentId;
 
     @ManyToOne

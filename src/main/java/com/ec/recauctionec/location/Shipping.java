@@ -1,6 +1,8 @@
 package com.ec.recauctionec.location;
 
 import com.ec.recauctionec.entity.Delivery;
+import org.springframework.context.annotation.Bean;
+
 
 public class Shipping {
     public static float IN = 1;

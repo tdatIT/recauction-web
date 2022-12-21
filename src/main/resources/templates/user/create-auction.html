@@ -4,6 +4,7 @@
     <title id="pageTitle">Tạo phiên đấu giá</title>
     <th:block th:replace="/fragments :: head">
     </th:block>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
 </head>
 <body>
@@ -44,7 +45,7 @@
                                     <label>Tên doanh mục</label>
                                     <div class="dropdown">
                                         <select class="form-select ui selection dropdown"
-                                                aria-label=""  id="categoryId">
+                                                aria-label="" id="categoryId">
                                             <th:block th:each="c:${categories}">
                                                 <option th:value="${c.categoryId}" th:text="${c.categoryName}"></option>
                                             </th:block>
@@ -125,7 +126,8 @@
                             </div>
                             <div class="row center-row">
                                 <form id="upload-image" enctype="multipart/form-data">
-                                    <input name="img" type="file" id="file-input" onchange="preview()" accept="image/png, image/jpg"
+                                    <input name="img" type="file" id="file-input" onchange="preview()"
+                                           accept="image/png, image/jpg"
                                            multiple>
                                     <label for="file-input" class="input-file"><i class="ti-upload"></i>Chọn hình
                                         ảnh</label>
@@ -165,8 +167,11 @@
 </footer>
 <th:block th:replace="/fragments :: js_block">
 </th:block>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script th:src="@{/js/app.js}"></script>
+
 <script>
+
     let fileInput = document.getElementById("file-input");
     let imgContainer = document.getElementById("images");
 
@@ -189,9 +194,6 @@
         }
     }
 
-
-</script>
-<script>
     $(document).ready(function () {
         let today = new Date().toISOString().slice(0, 10);
         $('#date-input').attr('min', today)

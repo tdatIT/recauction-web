@@ -4,6 +4,7 @@
 <head>
     <th:block th:replace="fragments :: head">
     </th:block>
+    <link rel="stylesheet" th:href="@{/vendors/nice-select/nice-select.css}">
     <title id="pageTitle" th:text="${product.productName}"></title>
 </head>
 <body>
@@ -21,9 +22,9 @@
             <div class="row s_product_inner">
                 <div class="col-lg-6">
                     <div class="owl-carousel owl-theme s_Product_carousel">
-                       <!-- <div class="single-prd-item main_image">
-                            <img class="img-fluid" src="/img/category/c1.jpg" alt="">
-                        </div>-->
+                        <!-- <div class="single-prd-item main_image">
+                             <img class="img-fluid" src="/img/category/c1.jpg" alt="">
+                         </div>-->
                         <th:block th:if="*{images.size()==0}">
                             <div class="single-prd-item main_image">
                                 <img src="https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"
@@ -274,6 +275,7 @@
 </footer>
 <th:block th:replace="fragments :: js_block">
 </th:block>
+<script th:src="@{/vendors/nice-select/jquery.nice-select.min.js}" crossorigin="anonymous"></script>
 <script>
     function changeImage(element) {
         let main = document.querySelectorAll("ul#thumbnail li img");
