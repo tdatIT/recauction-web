@@ -4976,7 +4976,7 @@ a {
 
 input[type="date"] {
     background-color: #007bff;
-    padding: 10px 40px;
+    padding: 10px 30px;
     color: #fff;
     font-size: 18px;
     border: none;
@@ -5071,4 +5071,18 @@ input[type="date"] {
     padding: 40px;
     color: #fff;
     border-radius: 20px;
+}
+
+.btn-payment {
+    align-items: center;
+}
+
+.btn-load {
+    margin-left: 40%;
+    font-size: 20px;
+    padding: 10px 35px;
+}
+
+.margin-wallet {
+    margin-left: 17%;
 }
