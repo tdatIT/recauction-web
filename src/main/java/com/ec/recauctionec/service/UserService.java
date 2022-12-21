@@ -21,4 +21,5 @@ public interface UserService {
 
     void resetPassword(String token, String password);
     void updateConfirmUser(User user);
+    boolean updatePassword(User user, String curPass, String newPass);
 }

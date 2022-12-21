@@ -44,6 +44,6 @@ public class RegistrationConfirmController {
 
         user.setActive(true);
         userService.updateConfirmUser(user);
-        return "redirect:/login";
+        return "redirect:/dang-nhap";
     }
 }

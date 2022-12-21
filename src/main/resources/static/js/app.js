@@ -43,3 +43,21 @@ $('#submit-auction').on('click', function (e) {
         }
     })
 })
+
+$('#set-new-price').on('click', function (e) {
+    let id = $('#auction-id-input').val();
+    let price = $('#new-price').val();
+    $.post({
+        url: '/dau-gia/dat-gia-moi',
+        data: {
+            'auctionId': id,
+            'price': price
+        },
+        success: function () {
+            location.reload();
+        },
+        error: function (e) {
+
+        }
+    })
+})

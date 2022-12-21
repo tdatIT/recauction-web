@@ -30,8 +30,7 @@ public class UserAddress {
     @Column(name = "address_detail", nullable = false)
     private String addressDetail;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false,
-            insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User userByUserId;
 
     @OneToMany(mappedBy = "address")

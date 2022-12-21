@@ -1,10 +1,7 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.dto.UserDTO;
-import com.ec.recauctionec.entity.AuctSessJoin;
-import com.ec.recauctionec.entity.AuctionSession;
-import com.ec.recauctionec.entity.Product;
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entity.*;
 import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.ProductService;
@@ -124,14 +121,13 @@ public class ClientController {
     public String setNewPassword(@RequestParam("token") String token,
                                  @RequestParam("password") String password) {
         userService.resetPassword(token, password);
-        return "redirect:/login";
+        return "redirect:/dang-nhap";
     }
 
-    @RequestMapping(value = "/chi-tiet-dau-gia/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/chi-tiet-dau-gia/{id}", method = RequestMethod.GET)
     public String viewAuctionDetails(@PathVariable("id") int auctionId, ModelMap modelMap) {
         AuctionSession auction = auctionService.findById(auctionId);
         if (auction != null) {
-
             List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
             Collections.sort(joins, new Comparator<AuctSessJoin>() {
                 @Override
@@ -141,6 +137,22 @@ public class ClientController {
             });
             modelMap.addAttribute("auction", auction);
             modelMap.addAttribute("joins", joins);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+                modelMap.addAttribute("joined", false);
+                modelMap.addAttribute("supp_price", 0);
+            } else {
+                User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+                for (AuctSessJoin j : joins) {
+                    if (j.getProductByProductId()
+                            .getSupplierBySupplierId()
+                            .getOwnerId() == us.getUserId()) {
+                        modelMap.addAttribute("joined", true);
+                        modelMap.addAttribute("supp_price", j.getPrice());
+                        break;
+                    }
+                }
+            }
             return "view-auction-detail";
         } else
             return "redirect://404";

@@ -6,7 +6,6 @@ import com.ec.recauctionec.entity.AuctSessJoin;
 import com.ec.recauctionec.entity.AuctionSession;
 import com.ec.recauctionec.entity.Orders;
 import com.ec.recauctionec.entity.User;
-import com.ec.recauctionec.service.AuctSessJoinService;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.EmailService;
 import com.ec.recauctionec.service.OrderService;
@@ -38,13 +37,13 @@ public class CheckAuctionScheduledEnd {
     @Autowired
     private OrderService orderService;
 
-    @Scheduled(fixedRate = MIN_SCHEDULED * MILLISECOND)
+  /*  @Scheduled(fixedRate = MIN_SCHEDULED * MILLISECOND)
     public void checkEndTimeAuction() {
         calendar = Calendar.getInstance();
         List<AuctionSession> auctions = auctionService
                 .findAllByDate(new Date(new java.util.Date().getTime()));
         for (AuctionSession auction : auctions) {
-            if (auction.getEndDate().getTime() >= calendar.getTimeInMillis()) {
+            if (auction.getEndDate().getTime() <= calendar.getTimeInMillis()) {
                 AuctSessJoin win = auctionService.setWinAuctionSession(auction.getAuctionSessId());
                 OrderDTO dto = new OrderDTO();
                 User us = auction.getUserByUserId();
@@ -56,7 +55,7 @@ public class CheckAuctionScheduledEnd {
                 dto.setStatus(Orders.NOT_CONFIRM);
                 dto.setCreateDate(new Timestamp(new java.util.Date().getTime()));
                 orderService.createOrderNotConfirm(dto);
-            } else if (auction.getEndDate().getTime() + (MIN_NOTIFI * MILLISECOND) >= calendar.getTimeInMillis()) {
+            } else if (auction.getEndDate().getTime() <= calendar.getTimeInMillis() + (MIN_NOTIFI * MILLISECOND)) {
                 EmailDetails email = new EmailDetails();
                 email.setRecipient(auction.getUserByUserId().getEmail());
                 email.setSubject("Phiên Đấu Giá Sắp Kết Thúc");
@@ -78,6 +77,6 @@ public class CheckAuctionScheduledEnd {
             orderService.cancelOrder(dto);
         }
 
-    }
+    }*/
 
 }

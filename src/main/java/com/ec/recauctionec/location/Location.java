@@ -9,7 +9,7 @@ public enum Location {
     QUAN_6,
     QUAN_7,
     QUAN_8,
-    QUAN_9,
+    TP_THU_DUC,
     QUAN_10,
     QUAN_11,
     QUAN_12,

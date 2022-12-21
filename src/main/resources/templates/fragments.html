@@ -52,7 +52,7 @@
 
 
                         <li class="nav-item active submenu dropdown" sec:authorize="isAnonymous()">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="/tai-khoan" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
                                aria-expanded="false"><i class="ti-user"></i>
                             </a>
@@ -62,14 +62,14 @@
                             </ul>
                         </li>
                         <li class="nav-item active submenu dropdown" sec:authorize="isAuthenticated()">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="/tai-khoan" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
                                aria-expanded="false"><i class="ti-user"></i>
                                 <span></span>
                             </a>
                             <ul class="dropdown-menu  dropdown-user">
                                 <li class="nav-user"><a class="btn-user" sec:authentication="name"
-                                                        th:href="@{/account/info}">Xin chào </a></li>
+                                                        th:href="@{/tai-khoan/}">Xin chào </a></li>
                                 <li class="nav-user"><a class="btn-user" th:href="@{/tai-khoan/chinh-sua}">Thay đổi
                                     thông
                                     tin</a></li>

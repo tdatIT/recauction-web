@@ -112,4 +112,16 @@ UserServiceImpl implements UserService {
         VerificationToken token = verificationTokenRepo.findByUser(user);
         verificationTokenRepo.delete(token);
     }
+
+    @Override
+    public boolean updatePassword(User user, String curPass, String newPass) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (encoder.matches(curPass, user.getPassword())) {
+            String encrypt_pass = encoder.encode(newPass);
+            user.setPassword(encrypt_pass);
+            userRepo.save(user);
+            return true;
+        } else
+            return false;
+    }
 }
