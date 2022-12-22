@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/san-pham").permitAll()
                 .antMatchers("/tai-khoan/**",
                         "/dau-gia/**",
+                        "/don-hang/**",
                         "/thanh-toan/**").authenticated()
                 .and()
                 .logout()

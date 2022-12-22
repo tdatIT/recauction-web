@@ -47,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
     private AuctSessJoinService joinService;
 
     @Override
+    public Orders findById(int id) {
+        return orderRepo.findById(id).orElseThrow();
+    }
+
+    @Override
     public List<Orders> findOrderNonConfirm() {
         Calendar current = Calendar.getInstance();
         //Add 1 day
@@ -193,5 +198,10 @@ public class OrderServiceImpl implements OrderService {
         order.setUpdateDate(new java.sql.Date(new Date().getTime()));
         orderRepo.save(order);
         return true;
+    }
+
+    @Override
+    public List<Orders> findOrderByDate(int userId, Date date) {
+        return orderRepo.findOrderByDate(userId, date);
     }
 }
