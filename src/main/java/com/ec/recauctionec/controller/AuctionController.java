@@ -71,7 +71,9 @@ public class AuctionController {
         AuctionSession auction = auctionService.findById(auctionId);
         List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
         for (AuctSessJoin j : joins) {
-            if (j.getProductByProductId().getSupplierBySupplierId().getOwnerId() == us.getUserId()) {
+            if (j.getProductByProductId()
+                    .getSupplierBySupplierId()
+                    .getUserByOwnerId().getUserId() == us.getUserId()) {
                 j.setPrice(price);
                 joinService.updateJoin(j);
                 return new ResponseEntity(HttpStatus.OK);

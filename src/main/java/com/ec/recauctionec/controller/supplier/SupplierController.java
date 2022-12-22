@@ -26,7 +26,6 @@ public class SupplierController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         int userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
         Supplier sup = supplierService.findByOwnerId(userId);
-        int supplierId = sup.getSupplierId();
         return "/supplier/dashboard";
     }
 }

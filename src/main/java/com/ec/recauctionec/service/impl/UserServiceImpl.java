@@ -124,4 +124,9 @@ UserServiceImpl implements UserService {
         } else
             return false;
     }
+
+    @Override
+    public User findById(int id) {
+        return userRepo.findById(id).orElseThrow();
+    }
 }

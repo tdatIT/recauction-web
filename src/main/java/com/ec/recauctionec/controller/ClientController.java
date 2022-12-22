@@ -149,7 +149,7 @@ public class ClientController {
                     for (AuctSessJoin j : joins) {
                         if (j.getProductByProductId()
                                 .getSupplierBySupplierId()
-                                .getOwnerId() == us.getUserId()) {
+                                .getUserByOwnerId().getUserId() == us.getUserId()) {
                             modelMap.addAttribute("joined", true);
                             modelMap.addAttribute("supp_price", j.getPrice());
                             break;

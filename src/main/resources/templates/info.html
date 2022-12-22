@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head">
     </th:block>
@@ -53,7 +52,10 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                     <i class="fa fa-solid fa-store text-success"></i>
-                                    <a class="mb-0" href="/supplier/">Cửa hàng</a>
+                                    <a th:if="${user.roleByRoleId.roleId == 2}" class="mb-0" href="/supplier/">Cửa
+                                        hàng</a>
+                                    <a th:if="${user.roleByRoleId.roleId == 3}" class="mb-0"
+                                       href="/tai-khoan/dang-ky-nha-cung-cap">Đăng ký nhà cung cấp</a>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                     <i class="fa fa-solid fa-wallet text-danger"></i>

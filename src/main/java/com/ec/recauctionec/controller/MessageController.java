@@ -11,6 +11,7 @@ public class MessageController {
     public static final int NOT_FOUND_AUCTION = 2;
     public static final int CREATE_FAIL = 10;
     public static final int CHANGE_PASS_SUCCESS = 1;
+    public static final int FAIL_SUPPLIER = 3;
 
     @GetMapping(value = Router.MESSAGE)
     public String getMessage(@RequestParam("type") int type, ModelMap modelMap) {
@@ -27,6 +28,10 @@ public class MessageController {
                 modelMap.addAttribute("message", "Tạo phiên thất bại");
                 modelMap.addAttribute("description", "Xin lỗi ! Có thể bạn hết lượt tạo trong hôm nay hoặc " +
                         "số dư trong ví không đủ 30% giá trị hàng !");
+                break;
+            case FAIL_SUPPLIER:
+                modelMap.addAttribute("message", "Đăng ký thất bại");
+                modelMap.addAttribute("description", "Xin lỗi có vẽ hệ thống bị lỗi liên hệ QTV để giải quyết !");
                 break;
         }
         return "message";

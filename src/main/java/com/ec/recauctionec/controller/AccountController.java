@@ -4,7 +4,9 @@ import com.ec.recauctionec.entity.*;
 import com.ec.recauctionec.repositories.UserAddressRepo;
 import com.ec.recauctionec.repositories.WalletHistoryRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
+import com.ec.recauctionec.service.SupplierService;
 import com.ec.recauctionec.service.UserService;
+import com.ec.recauctionec.variable.RoleConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,8 @@ public class AccountController {
     private WalletRepo walletRepo;
     @Autowired
     private WalletHistoryRepo historyRepo;
+    @Autowired
+    private SupplierService supplierService;
 
 
     @RequestMapping(value = {"/thong-tin", ""}, method = RequestMethod.GET)
@@ -48,6 +52,14 @@ public class AccountController {
         User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
         modelMap.addAttribute("user", user);
         return "user/update-info";
+    }
+
+    @RequestMapping(value = {"/dang-ky-nha-cung-cap"}, method = RequestMethod.GET)
+    public String viewRegisterSupp(ModelMap modelMap) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
+        modelMap.addAttribute("userId", user.getUserId());
+        return "user/supplier-register";
     }
 
     @GetMapping(value = "/quan-ly-vi")
@@ -75,6 +87,19 @@ public class AccountController {
         address.setUserByUserId(user);
         addressRepo.save(address);
         return "redirect:/tai-khoan";
+    }
+
+    @RequestMapping(value = {"/dang-ky-nha-cung-cap"}, method = RequestMethod.POST)
+    public String registerSupplier(@RequestParam("userId") int userId,
+                                   @RequestParam("location") int location,
+                                   ModelMap modelMap) {
+        User us = userService.findById(userId);
+        if (us != null) {
+            supplierService.insertNewSupplier(userId, location);
+            return "redirect:/dang-xuat";
+        }
+        return "redirect:/thong-bao?type=3";
+
     }
 
     @PostMapping(value = "/doi-mat-khau")

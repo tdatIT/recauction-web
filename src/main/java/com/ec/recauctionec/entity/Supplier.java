@@ -28,9 +28,6 @@ public class Supplier {
     @Column(name = "level_supp", nullable = false)
     private int levelSupp;
     @Basic
-    @Column(name = "owner_id", nullable = false)
-    private int ownerId;
-    @Basic
     @Column(name = "location", nullable = false)
     private int location;
     @Basic
@@ -39,7 +36,6 @@ public class Supplier {
     @OneToMany(mappedBy = "supplierBySupplierId", fetch = FetchType.EAGER)
     private Collection<Product> productsBySupplierId;
     @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "user_id", nullable = false,
-            insertable = false, updatable = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User userByOwnerId;
 }

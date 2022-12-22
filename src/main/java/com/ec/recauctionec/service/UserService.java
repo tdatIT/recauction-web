@@ -5,6 +5,7 @@ import com.ec.recauctionec.verification.VerificationToken;
 
 
 public interface UserService {
+    User findById(int id);
     User findByUsername(String username);
 
     User findByEmail(String email);
