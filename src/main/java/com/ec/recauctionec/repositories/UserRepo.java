@@ -4,6 +4,8 @@ import com.ec.recauctionec.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface UserRepo extends JpaRepository<User, Integer> {
     @Query(value = "select u from User u where u.username = ?1 and u.password=?2")
     User validateAccount(String username, String password);
@@ -13,4 +15,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query(value = "select u from User u where u.email = ?1")
     User findByEmail(String email);
+
+    @Query(value = "select u from User u where u.roleId <> 1")
+    List<User> findAllUserNotAdmin();
 }

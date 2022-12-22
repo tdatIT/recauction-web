@@ -21,4 +21,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("select p from Product p where p.status = 1 or p.status = 2 order by p.defaultPrice desc")
     List<Product> findProductLimit(Pageable pageable);
+
+    @Query("select p from Product p where p.isDeleted = false ")
+    List<Product> findAllActive();
 }

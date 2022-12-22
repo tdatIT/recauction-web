@@ -20,4 +20,6 @@ public interface ProductService {
     void deleteProduct(Product product);
 
     List<Product> findTop5Trending();
+
+    List<Product> findAllProduct();
 }

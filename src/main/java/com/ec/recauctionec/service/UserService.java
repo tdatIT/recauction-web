@@ -3,6 +3,8 @@ package com.ec.recauctionec.service;
 import com.ec.recauctionec.entity.User;
 import com.ec.recauctionec.verification.VerificationToken;
 
+import java.util.List;
+
 
 public interface UserService {
     User findById(int id);
@@ -23,4 +25,5 @@ public interface UserService {
     void resetPassword(String token, String password);
     void updateConfirmUser(User user);
     boolean updatePassword(User user, String curPass, String newPass);
+    List<User> findAllUser();
 }

@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header-sidebar">
     <nav class="navbar navbar-expand justify-content-between fixed-top">
-        <a class="navbar-brand mb-0 h1 d-none d-md-block" href="dashboard">
-            <img src="${pageContext.request.contextPath}/view/web/assets/img/favicon.png"
+        <a class="navbar-brand mb-0 h1 d-none d-md-block" href="/admin">
+            <img src="/img/favicon.ico"
                  class="navbar-brand-image d-inline-block align-top mr-2" alt="">
-            Quản Lý Cửa Hàng
+            Quản lý thông tin cung cấp
         </a>
 
         <form class="form-inline form-quicksearch d-none d-md-block mx-auto">
@@ -83,11 +83,11 @@
                          class="d-inline-block align-top" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="info">Xin chào ${sessionScope.lastname}</a>
+                    <a class="dropdown-item" href="info">Xin chào</a>
                     <a class="dropdown-item" href="update-info">Chỉnh sửa thông tin cửa hàng</a>
                     <a class="dropdown-item" href="#">Cài đặt</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+                    <a class="dropdown-item text-danger" href="/dang-xuat">Đăng xuất</a>
                 </div>
             </li>
         </ul>
@@ -107,7 +107,7 @@
 
 
             <li class="sidebar-nav-item">
-                <a href="${contextPath}/product" class="sidebar-nav-link">
+                <a href="/supplier/san-pham" class="sidebar-nav-link">
                     <span class="sidebar-nav-icon">
                         <i data-feather="package"></i>
                     </span><span class="sidebar-nav-name">Sản Phẩm</span>
@@ -116,21 +116,21 @@
             </li>
 
             <li class="sidebar-nav-item">
-                <a href="${contextPath}/order" class="sidebar-nav-link">
+                <a href="/supplier/don-hang" class="sidebar-nav-link">
                     <span class="sidebar-nav-icon">
                         <i data-feather="list"></i>
-                    </span><span class="sidebar-nav-name">Bán Hàng</span>
+                    </span><span class="sidebar-nav-name">Đơn Hàng</span>
                     <span class="sidebar-nav-end"></span>
                 </a>
             </li>
 
             <li class="sidebar-nav-item">
-                <a href="${contextPath}/employee" class="sidebar-nav-link">
+                <a href="/supplier/all-auction" class="sidebar-nav-link">
             <span class="sidebar-nav-icon">
               <i data-feather="user"></i>
             </span>
                     <span class="sidebar-nav-name">
-              Nhân viên
+                Quản lý phiên
             </span>
                     <span class="sidebar-nav-end">
 
@@ -148,6 +148,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
     <script src="/js/vendor.js"></script>
     <script src="/js/adminx.js"></script>
+    <script src="/js/app.js"></script>
+</th:block>
+<th:block th:fragment="script-table">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/js/vendor.js"></script>
+    <script src="/js/adminx.js"></script>
+    <script src="/js/app.js"></script>
 </th:block>
 </html>
 

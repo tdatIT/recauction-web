@@ -7,10 +7,7 @@ import com.ec.recauctionec.entity.Wallet;
 import com.ec.recauctionec.entity.WalletHistory;
 import com.ec.recauctionec.location.Location;
 import com.ec.recauctionec.location.Shipping;
-import com.ec.recauctionec.repositories.DeliveryRepo;
-import com.ec.recauctionec.repositories.OrderRepo;
-import com.ec.recauctionec.repositories.WalletHistoryRepo;
-import com.ec.recauctionec.repositories.WalletRepo;
+import com.ec.recauctionec.repositories.*;
 import com.ec.recauctionec.service.AuctSessJoinService;
 import com.ec.recauctionec.service.OrderService;
 import org.slf4j.Logger;
@@ -36,6 +33,8 @@ public class OrderServiceImpl implements OrderService {
     private static final int DEFAULT_SHIPPING = 1;
     //status order
 
+    @Autowired
+    private CommissionRepo commissionRepo;
 
     @Autowired
     private OrderRepo orderRepo;
@@ -156,10 +155,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public boolean completedOrder(OrderDTO dto) {
+    public boolean completedOrder(Orders order) {
         try {
-            Orders order = dto.mapping();
-            Wallet user_wallet = dto.getProduct().
+            Wallet user_wallet = order.getProduct().
                     getSupplierBySupplierId().
                     getUserByOwnerId()
                     .getWalletsByUserId().iterator().next();
@@ -170,7 +168,7 @@ public class OrderServiceImpl implements OrderService {
                 Commission commission = new Commission();
                 double realValue = order.getTotalPrice() - order.getShippingPrice();
                 commission.setAmountFromSupplier(realValue * FROM_SUPPLIER);
-                double profit = dto.getWinAuction()
+                double profit = order.getWinAuction()
                         .getAuctionSessionByAuctionSessId()
                         .getReservePrice() - order.getTotalPrice();
                 commission.setAmountFromBuyer(profit * FROM_BUYER);
@@ -181,11 +179,13 @@ public class OrderServiceImpl implements OrderService {
                 log1.setValue(order.getTotalPrice() - commission.getAmountFromSupplier());
                 log1.setWallet(user_wallet);
                 log1.setPaymentId("ROLL_BACK_ORDER");
+                log1.setCreateDate(new Timestamp(new Date().getTime()));
                 //transfer money into wallet
                 user_wallet.setAccountBalance(
                         user_wallet.getAccountBalance() + log1.getValue());
                 historyRepo.save(log1);
                 walletRepo.save(user_wallet);
+                commissionRepo.save(commission);
                 return true;
             }
         } catch (Exception e) {
@@ -207,4 +207,15 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> findOrderByDate(int userId, Date date) {
         return orderRepo.findOrderByDate(userId, date);
     }
+
+    @Override
+    public List<Orders> findAll() {
+        return orderRepo.findAll();
+    }
+
+    @Override
+    public void updateOrder(Orders orders) {
+        orderRepo.save(orders);
+    }
+
 }

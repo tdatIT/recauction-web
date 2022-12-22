@@ -57,4 +57,9 @@ public class ProductServiceImpl implements ProductService {
         Pageable top5 = PageRequest.of(0, 5);
         return productRepo.findProductLimit(top5);
     }
+
+    @Override
+    public List<Product> findAllProduct() {
+        return productRepo.findAllActive();
+    }
 }
