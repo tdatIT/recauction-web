@@ -5121,3 +5121,70 @@ input[type="date"] {
 .guide {
     padding-top: 16px;
 }
+
+.bg-grey {
+    background-color: #5e6eff;
+}
+
+.text-color-white {
+    color: #fff;
+}
+
+@media (min-width: 992px) {
+    .card-registration-2 .bg-grey {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+
+@media (max-width: 991px) {
+    .card-registration-2 .bg-grey {
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+}
+
+.checkout-check {
+    margin-right: 12px;
+}
+
+.pb-2,
+.py-2 {
+    padding-bottom: 1.5rem !important;
+}
+
+.mb-5,
+.my-5 {
+    margin-bottom: 2rem !important;
+}
+
+.shiping-method {
+    margin-top: 34px;
+}
+
+.address-select {
+    padding: 0px 15px;
+    font-size: 15px;
+    width: 105%;
+}
+
+.mt-4,
+.my-4 {
+    margin-top: 2.5rem !important;
+}
+
+.pt-5,
+.py-5 {
+    padding-top: 1rem !important;
+}
+
+.mar-left {
+    margin-left: 150px;
+}
+
+.btn-load-checkout {
+    font-size: 20px;
+    padding: 5px 37px;
+    margin-left: -30px;
+    margin-top: 10px;
+}
