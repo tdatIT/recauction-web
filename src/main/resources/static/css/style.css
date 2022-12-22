@@ -5086,3 +5086,38 @@ input[type="date"] {
 .margin-wallet {
     margin-left: 17%;
 }
+
+/* --- */
+.text-center-load {
+    margin-left: 40%;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.tab-payment {
+    height: 180px;
+}
+
+.inside {
+    height: 120px;
+}
+
+.btn-paypal {
+    margin-left: 425px;
+    padding: 10px 25px;
+    font-size: 20px;
+}
+
+.payment-method {
+    margin-left: 170px;
+    margin-right: 170px;
+    margin-bottom: -45px;
+}
+
+.btn-select {
+    padding: 0 75px;
+}
+
+.guide {
+    padding-top: 16px;
+}
