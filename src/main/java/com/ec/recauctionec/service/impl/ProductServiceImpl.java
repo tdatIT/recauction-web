@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByName(String name) {
-        return productRepo.findAllByProductNameIsLike(name);
+        return productRepo.findAllByProductName(name);
     }
 
     @Override

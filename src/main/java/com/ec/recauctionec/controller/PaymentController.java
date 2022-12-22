@@ -45,16 +45,17 @@ public class PaymentController {
 
     @GetMapping("/thanh-toan")
     public String getPayment(ModelMap modelMap) {
-        return "payment";
+        return "user/load-money";
     }
 
     @PostMapping("/thanh-toan")
     public String pay(HttpServletRequest request, @RequestParam("amount") double amount_value) {
         String cancelUrl = UrlUtils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = UrlUtils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
+        double amount_to_dollar = amount_value / Wallet.USD_TO_VND;
         try {
             Payment payment = paypalService.createPayment(
-                    amount_value,
+                    amount_to_dollar,
                     "USD",
                     PaypalPaymentMethod.paypal,
                     PaypalPaymentIntent.sale,

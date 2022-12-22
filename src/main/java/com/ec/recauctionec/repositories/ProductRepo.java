@@ -12,7 +12,8 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query("select p from Product p where p.supplierId = ?1 and p.isDeleted=false")
     List<Product> findAllBySupplierIdActive(int supplierId);
 
-    List<Product> findAllByProductNameIsLike(String name);
+    @Query("select p from  Product p where p.productName like %:name%")
+    List<Product> findAllByProductName(String name);
 
     Product findByProductId(int productId);
 

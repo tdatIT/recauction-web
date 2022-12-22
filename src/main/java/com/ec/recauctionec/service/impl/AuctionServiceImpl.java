@@ -9,6 +9,8 @@ import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.StorageImage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +37,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public AuctionSession findById(int id) {
-        return auctionRepo.getById(id);
+        return auctionRepo.findById(id).orElseThrow();
     }
 
     @Override
@@ -116,5 +118,11 @@ public class AuctionServiceImpl implements AuctionService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<AuctionSession> findTop10AuctionForDay() {
+        Pageable top10 = PageRequest.of(0, 10);
+        return auctionRepo.findTop10AuctionForDay(top10, new java.util.Date(new java.util.Date().getTime()));
     }
 }

@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 @Entity
 @Getter
@@ -49,5 +48,8 @@ public class AuctSessJoin {
     @JoinColumn(name = "auction_sess_id", referencedColumnName = "auction_sess_id", nullable = false,
             insertable = false, updatable = false)
     private AuctionSession auctionSessionByAuctionSessId;
+
+    @OneToOne(mappedBy = "winAuction",fetch = FetchType.LAZY)
+    private Orders orders;
 
 }

@@ -39,7 +39,10 @@ $('#submit-auction').on('click', function (e) {
         contentType: false,
         cache: false,
         success: function (e) {
-            window.location.href = "/dang-sach-phien";
+            window.location.href = "/dau-gia/quan-ly-phien";
+        },
+        error:function (e){
+            window.location.href = "/thong-bao?type=10";
         }
     })
 })

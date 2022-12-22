@@ -37,8 +37,9 @@ public class CheckAuctionScheduledEnd {
     @Autowired
     private OrderService orderService;
 
-  /* @Scheduled(fixedRate = MIN_SCHEDULED * MILLISECOND)
+   /* @Scheduled(fixedRate = MIN_SCHEDULED * MILLISECOND)
     public void checkEndTimeAuction() {
+        log.info("---Scheduled check end time auctions run---");
         calendar = Calendar.getInstance();
         List<AuctionSession> auctions = auctionService
                 .findAllByDate(new Date(new java.util.Date().getTime()));
@@ -52,10 +53,10 @@ public class CheckAuctionScheduledEnd {
                 dto.setProduct(win.getProductByProductId());
                 dto.setTotalPrice(win.getPrice());
                 dto.setStatus(Orders.NOT_CONFIRM);
-                dto.setAucWinId(win.getId());
+                dto.setWinAuction(win);
                 dto.setCreateDate(new Timestamp(new java.util.Date().getTime()));
                 orderService.createOrderNotConfirm(dto);
-                log.info("Create order of Auction ID:  "+auction.getAuctionSessId());
+                log.info("Create order of Auction ID:  " + auction.getAuctionSessId());
             } else if (auction.getEndDate().getTime() <= calendar.getTimeInMillis() + (MIN_NOTIFY * MILLISECOND)) {
                 EmailDetails email = new EmailDetails();
                 email.setRecipient(auction.getUserByUserId().getEmail());
@@ -63,7 +64,7 @@ public class CheckAuctionScheduledEnd {
                 email.setMsgBody("Phiên đấu giá ID:[" + auction.getAuctionSessId() +
                         "] của bạn còn 30p nữa là hết hạn]");
                 emailService.sendSimpleEmail(email);
-                log.info("Send mail notify will end auction to: "+email.getRecipient());
+                log.info("Send mail notify will end auction to: " + email.getRecipient());
             }
         }
 
@@ -71,13 +72,14 @@ public class CheckAuctionScheduledEnd {
 
     @Scheduled(fixedRate = MIN_NOTIFY * MILLISECOND)
     public void checkConfirmOrder() {
+        log.info("---Scheduled check end time orders confirm---");
         calendar = Calendar.getInstance();
         List<Orders> orders = orderService.findOrderNonConfirm();
         for (Orders o : orders) {
             OrderDTO dto = new OrderDTO();
             BeanUtils.copyProperties(o, dto);
             orderService.cancelOrder(dto);
-            log.info("Cancel Order ID: "+dto.getOrderId());
+            log.info("Cancel Order ID: " + dto.getOrderId());
         }
 
     }*/

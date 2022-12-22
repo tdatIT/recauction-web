@@ -4,14 +4,14 @@
 <head>
     <th:block th:replace="fragments :: head">
     </th:block>
-    <title id="pageTitle">Chinh sach nguoi dung</title>
+    <title id="pageTitle">Phiên đấu giá cá nhân</title>
 </head>
 <body>
-<!--================ Start Header Menu Area =================-->
+
 <header th:replace="fragments :: header">
 
 </header>
-<!--================ End Header Menu Area =================-->
+
 
 
 <div class="blog-banner mt-lg-5">
@@ -26,7 +26,6 @@
             </form>
         </div>
     </div>
-
 </div>
 </section>
 <!-- ================ end banner area ================= -->
@@ -68,7 +67,7 @@
                         <span th:if="${a.isComplete() == true}" class="badge badge-danger rounded-pill d-inline">Kết thúc/Hủy</span>
                     </td>
                     <td>
-                        <span class="badge badge-info rounded-pill d-inline">Tham gia</span>
+                        <span class="badge badge-info rounded-pill d-inline">Host</span>
                     </td>
                     <td th:text="${#numbers.formatDecimal(a.reservePrice, 0, 'POINT', 0, 'COMMA')+'₫'}">
 

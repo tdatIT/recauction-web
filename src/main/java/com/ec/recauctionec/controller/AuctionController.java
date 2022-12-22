@@ -41,13 +41,13 @@ public class AuctionController {
     }
 
     @PostMapping(value = "/tao-phien")
-    public String createAuction(@ModelAttribute AuctionSessionDTO dto) {
+    public ResponseEntity createAuction(@ModelAttribute AuctionSessionDTO dto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         if (auctionService.createNewAuction(us, dto)) {
-            return "redirect:/";
+            return new ResponseEntity(HttpStatus.OK);
         }
-        return "redirect:/404";
+        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping(value = "/quan-ly-phien")

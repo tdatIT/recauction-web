@@ -25,9 +25,6 @@ public class Orders {
     @Column(name = "order_id", nullable = false)
     private int orderId;
     @Basic
-    @Column(name = "auc_win_id", nullable = false)
-    private long aucWinId;
-    @Basic
     @Column(name = "createDate", nullable = false)
     private Timestamp createDate;
     @Basic
@@ -55,8 +52,7 @@ public class Orders {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "delivery_id", referencedColumnName = "delivery_id", nullable = false,
-            insertable = false, updatable = false)
+    @JoinColumn(name = "delivery_id", nullable = false, insertable = false, updatable = false)
     private Delivery deliveryByDeliveryId;
 
     @ManyToOne
@@ -67,4 +63,7 @@ public class Orders {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "win_auct_id")
+    private AuctSessJoin winAuction;
 }

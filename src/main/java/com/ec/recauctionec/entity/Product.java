@@ -45,6 +45,10 @@ public class Product {
     @Basic
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
+    @Basic
+    @Column(name = "product_tag")
+    private String productTag;
+
     @OneToMany(mappedBy = "productByProductId")
     private Collection<AuctSessJoin> auctSessJoinsByProductId;
     @ManyToOne
@@ -55,9 +59,6 @@ public class Product {
     @JoinColumn(name = "supplier_id", referencedColumnName = "supplier_id", nullable = false,
             insertable = false, updatable = false)
     private Supplier supplierBySupplierId;
-
-    @OneToMany(mappedBy = "productByProductId")
-    private Collection<TagMatchProduct> tagMatchProductsByProductId;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)

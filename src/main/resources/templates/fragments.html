@@ -21,7 +21,7 @@
 
 </head>
 <body>
-<!--================ Start Header Menu Area =================-->
+
 <header th:fragment="header" class="header_area">
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -36,16 +36,17 @@
                 </button>
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <div class="nav navbar-nav menu_nav ml-auto mr-auto search-form">
-                        <input class="search-input form-control rounded" type="search" name="search"
-                               placeholder="Search..." onfocus="this.placeholder = ''"
-                               onblur="this.placeholder = 'Search... '">
+                        <form id="search-form" th:action="@{/tim-kiem}" method="get">
+                            <input class="search-input form-control rounded" type="search" name="keyword"
+                                   placeholder="Tìm ID phiên / Tên sản phẩm của hệ thống">
+                        </form>
                     </div>
 
                     <ul class="nav-shop">
-                        <li class="nav-item"><a href=""><i class="ti-search"></i></a></li>
                         <li class="nav-item">
-                            <button onclick="window.location.href='/dau-gia/quan-ly-phien'"><i class="fa fa-light fa-gavel"></i><span
-                                    class="nav-shop__circle">3</span></button>
+                            <button onclick="window.location.href='/dau-gia/quan-ly-phien'"><i
+                                    class="fa fa-light fa-gavel"></i><span
+                                    class="nav-shop__circle">A</span></button>
                         </li>
                         <li class="nav-item"><a class="button button-now" href="/dau-gia/tao-phien">Đấu giá ngay!</a>
                         </li>
@@ -83,7 +84,7 @@
         </nav>
     </div>
 </header>
-<!--================ End Header Menu Area =================-->
+
 
 <footer th:fragment="footer" class="footer">
     <div class="footer-area">

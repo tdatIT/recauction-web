@@ -24,8 +24,5 @@ public class ProductTag {
     @Basic
     @Column(name = "detail", nullable = false, length = 255)
     private String detail;
-    @OneToMany(mappedBy = "productTagByTagId")
-    private Collection<TagMatchProduct> tagMatchProductsByPtagId;
-
 
 }

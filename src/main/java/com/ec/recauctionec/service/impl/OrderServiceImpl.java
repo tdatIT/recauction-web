@@ -59,16 +59,16 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void createOrderNotConfirm(OrderDTO dto) {
         Orders order = dto.mapping();
+        order.setDeliveryId(DEFAULT_SHIPPING);
         //Calculate Shipping Cost
        /* Location src = Location.values()
                 [order.getProduct().getSupplierBySupplierId().getLocation()];
         Location des = Location.values()
                 [order.getAddress().getDistrict()];
-        order.setDeliveryId(DEFAULT_SHIPPING);
+
         order.setShippingPrice(Shipping.calculateShipping(src, des,
                 deliveryRepo.findById(DEFAULT_SHIPPING).orElseThrow()));*/
         //Calculate commission of transaction
-
         //Set more info of order
         order.setStatus(Orders.NOT_CONFIRM);
         order.setCreateDate(new Timestamp(new Date().getTime()));
@@ -162,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
                 Commission commission = new Commission();
                 double realValue = order.getTotalPrice() - order.getShippingPrice();
                 commission.setAmountFromSupplier(realValue * FROM_SUPPLIER);
-                double profit = joinService.findById(dto.getAucWinId())
+                double profit = dto.getWinAuction()
                         .getAuctionSessionByAuctionSessId()
                         .getReservePrice() - order.getTotalPrice();
                 commission.setAmountFromBuyer(profit * FROM_BUYER);

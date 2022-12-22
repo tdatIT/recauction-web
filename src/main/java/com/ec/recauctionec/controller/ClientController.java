@@ -3,8 +3,6 @@ package com.ec.recauctionec.controller;
 import com.ec.recauctionec.dto.UserDTO;
 import com.ec.recauctionec.entity.*;
 import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
-import com.ec.recauctionec.repositories.WalletHistoryRepo;
-import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.UserService;
@@ -41,6 +39,8 @@ public class ClientController {
     @RequestMapping(value = {"", Router.HOME_PAGE}, method = RequestMethod.GET)
     public String getHomePage(ModelMap modelMap) {
         List<Product> top5trending = productService.findTop5Trending();
+        List<AuctionSession> top10Auction = auctionService.findTop10AuctionForDay();
+        modelMap.addAttribute("top10Auction", top10Auction);
         modelMap.addAttribute("top5Trending", top5trending);
         return "index";
     }
@@ -128,35 +128,38 @@ public class ClientController {
 
     @RequestMapping(value = "/chi-tiet-dau-gia/{id}", method = RequestMethod.GET)
     public String viewAuctionDetails(@PathVariable("id") int auctionId, ModelMap modelMap) {
-        AuctionSession auction = auctionService.findById(auctionId);
-        if (auction != null) {
-            List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
-            Collections.sort(joins, new Comparator<AuctSessJoin>() {
-                @Override
-                public int compare(AuctSessJoin o1, AuctSessJoin o2) {
-                    return Double.compare(o1.getPrice(), o2.getPrice());
-                }
-            });
-            modelMap.addAttribute("auction", auction);
-            modelMap.addAttribute("joins", joins);
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-                modelMap.addAttribute("joined", false);
-                modelMap.addAttribute("supp_price", 0);
-            } else {
-                User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-                for (AuctSessJoin j : joins) {
-                    if (j.getProductByProductId()
-                            .getSupplierBySupplierId()
-                            .getOwnerId() == us.getUserId()) {
-                        modelMap.addAttribute("joined", true);
-                        modelMap.addAttribute("supp_price", j.getPrice());
-                        break;
+        try {
+            AuctionSession auction = auctionService.findById(auctionId);
+            if (auction != null) {
+                List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
+                Collections.sort(joins, new Comparator<AuctSessJoin>() {
+                    @Override
+                    public int compare(AuctSessJoin o1, AuctSessJoin o2) {
+                        return Double.compare(o1.getPrice(), o2.getPrice());
+                    }
+                });
+                modelMap.addAttribute("auction", auction);
+                modelMap.addAttribute("joins", joins);
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+                    modelMap.addAttribute("joined", false);
+                    modelMap.addAttribute("supp_price", 0);
+                } else {
+                    User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+                    for (AuctSessJoin j : joins) {
+                        if (j.getProductByProductId()
+                                .getSupplierBySupplierId()
+                                .getOwnerId() == us.getUserId()) {
+                            modelMap.addAttribute("joined", true);
+                            modelMap.addAttribute("supp_price", j.getPrice());
+                            break;
+                        }
                     }
                 }
             }
             return "view-auction-detail";
-        } else
-            return "redirect://404";
+        } catch (Exception e) {
+            return "redirect:/thong-bao?type=" + MessageController.NOT_FOUND_AUCTION;
+        }
     }
 }
