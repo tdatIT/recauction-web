@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Thêm hashtag</label>
-                                        <select class="ui fluid search dropdown" multiple="" id="hagtag">
+                                        <select class="ui fluid search dropdown" id="hagtag">
                                             <th:block th:each="tag :${tags}">
                                                 <option th:value="${tag.name}" th:text="${tag.name}"></option>
                                             </th:block>

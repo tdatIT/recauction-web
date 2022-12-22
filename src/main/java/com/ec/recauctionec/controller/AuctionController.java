@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class AuctionController {
     private UserService userService;
     @Autowired
     private AuctSessJoinService joinService;
+    @Autowired
+    private ProductService productService;
 
 
     @RequestMapping(value = "/tao-phien", method = RequestMethod.GET)
@@ -48,6 +51,33 @@ public class AuctionController {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping(value = "/tham-gia")
+    public String joinAuction(@RequestParam("auctionId") int auctionId,
+                              @RequestParam("productId") int productId,
+                              @RequestParam("price") double price) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+        try {
+            AuctionSession auction = auctionService.findById(auctionId);
+            Product product = productService.findById(productId);
+            if (product.getSupplierBySupplierId()
+                    .getUserByOwnerId().getUserId() != auction.getUserId()) {
+                AuctSessJoin auctSessJoin = new AuctSessJoin();
+                auctSessJoin.setPrice(price);
+                auctSessJoin.setProductId(productId);
+                auctSessJoin.setAuctionSessId(auctionId);
+                auctSessJoin.setTime(new Timestamp(new java.util.Date().getTime()));
+                auctSessJoin.setStatus(AuctSessJoin.ACTIVE);
+                joinService.joinAuction(auctSessJoin);
+                return "redirect:/dau-gia/quan-ly-phien";
+            }
+
+        } catch (Exception e) {
+
+        }
+        return "redirect:/dau-gia/quan-ly-phien";
     }
 
     @GetMapping(value = "/quan-ly-phien")

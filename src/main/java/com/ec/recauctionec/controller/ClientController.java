@@ -132,6 +132,9 @@ public class ClientController {
             AuctionSession auction = auctionService.findById(auctionId);
             if (auction != null) {
                 List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
+                List<AuctionSession> top10Auction = auctionService.findTop10AuctionForDay();
+                List<Product> products = new ArrayList<>();
+                modelMap.addAttribute("top10Auction", top10Auction);
                 Collections.sort(joins, new Comparator<AuctSessJoin>() {
                     @Override
                     public int compare(AuctSessJoin o1, AuctSessJoin o2) {
@@ -140,12 +143,15 @@ public class ClientController {
                 });
                 modelMap.addAttribute("auction", auction);
                 modelMap.addAttribute("joins", joins);
+                modelMap.addAttribute("joined", false);
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
                 if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-                    modelMap.addAttribute("joined", false);
                     modelMap.addAttribute("supp_price", 0);
                 } else {
                     User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+                    products = productService.findProductForAuction(us.getUserId(), auction.
+                            getProductTagStr());
+
                     for (AuctSessJoin j : joins) {
                         if (j.getProductByProductId()
                                 .getSupplierBySupplierId()
@@ -156,6 +162,7 @@ public class ClientController {
                         }
                     }
                 }
+                modelMap.addAttribute("products", products);
             }
             return "view-auction-detail";
         } catch (Exception e) {

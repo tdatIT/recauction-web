@@ -77,15 +77,17 @@
                                 </th:block>
                             </li>
                             <li>Tag:
-                                <th:block th:each="tag : *{#strings.arraySplit(productTagStr,';')}">
-                                    <span class="badge badge-dark rounded-pill d-inline" th:text="${tag}"></span>
-                                </th:block>
+
+                                <span class="badge badge-dark rounded-pill d-inline"
+                                      th:text="${auction.productTagStr}"></span>
+
                         </ul>
                         <p th:text="*{description}"></p>
                         <div class="product_count">
-                            <a th:if="${joined == false}" class="button primary-btn"
-                               th:href="@{dau-gia/tham-gia/{id}(id = ${auction.auctionSessId})}">Tham gia đấu giá</a>
-                            <a th:if="${joined == true}" class="button primary-btn" data-toggle="modal"
+                            <a th:if="${joined == false}" class="button primary-btn text-white"
+                               data-toggle="modal"
+                               data-target="#join">Tham gia đấu giá</a>
+                            <a th:if="${joined == true}" class="button primary-btn text-white" data-toggle="modal"
                                data-target="#exampleModalCenter">
                                 Đặt lại giá
                             </a>
@@ -113,7 +115,8 @@
                                         <input type="number" id="new-price" required>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                            Hủy
                                         </button>
                                         <button type="button" class="btn btn-success" id="set-new-price">
                                             Đặt giá
@@ -121,6 +124,58 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="modal fade" id="join" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <form action="/dau-gia/tham-gia" method="post">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="example">Tham gia đấu giá</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <th:block th:if="${products.size()==0}">
+                                                <p>Chưa có sản phẩm phù hợp trong kho</p>
+                                                <a class="btn btn-info text-white" href="/supplier">Thêm sản phẩm vào
+                                                    kho</a>
+                                            </th:block>
+                                            <th:block th:if="${products.size()>0}">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlSelect1">Sản phẩm tham gia</label>
+                                                    <select name="productId" required id="exampleFormControlSelect1">
+                                                        <th:block th:each="c: ${products}">
+                                                            <option th:value="${c.productId}"
+                                                                    th:text="${c.productName}"></option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Giá đặt</label>
+                                                    <input type="number" class="form-control"
+                                                           id="exampleFormControlInput1" placeholder="10000000đ"
+                                                           name="price"
+                                                           required>
+                                                </div>
+                                                <input th:value="${auction.auctionSessId}" type="number"
+                                                       name="auctionId"
+                                                       hidden>
+
+                                            </th:block>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy
+                                            </button>
+                                            <button type="submit" class="btn btn-success" id="">
+                                                Đặt giá
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -168,9 +223,9 @@
                                         <h5 th:text="${j.productByProductId.supplierId}"></h5>
                                     </td>
                                     <td>
-                                        <h5 th:href="@{/supp-view/{id}(id=${j.productId})}" th:text="Link">
-
-                                        </h5>
+                                        <a th:href="@{/chi-tiet-san-pham/supp-view/{id}(id=${j.productId})}">
+                                            Link
+                                        </a>
                                     </td>
                                     <td>
                                         <h5 th:text="${#numbers.formatDecimal(j.price, 0, 'POINT', 0, 'COMMA')+'₫'}"></h5>
@@ -190,116 +245,47 @@
     </section>
     <!--================End Product Description Area =================-->
 
+
     <!--================ Start related Product area =================-->
     <section class="related-product-area section-margin--small mt-0">
         <div class="container">
             <div class="section-intro pb-60px">
-                <p>Các sản phẩm liên quan</p>
-                <h2>Danh sách <span class="section-intro__style">Sản phẩm</span></h2>
+                <p>Các phiên đấu giá</p>
+                <h2>Danh sách các phiên đang <span class="secton-intro__style">đấu giá</span></h2>
             </div>
-            <div class="row mt-30">
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row">
 
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>ID Phiên đấu giá</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số tiền yêu cầu</th>
+                            <th>Kết thúc</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                        <th:block th:each="a:${top10Auction}">
+                            <tr>
+                                <td>
+                                    <h5 th:text="${a.auctionSessId}"></h5>
+                                </td>
+                                <td>
+                                    <h5 th:text="${a.productKey}"></h5>
+                                </td>
+                                <td>
+                                    <h5 th:text="${#numbers.formatDecimal(a.reservePrice, 0, 'POINT', 0, 'COMMA')+'₫'}"></h5>
+                                </td>
+                                <td>
+                                    <h5 th:text="${#dates.format(a.endDate, 'dd-MM-yyyy HH:mm')}"></h5>
+                                </td>
+                                <td>
+                                    <a th:href="@{/chi-tiet-dau-gia/{id}(id=${a.auctionSessId})}">Xem</a>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

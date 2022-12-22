@@ -37,7 +37,7 @@ public class CheckAuctionScheduledEnd {
     @Autowired
     private OrderService orderService;
 
-   /* @Scheduled(fixedRate = MIN_SCHEDULED * MILLISECOND)
+    @Scheduled(fixedRate = MIN_SCHEDULED * MILLISECOND)
     public void checkEndTimeAuction() {
         log.info("---Scheduled check end time auctions run---");
         calendar = Calendar.getInstance();
@@ -82,6 +82,6 @@ public class CheckAuctionScheduledEnd {
             log.info("Cancel Order ID: " + dto.getOrderId());
         }
 
-    }*/
+    }
 
 }

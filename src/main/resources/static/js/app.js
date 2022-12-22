@@ -18,7 +18,7 @@ $('#submit-auction').on('click', function (e) {
     let enable = ($('#auto_enable').val()) == 'on' ? true : false
     let tag_str = ""
     $('#hagtag').val().forEach(i => {
-        tag_str += i + ";"
+        tag_str += i
     })
     let categoryId = $('#categoryId').val()
 

@@ -1,6 +1,5 @@
 package com.ec.recauctionec.service;
 
-import com.ec.recauctionec.dto.ProductDTO;
 import com.ec.recauctionec.entity.Product;
 
 import java.util.List;
@@ -20,4 +19,7 @@ public interface ProductService {
     void deleteProduct(Product product);
 
     List<Product> findTop5Trending();
+    List<Product> findByCategoryId(int categoryId);
+
+    List<Product> findProductForAuction(int userId,String productTagStr);
 }

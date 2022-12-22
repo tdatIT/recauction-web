@@ -57,4 +57,14 @@ public class ProductServiceImpl implements ProductService {
         Pageable top5 = PageRequest.of(0, 5);
         return productRepo.findProductLimit(top5);
     }
+
+    @Override
+    public List<Product> findProductForAuction(int userId, String productTagStr) {
+        return productRepo.findProductForAuction(userId, productTagStr);
+    }
+
+    @Override
+    public List<Product> findByCategoryId(int categoryId) {
+        return productRepo.findByCategoryId(categoryId);
+    }
 }

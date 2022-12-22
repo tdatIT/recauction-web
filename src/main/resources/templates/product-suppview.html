@@ -64,9 +64,12 @@
                                 </th:block>
                             </a></li>
                         </ul>
-                        <p th:text="*{#strings.substring(detail,0,400)+'...'}"></p>
+
+                        <p th:if="*{detail.length()>100}" th:text="*{#strings.substring(detail,0,100)+'...'}"></p>
+                        <p th:if="*{detail.length()<=100}" th:text="*{detail}"></p>
                         <div class="product_count">
-                            <a class="button primary-btn" href="#">Tạo phiên đấu giá sản phẩm tương tự</a>
+                            <a class="button primary-btn" href="/dau-gia/tao-phien">Tạo phiên đấu giá sản phẩm tương
+                                tự</a>
                         </div>
                         <div class="card_area d-flex align-items-center">
                             <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -99,49 +102,7 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th>Họ và tên</th>
-                                <th>Số tiền</th>
-                                <th>Ngày đặt</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Đạt</h5>
-                                </td>
-                                <td>
-                                    <h5>$1.000</h5>
-                                </td>
-                                <td>
-                                    <h5>31/2/3000</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Đạt</h5>
-                                </td>
-                                <td>
-                                    <h5>$1.000</h5>
-                                </td>
-                                <td>
-                                    <h5>31/2/3000</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Đạt</h5>
-                                </td>
-                                <td>
-                                    <h5>$1.000</h5>
-                                </td>
-                                <td>
-                                    <h5>31/2/3000</h5>
-                                </td>
-                            </tr>
 
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -151,117 +112,49 @@
 
     <!--================ Start related Product area =================-->
     <section class="related-product-area section-margin--small mt-0">
-        <div class="container">
-            <div class="section-intro pb-60px">
-                <p>Các sản phẩm liên quan</p>
-                <h2>Danh sách <span class="section-intro__style">Sản phẩm</span></h2>
-            </div>
-            <div class="row mt-30">
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
+        <section class="related-product-area section-margin--small mt-0">
+            <div class="container">
+                <div class="section-intro pb-60px">
+                    <p>Các phiên đấu giá</p>
+                    <h2>Danh sách các phiên đang <span class="secton-intro__style">đấu giá</span></h2>
                 </div>
+                <div class="row">
 
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-                    <div class="single-search-product-wrapper">
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
-                        <div class="single-search-product d-flex">
-                            <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Gray Coffee Cup</a>
-                                <div class="price">$170.00</div>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>ID Phiên đấu giá</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số tiền yêu cầu</th>
+                                <th>Kết thúc</th>
+                                <th>Chi tiết</th>
+                            </tr>
+                            <th:block th:each="a:${top10Auction}">
+                                <tr>
+                                    <td>
+                                        <h5 th:text="${a.auctionSessId}"></h5>
+                                    </td>
+                                    <td>
+                                        <h5 th:text="${a.productKey}"></h5>
+                                    </td>
+                                    <td>
+                                        <h5 th:text="${#numbers.formatDecimal(a.reservePrice, 0, 'POINT', 0, 'COMMA')+'₫'}"></h5>
+                                    </td>
+                                    <td>
+                                        <h5 th:text="${#dates.format(a.endDate, 'dd-MM-yyyy HH:mm')}"></h5>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/chi-tiet-dau-gia/{id}(id=${a.auctionSessId})}">Xem</a>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
     <!--================ end related Product area =================-->
 

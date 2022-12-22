@@ -63,7 +63,7 @@ public class Orders {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "win_auct_id")
     private AuctSessJoin winAuction;
 }
