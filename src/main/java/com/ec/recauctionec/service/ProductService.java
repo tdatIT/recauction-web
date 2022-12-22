@@ -1,5 +1,6 @@
 package com.ec.recauctionec.service;
 
+import com.ec.recauctionec.dto.ProductDTO;
 import com.ec.recauctionec.entity.Product;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface ProductService {
     List<Product> findByCategoryId(int categoryId);
 
     List<Product> findProductForAuction(int userId,String productTagStr);
+    List<Product> findAllProduct();
 }
