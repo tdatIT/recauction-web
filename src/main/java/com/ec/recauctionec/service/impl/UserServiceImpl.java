@@ -129,4 +129,8 @@ UserServiceImpl implements UserService {
     public User findById(int id) {
         return userRepo.findById(id).orElseThrow();
     }
+    @Override
+    public List<User> findAllUser() {
+        return userRepo.findAllUserNotAdmin();
+    }
 }

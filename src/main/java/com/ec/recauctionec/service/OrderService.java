@@ -19,8 +19,10 @@ public interface OrderService {
 
     boolean cancelOrder(OrderDTO dto);
 
-    boolean completedOrder(OrderDTO dto);
+    boolean completedOrder(Orders order);
 
     boolean deliveryOrder(OrderDTO dto);
+    List<Orders> findAll();
+    void updateOrder(Orders orders);
 
 }
