@@ -15,7 +15,7 @@ public interface AuctionRepo extends JpaRepository<AuctionSession, Integer> {
 
     @Query("select a from AuctionSession a " +
             "where a.isComplete = false " +
-            "and a.startDate <= :date and a.endDate >= :date")
+            "and date(a.endDate) = :date")
     List<AuctionSession> findAllActiveAuctionByDate(@Param("date") Date date);
 
     @Query("select a from AuctionSession a" +

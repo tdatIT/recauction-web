@@ -5,12 +5,11 @@ import com.ec.recauctionec.entity.Commission;
 import com.ec.recauctionec.entity.Orders;
 import com.ec.recauctionec.entity.Wallet;
 import com.ec.recauctionec.entity.WalletHistory;
-import com.ec.recauctionec.location.Location;
-import com.ec.recauctionec.location.Shipping;
 import com.ec.recauctionec.repositories.DeliveryRepo;
 import com.ec.recauctionec.repositories.OrderRepo;
 import com.ec.recauctionec.repositories.WalletHistoryRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
+import com.ec.recauctionec.service.AuctSessJoinService;
 import com.ec.recauctionec.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +43,8 @@ public class OrderServiceImpl implements OrderService {
     private WalletRepo walletRepo;
     @Autowired
     private WalletHistoryRepo historyRepo;
+    @Autowired
+    private AuctSessJoinService joinService;
 
     @Override
     public List<Orders> findOrderNonConfirm() {
@@ -59,13 +60,13 @@ public class OrderServiceImpl implements OrderService {
     public void createOrderNotConfirm(OrderDTO dto) {
         Orders order = dto.mapping();
         //Calculate Shipping Cost
-        Location src = Location.values()
+       /* Location src = Location.values()
                 [order.getProduct().getSupplierBySupplierId().getLocation()];
         Location des = Location.values()
                 [order.getAddress().getDistrict()];
         order.setDeliveryId(DEFAULT_SHIPPING);
         order.setShippingPrice(Shipping.calculateShipping(src, des,
-                deliveryRepo.findById(DEFAULT_SHIPPING).orElseThrow()));
+                deliveryRepo.findById(DEFAULT_SHIPPING).orElseThrow()));*/
         //Calculate commission of transaction
 
         //Set more info of order
@@ -161,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
                 Commission commission = new Commission();
                 double realValue = order.getTotalPrice() - order.getShippingPrice();
                 commission.setAmountFromSupplier(realValue * FROM_SUPPLIER);
-                double profit = order.getWinAuction()
+                double profit = joinService.findById(dto.getAucWinId())
                         .getAuctionSessionByAuctionSessId()
                         .getReservePrice() - order.getTotalPrice();
                 commission.setAmountFromBuyer(profit * FROM_BUYER);

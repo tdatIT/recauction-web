@@ -49,7 +49,5 @@ public class AuctSessJoin {
     @JoinColumn(name = "auction_sess_id", referencedColumnName = "auction_sess_id", nullable = false,
             insertable = false, updatable = false)
     private AuctionSession auctionSessionByAuctionSessId;
-    @OneToMany(mappedBy = "winAuction")
-    private Collection<Orders> ordersById;
 
 }

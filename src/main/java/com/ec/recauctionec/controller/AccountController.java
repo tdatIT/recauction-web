@@ -1,16 +1,20 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.CustomUserDetails;
-import com.ec.recauctionec.entity.User;
-import com.ec.recauctionec.entity.UserAddress;
+import com.ec.recauctionec.entity.*;
 import com.ec.recauctionec.repositories.UserAddressRepo;
+import com.ec.recauctionec.repositories.WalletHistoryRepo;
+import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/tai-khoan")
@@ -19,6 +23,11 @@ public class AccountController {
     UserService userService;
     @Autowired
     UserAddressRepo addressRepo;
+    @Autowired
+    private WalletRepo walletRepo;
+    @Autowired
+    private WalletHistoryRepo historyRepo;
+
 
     @RequestMapping(value = {"/thong-tin", ""}, method = RequestMethod.GET)
     public String viewInfo(ModelMap modelMap) {
@@ -39,6 +48,23 @@ public class AccountController {
         User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
         modelMap.addAttribute("user", user);
         return "user/update-info";
+    }
+
+    @GetMapping(value = "/quan-ly-vi")
+    public String getWalletPage(@RequestParam(value = "filter", required = false)
+                                @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
+                                ModelMap modelMap) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User us = ((CustomUserDetails) auth.getPrincipal()).getUser();
+        Wallet wallet = walletRepo.findByUserId(us.getUserId()).get(0);
+        WalletHistory recent = historyRepo.findTop1ByWalletOrderByCreateDateDesc(wallet);
+        List<WalletHistory> logs = date == null ?
+                historyRepo.findLogByDate(new Date(new Date().getTime()), wallet.getWalletId())
+                : historyRepo.findLogByDate(date, wallet.getWalletId());
+        modelMap.addAttribute("logs", logs);
+        modelMap.addAttribute("recent", recent);
+        modelMap.addAttribute("wallet", wallet);
+        return "user/wallet-management";
     }
 
     @PostMapping(value = "/them-dia-chi")

@@ -11,8 +11,9 @@ import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name="wallet", schema = "reauction_db")
+@Table(name = "wallet", schema = "reauction_db")
 public class Wallet {
+    public static final int USD_TO_VND = 23800;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "wallet_id", nullable = false)

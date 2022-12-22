@@ -3,6 +3,8 @@ package com.ec.recauctionec.controller;
 import com.ec.recauctionec.dto.UserDTO;
 import com.ec.recauctionec.entity.*;
 import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
+import com.ec.recauctionec.repositories.WalletHistoryRepo;
+import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.UserService;
@@ -33,7 +35,7 @@ public class ClientController {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
     @Autowired
-    AuctionService auctionService;
+    private AuctionService auctionService;
 
 
     @RequestMapping(value = {"", Router.HOME_PAGE}, method = RequestMethod.GET)

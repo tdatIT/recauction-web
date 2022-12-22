@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @Setter
 @EqualsAndHashCode
 public class OrderDTO {
+    private int orderId;
 
     private long aucWinId;
     @NotNull
@@ -29,12 +30,10 @@ public class OrderDTO {
     @NotNull
     private double totalPrice;
 
-    private AuctSessJoin winAuction;
-
     private Delivery deliveryByDeliveryId;
 
     private Product product;
-    @NotNull
+
     private UserAddress address;
     @NotNull
     private User user;

@@ -34,4 +34,9 @@ public class AuctSessJoinServiceImpl implements AuctSessJoinService {
         joinRepo.save(join);
         return true;
     }
+
+    @Override
+    public AuctSessJoin findById(long id) {
+        return joinRepo.findById(id).orElseThrow();
+    }
 }

@@ -102,12 +102,12 @@ public class PaymentController {
                 history.setWallet(wallet);
                 history.setPaymentId(paymentId);
                 history.setCreateDate(new Timestamp(new Date().getTime()));
-                history.setValue(total);
+                history.setValue(total * Wallet.USD_TO_VND);
                 //Nap tien
                 history.setType(true);
                 walletHistoryRepo.save(history);
                 double oldBalance = wallet.getAccountBalance();
-                wallet.setAccountBalance(oldBalance + total);
+                wallet.setAccountBalance(oldBalance + history.getValue());
                 //
                 modelMap.addAttribute("title", "Thanh toán thành công");
                 modelMap.addAttribute("message", "Thanh toán thành công");

@@ -12,4 +12,6 @@ public interface AuctSessJoinService {
     boolean joinAuction(AuctSessJoin join);
 
     boolean updateJoin(AuctSessJoin join);
+
+    AuctSessJoin findById(long id);
 }

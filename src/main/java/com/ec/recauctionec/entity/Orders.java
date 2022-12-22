@@ -67,7 +67,4 @@ public class Orders {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "win_auct_id", nullable = false)
-    private AuctSessJoin winAuction;
 }
