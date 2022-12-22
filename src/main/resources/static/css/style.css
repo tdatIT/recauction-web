@@ -5188,3 +5188,22 @@ input[type="date"] {
     margin-left: -30px;
     margin-top: 10px;
 }
+
+.checkout-detail-label {
+    margin-left: 25%;
+}
+
+.table-price {
+    margin-left: 5%;
+    margin-top: 15px;
+}
+
+.row-addr {
+    margin-left: 20%;
+    margin-top: 40px;
+}
+
+.address {
+    margin-left: 25%;
+    margin-top: 10px;
+}
