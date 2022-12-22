@@ -4,7 +4,11 @@ import com.ec.recauctionec.dto.OrderDTO;
 import com.ec.recauctionec.entity.CustomUserDetails;
 import com.ec.recauctionec.entity.Orders;
 import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entity.UserAddress;
+import com.ec.recauctionec.repositories.UserAddressRepo;
+import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.OrderService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -13,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +25,11 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private UserAddressRepo userAddressRepo;
+    @Autowired
+    private WalletRepo walletRepo;
 
     @GetMapping("")
     public String getOrderList(@RequestParam(value = "filter", required = false)
@@ -36,13 +44,48 @@ public class OrderController {
         modelMap.addAttribute("orders", orders);
         return "user/order-list";
     }
-    @GetMapping("/xac-nha-don-hang/{id}")
-    public String getConfirmOrder(@PathVariable("id")int orderId,ModelMap modelMap){
-        Orders orders = orderService.findById(orderId);
-        if(orders != null){
 
+    @GetMapping("/xac-nhan-don-hang/{id}")
+    public String getConfirmOrder(@PathVariable("id") int orderId, ModelMap modelMap) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+        try {
+            Orders order = orderService.findById(orderId);
+            if (order != null) {
+                modelMap.addAttribute("order", order);
+                modelMap.addAttribute("address", userAddressRepo.findByUserByUserId(user));
+                modelMap.addAttribute("balance", walletRepo
+                        .findByUserId(user.getUserId()).iterator().next()
+                        .getAccountBalance());
+                modelMap.addAttribute("location", order.getProduct()
+                        .getSupplierBySupplierId().getLocation());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return "";
+        return "checkout";
     }
 
+    @PostMapping("/xac-nhan-don-hang")
+    public String confirmOrder(@RequestParam("orderId") int orderId,
+                               @RequestParam("addressId") int addressId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+        try {
+            Orders order = orderService.findById(orderId);
+            if (order != null &&
+                    order.getUser().getUserId() == user.getUserId()) {
+
+                UserAddress address = userAddressRepo.findById(addressId)
+                        .orElseThrow();
+                OrderDTO dto = new OrderDTO();
+                BeanUtils.copyProperties(order, dto);
+                dto.setAddress(address);
+                orderService.confirmOrder(dto);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/don-hang";
+    }
 }

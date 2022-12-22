@@ -18,4 +18,7 @@ public interface OrderRepo extends JpaRepository<Orders, Integer> {
 
     @Query("select o from  Orders o where date(o.createDate)=?2 and o.user.userId =?1")
     List<Orders> findOrderByDate(int userId, Date date);
+
+    @Query("select o from Orders o where o.orderId = ?1")
+    Orders findByOrderId(int orderId);
 }

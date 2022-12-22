@@ -122,3 +122,44 @@ $('.search-input').keypress(function (e) {
     }
 });
 
+function updateTotal() {
+    var product = $('.product-price').text();
+    var shipping = $('#shipping-price').text();
+    var newTotal = parseInt(product) + parseInt(shipping);
+    $('#total-price').text(newTotal);
+}
+
+$("#select-address").change(function () {
+    var location = $('#location').val()
+    var addressId = $("#select-address").val()
+    $.ajax({
+        url: '/api/v1/shipping-cost',
+        method: 'get',
+        data: {
+            'location': location,
+            'addressId': addressId
+        },
+        success(data) {
+            $('#shipping-price').text(data.cost)
+            updateTotal();
+        }
+    })
+})
+$("#confirm-order").on('click', function () {
+    var addressId = $("#select-address").val();
+    var orderId = $('.id-order').text()
+    if (addressId != null && orderId != null) {
+        $.post({
+            url: '/don-hang/xac-nhan-don-hang',
+            data: {
+                'addressId': addressId,
+                'orderId': orderId
+            },
+            success(data) {
+                window.location.href = "/don-hang"
+            }
+        })
+    } else
+        alert('Vui lòng chọn đầy đủ thông tin')
+})
+

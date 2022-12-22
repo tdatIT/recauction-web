@@ -5,6 +5,8 @@ import com.ec.recauctionec.entity.Commission;
 import com.ec.recauctionec.entity.Orders;
 import com.ec.recauctionec.entity.Wallet;
 import com.ec.recauctionec.entity.WalletHistory;
+import com.ec.recauctionec.location.Location;
+import com.ec.recauctionec.location.Shipping;
 import com.ec.recauctionec.repositories.DeliveryRepo;
 import com.ec.recauctionec.repositories.OrderRepo;
 import com.ec.recauctionec.repositories.WalletHistoryRepo;
@@ -48,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Orders findById(int id) {
-        return orderRepo.findById(id).orElseThrow();
+        return orderRepo.findByOrderId(id);
     }
 
     @Override
@@ -65,19 +67,8 @@ public class OrderServiceImpl implements OrderService {
     public void createOrderNotConfirm(OrderDTO dto) {
         Orders order = dto.mapping();
         order.setDeliveryId(DEFAULT_SHIPPING);
-        //Calculate Shipping Cost
-       /* Location src = Location.values()
-                [order.getProduct().getSupplierBySupplierId().getLocation()];
-        Location des = Location.values()
-                [order.getAddress().getDistrict()];
-
-        order.setShippingPrice(Shipping.calculateShipping(src, des,
-                deliveryRepo.findById(DEFAULT_SHIPPING).orElseThrow()));*/
-        //Calculate commission of transaction
-        //Set more info of order
         order.setStatus(Orders.NOT_CONFIRM);
         order.setCreateDate(new Timestamp(new Date().getTime()));
-
         orderRepo.save(order);
     }
 
@@ -88,18 +79,30 @@ public class OrderServiceImpl implements OrderService {
             Orders order = dto.mapping();
             Wallet user_wallet = dto.getUser().getWalletsByUserId().iterator().next();
             if (user_wallet.getAccountBalance() >= order.getTotalPrice()) {
+                //Calculate Shipping Cost
+                Location src = Location.values()
+                        [order.getProduct().getSupplierBySupplierId().getLocation()];
+                Location des = Location.values()
+                        [order.getAddress().getDistrict()];
+                order.setShippingPrice(Shipping.calculateShipping(src, des,
+                        deliveryRepo.findById(DEFAULT_SHIPPING).orElseThrow()));
+                //Calculate commission of transaction
+                //Set more info of order
                 order.setStatus(Orders.CONFIRM);
                 order.setUpdateDate(new java.sql.Date(new Date().getTime()));
+                orderRepo.save(order);
                 //Create log in wallet of user
                 WalletHistory log1 = new WalletHistory();
                 log1.setType(false);
                 log1.setValue(order.getTotalPrice());
                 log1.setWallet(user_wallet);
-                historyRepo.save(log1);
+                log1.setCreateDate(new Timestamp(new Date().getTime()));
+                log1.setPaymentId("CHARGE ORDER");
                 //Charge into wallet
                 user_wallet.setAccountBalance(
                         user_wallet.getAccountBalance() - log1.getValue());
                 walletRepo.save(user_wallet);
+                historyRepo.save(log1);
                 return true;
             }
         } catch (Exception e) {

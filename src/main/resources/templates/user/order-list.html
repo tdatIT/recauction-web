@@ -13,7 +13,6 @@
 </header>
 
 
-
 <div class="blog-banner mt-lg-5">
     <div class="text-center">
         <h1>Đơn hàng của tôi</h1>
@@ -63,21 +62,24 @@
 
                     </td>
                     <td>
-                        <span th:if="${a.status == 1}" class="badge badge-warning rounded-pill d-inline">Chờ xác nhận</span>
+                        <span th:if="${a.status == 1}"
+                              class="badge badge-warning rounded-pill d-inline">Chờ xác nhận</span>
                         <span th:if="${a.status == 2}" class="badge badge-info rounded-pill d-inline">Đang xử lý</span>
                         <span th:if="${a.status == 3}" class="badge badge-primary d-inline">Vận chuyển</span>
                         <span th:if="${a.status == 4}" class="badge badge-primary d-inline">Hoàn tất</span>
-                        <span th:if="${a.status == 4}" class="badge badge-danger rounded-pill d-inline">Kết thúc/Hủy</span>
+                        <span th:if="${a.status == 4}"
+                              class="badge badge-danger rounded-pill d-inline">Kết thúc/Hủy</span>
                     </td>
                     <td th:text="${#dates.format(a.createDate, 'dd-MM-yyyy HH:mm')}">
 
                     </td>
                     <td>
-                        <a th:if="${a.status != 1}" th:href="@{/chi-tiet-dau-gia/{id}(id=${a.orderId})}" type="button"
+                        <a th:if="${a.status != 1}" th:href="@{/don-hang/chi-tiet/{id}(id=${a.orderId})}" type="button"
                            class="btn btn-link btn-sm btn-rounded">
                             Chi tiết
                         </a>
-                        <a th:if="${a.status == 1}" th:href="@{/don-hang/xac-nhan/{id}(id=${a.orderId})}" type="button"
+                        <a th:if="${a.status == 1}" th:href="@{/don-hang/xac-nhan-don-hang/{id}(id=${a.orderId})}"
+                           type="button"
                            class="btn btn-link btn-sm btn-rounded">
                             Xác nhận đơn hàng
                         </a>
