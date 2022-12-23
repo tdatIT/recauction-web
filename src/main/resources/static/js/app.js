@@ -17,9 +17,7 @@ $('#submit-auction').on('click', function (e) {
     let endDate = parseInt($('#date-end').text())
     let enable = ($('#auto_enable').val()) == 'on' ? true : false
     let tag_str = ""
-    $('#hagtag').val().forEach(i => {
-        tag_str += i
-    })
+    $('#hagtag').val();
     let categoryId = $('#categoryId').val()
 
     let formData = new FormData($('#upload-image')[0])
@@ -41,7 +39,7 @@ $('#submit-auction').on('click', function (e) {
         success: function (e) {
             window.location.href = "/dau-gia/quan-ly-phien";
         },
-        error:function (e){
+        error: function (e) {
             window.location.href = "/thong-bao?type=10";
         }
     })

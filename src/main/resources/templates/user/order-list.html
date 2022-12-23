@@ -67,7 +67,7 @@
                         <span th:if="${a.status == 2}" class="badge badge-info rounded-pill d-inline">Đang xử lý</span>
                         <span th:if="${a.status == 3}" class="badge badge-primary d-inline">Vận chuyển</span>
                         <span th:if="${a.status == 4}" class="badge badge-primary d-inline">Hoàn tất</span>
-                        <span th:if="${a.status == 4}"
+                        <span th:if="${a.status == 0}"
                               class="badge badge-danger rounded-pill d-inline">Kết thúc/Hủy</span>
                     </td>
                     <td th:text="${#dates.format(a.createDate, 'dd-MM-yyyy HH:mm')}">
