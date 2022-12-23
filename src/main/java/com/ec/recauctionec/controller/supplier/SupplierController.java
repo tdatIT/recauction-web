@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("fragments")
+@RequestMapping("/supplier")
 
 public class SupplierController {
     @Autowired
