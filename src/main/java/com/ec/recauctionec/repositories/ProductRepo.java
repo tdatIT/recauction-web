@@ -22,14 +22,17 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("select p from Product p where p.status = 1 or p.status = 2 order by p.defaultPrice desc")
     List<Product> findProductLimit(Pageable pageable);
+
     @Query("select p from Product p where p.isDeleted = false ")
     List<Product> findAllActive();
+
     @Query("select p from Product p where p.categoryId = ?1")
     List<Product> findByCategoryId(int categoryId);
 
     @Query("select p from Product p " +
             "where p.supplierBySupplierId.userByOwnerId.userId=:userId" +
             " and p.productTag like %:productTagStr%")
-    List<Product> findProductForAuction(@RequestParam("userId") int userId,
+    List<Product> findProductForAuction(@RequestParam("userId") int userId, @RequestParam("productTag") String productTagStr);
+
 
 }

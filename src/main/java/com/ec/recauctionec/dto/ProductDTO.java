@@ -30,6 +30,7 @@ public class ProductDTO {
     private double minPrice;
 
     private int supplierId;
+    private String productTag;
 
     private MultipartFile[] images_file;
 
