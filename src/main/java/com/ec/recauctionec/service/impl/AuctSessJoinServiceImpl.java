@@ -20,7 +20,7 @@ public class AuctSessJoinServiceImpl implements AuctSessJoinService {
 
     @Override
     public AuctSessJoin findBestPriceAuctionJoinByAuction(int auctionId) {
-        return joinRepo.findBestPriceAuctionJoinByAuction(auctionId);
+        return joinRepo.findTop1ByAuctionSessIdOrderByPriceAsc(auctionId);
     }
 
     @Override

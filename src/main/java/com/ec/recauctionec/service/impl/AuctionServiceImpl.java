@@ -89,7 +89,7 @@ public class AuctionServiceImpl implements AuctionService {
         AuctionSession auction = auctionRepo.findById(auctionId).orElseThrow();
         if (auction != null) {
             AuctSessJoin winner =
-                    joinRepo.findBestPriceAuctionJoinByAuction(auction.getAuctionSessId());
+                    joinRepo.findTop1ByAuctionSessIdOrderByPriceAsc(auction.getAuctionSessId());
             for (AuctSessJoin join : auction.getAuctSessJoinsByAuctionSessId()) {
                 join.setStatus(AuctSessJoin.LOSS);
                 joinRepo.save(join);

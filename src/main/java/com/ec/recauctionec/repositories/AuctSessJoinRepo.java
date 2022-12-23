@@ -9,7 +9,7 @@ import java.util.List;
 public interface AuctSessJoinRepo extends JpaRepository<AuctSessJoin, Long> {
     @Query("select j from AuctSessJoin j where j.auctionSessId = ?1")
     List<AuctSessJoin> findAllByAuctionId(int auctionId);
-    @Query("select j from AuctSessJoin j where j.auctionSessId = ?1 order by j.price desc")
-    AuctSessJoin findBestPriceAuctionJoinByAuction(int auctionId);
+
+    AuctSessJoin findTop1ByAuctionSessIdOrderByPriceAsc(int auctionId);
 
 }
