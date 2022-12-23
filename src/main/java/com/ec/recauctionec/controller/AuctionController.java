@@ -80,7 +80,7 @@ public class AuctionController {
         return "redirect:/dau-gia/quan-ly-phien";
     }
 
-    @GetMapping(value = "/quan-ly-phien")
+    @GetMapping(value = {"/quan-ly-phien", ""})
     public String getAllAuctionOfUser(@RequestParam(value = "date-filter", required = false) Date date
             , ModelMap modelMap) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
