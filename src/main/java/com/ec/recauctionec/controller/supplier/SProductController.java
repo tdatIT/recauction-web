@@ -52,7 +52,7 @@ public class SProductController {
                     + "] sản phẩm");
         }
         modelMap.addAttribute("products", products);
-        return "/supplier/store-product";
+        return "supplier/store-product";
     }
 
     @RequestMapping(value = "/them", method = RequestMethod.GET)
@@ -68,9 +68,9 @@ public class SProductController {
             modelMap.addAttribute("productDTO", productDTO);
             modelMap.addAttribute("action", "them");
 
-            return "/supplier/product-info";
+            return "supplier/product-info";
         }
-        return "forward:/supplier/san-pham";
+        return "forward:fragments/san-pham";
     }
 
 
@@ -96,7 +96,7 @@ public class SProductController {
             product.setImages(imgs);
             productService.insertProduct(product);
         }
-        return "redirect:/supplier/san-pham";
+        return "redirect:supplier/san-pham";
 
     }
 
@@ -111,7 +111,7 @@ public class SProductController {
         modelMap.addAttribute("action", "/supplier/san-pham/chinh-sua");
         modelMap.addAttribute("productDTO", productDTO);
         modelMap.addAttribute("categories", categories);
-        return "/supplier/product-info";
+        return "supplier/product-info";
     }
 
     @Transactional
@@ -140,14 +140,14 @@ public class SProductController {
         }
 
         productService.updateProduct(p);
-        return "redirect:/supplier/san-pham";
+        return "redirect:supplier/san-pham";
     }
 
     @RequestMapping(value = "/xoa/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable int id, ModelMap modelMap) {
         Product p = productService.findById(id);
         productService.deleteProduct(p);
-        return "redirect:/supplier/san-pham";
+        return "redirect:supplier/san-pham";
     }
 
 }

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/supplier")
+@RequestMapping("fragments")
 
 public class SupplierController {
     @Autowired
@@ -26,6 +26,6 @@ public class SupplierController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         int userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
         Supplier sup = supplierService.findByOwnerId(userId);
-        return "/supplier/dashboard";
+        return "supplier/dashboard";
     }
 }
