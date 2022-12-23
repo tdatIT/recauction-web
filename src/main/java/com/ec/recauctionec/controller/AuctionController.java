@@ -71,13 +71,13 @@ public class AuctionController {
                 auctSessJoin.setTime(new Timestamp(new java.util.Date().getTime()));
                 auctSessJoin.setStatus(AuctSessJoin.ACTIVE);
                 joinService.joinAuction(auctSessJoin);
-                return "redirect:/dau-gia/quan-ly-phien";
+                return "redirect:/chi-tiet-dau-gia/"+auctionId;
             }
 
         } catch (Exception e) {
 
         }
-        return "redirect:/dau-gia/quan-ly-phien";
+        return "redirect:/chi-tiet-dau-gia/"+auctionId;
     }
 
     @GetMapping(value = {"/quan-ly-phien", ""})

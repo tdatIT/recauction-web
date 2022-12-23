@@ -33,6 +33,8 @@ public class AuctionSessionDTO {
     @NotNull
     private int countDay;
 
+    private String description;
+
     private String endDate;
 
     private boolean isComplete;
