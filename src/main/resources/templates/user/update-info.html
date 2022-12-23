@@ -3,13 +3,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <th:block th:replace="/fragments :: head">
+    <th:block th:replace="fragments :: head">
     </th:block>
     <title id="pageTitle">Thông tin tài khoản</title>
 </head>
 <body>
 
-<header th:replace="/fragments :: header">
+<header th:replace="fragments :: header">
 
 </header>
 
@@ -194,10 +194,10 @@
 
 
 <!--================ Start footer Area  =================-->
-<footer th:replace="/fragments :: footer">
+<footer th:replace="fragments :: footer">
     <!--================ End footer Area  =================-->
 </footer>
-<th:block th:replace="/fragments :: js_block">
+<th:block th:replace="fragments :: js_block">
 </th:block>
 </body>
 </html>

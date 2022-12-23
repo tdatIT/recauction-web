@@ -3,14 +3,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:replace="/fragments :: head">
+    <th:block th:replace="fragments :: head">
     </th:block>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <title id="pageTitle">Nạp tiền vào ví</title>
 </head>
 <body>
 
-<header th:replace="/fragments :: header">
+<header th:replace="fragments :: header">
 
 </header>
 
@@ -164,11 +164,11 @@
 </main>
 <!-- ================ end view wallet area ================= -->
 
-<footer th:replace="/fragments :: footer">
+<footer th:replace="fragments :: footer">
     <!--================ End footer Area  =================-->
 </footer>
 
-<th:block th:replace="/fragments :: js_block">
+<th:block th:replace="fragments :: js_block">
 </th:block>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script>
