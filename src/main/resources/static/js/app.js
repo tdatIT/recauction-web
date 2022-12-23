@@ -16,8 +16,7 @@ $('#submit-auction').on('click', function (e) {
     let reservePrice = $('#reservePrice').val()
     let endDate = parseInt($('#date-end').text())
     let enable = ($('#auto_enable').val()) == 'on' ? true : false
-    let tag_str = ""
-    $('#hagtag').val();
+    let tag_str = $('#hagtag').val();
     let categoryId = $('#categoryId').val()
 
     let formData = new FormData($('#upload-image')[0])
