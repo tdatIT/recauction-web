@@ -70,7 +70,7 @@ public class SProductController {
 
             return "supplier/product-info";
         }
-        return "forward:fragments/san-pham";
+        return "forward:/supplier/san-pham";
     }
 
 
@@ -96,7 +96,7 @@ public class SProductController {
             product.setImages(imgs);
             productService.insertProduct(product);
         }
-        return "redirect:supplier/san-pham";
+        return "redirect:/supplier/san-pham";
 
     }
 
@@ -140,14 +140,14 @@ public class SProductController {
         }
 
         productService.updateProduct(p);
-        return "redirect:supplier/san-pham";
+        return "redirect:/supplier/san-pham";
     }
 
     @RequestMapping(value = "/xoa/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable int id, ModelMap modelMap) {
         Product p = productService.findById(id);
         productService.deleteProduct(p);
-        return "redirect:supplier/san-pham";
+        return "redirect:/supplier/san-pham";
     }
 
 }

@@ -18,8 +18,10 @@ $('#submit-auction').on('click', function (e) {
     let enable = ($('#auto_enable').val()) == 'on' ? true : false
     let tag_str = $('#hagtag').val();
     let categoryId = $('#categoryId').val()
+    let description = $("#description").val()
 
     let formData = new FormData($('#upload-image')[0])
+    formData.append('description', description)
     formData.append('productKey', productKey)
     formData.append('startDate', createDate)
     formData.append('countDay', endDate)
