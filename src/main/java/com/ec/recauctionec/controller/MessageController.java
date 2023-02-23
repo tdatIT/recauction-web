@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MessageController {
+    public static final int VERIFY_TOKEN = 4;
     public static final int NOT_FOUND_AUCTION = 2;
     public static final int CREATE_FAIL = 10;
     public static final int CHANGE_PASS_SUCCESS = 1;
@@ -33,6 +34,9 @@ public class MessageController {
                 modelMap.addAttribute("message", "Đăng ký thất bại");
                 modelMap.addAttribute("description", "Xin lỗi có vẽ hệ thống bị lỗi liên hệ QTV để giải quyết !");
                 break;
+            case VERIFY_TOKEN:
+                modelMap.addAttribute("message", "Đăng ký thành công !");
+                modelMap.addAttribute("description", "Vui lòng kiểm tra email để xác nhận taì khoản !");
         }
         return "message";
     }

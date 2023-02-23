@@ -70,7 +70,7 @@ public class ClientController {
         } catch (RuntimeException ex) {
             return "redirect:" + Router.REGISTER_PAGE + "?error=true";
         }
-        return "redirect:" + Router.LOGIN_PAGE;
+        return "redirect:" + Router.MESSAGE + "?type=" + MessageController.VERIFY_TOKEN;
     }
 
     @RequestMapping(value = Router.LOGIN_PAGE, method = RequestMethod.GET)

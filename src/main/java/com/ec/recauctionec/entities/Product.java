@@ -52,7 +52,7 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER,
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Collection<ProductImg> images;
 

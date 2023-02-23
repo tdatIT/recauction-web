@@ -14,15 +14,14 @@ public class Commission {
     @Id
     @Column(name = "order_id", nullable = false)
     private int orderId;
-    
+
     @Column(name = "amount_from_buyer", nullable = false, precision = 0)
     private double amountFromBuyer;
-    
+
     @Column(name = "amount_from_supplier", nullable = false, precision = 0)
     private double amountFromSupplier;
 
-    @OneToOne
-    @JoinColumn(name = "order_id")
+    @OneToOne(mappedBy = "commission")
     private Orders order;
 
 

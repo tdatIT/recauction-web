@@ -19,11 +19,6 @@
         <div class="row">
             <div class="col-lg-12 posts-list">
                 <div class="single-post row">
-                    <!-- <div class="col-lg-12">
-                        <div class="feature-img">
-                            <img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
-                        </div>
-                    </div> -->
                     <div class="col-lg-12 col-md-12 blog_details">
                         <h2>Xin chào bạn</h2>
                         <p class="excert">
@@ -63,35 +58,32 @@
                     </div>
                     <div class="col-lg-12 col-md-12 blog_details">
                         <form action="/tai-khoan/dang-ky-nha-cung-cap" method="post">
-                            <div class="form-group">
-                                <label for="district">Chọn vị trí nhà cung cấp</label>
-                                <select name="location" class="form-control" id="district" required>
-                                    <option value="1">Quận 1</option>
-                                    <option value="2">Quận 2</option>
-                                    <option value="3">Quận 3</option>
-                                    <option value="4">Quận 4</option>
-                                    <option value="5">Quận 5</option>
-                                    <option value="6">Quận 6</option>
-                                    <option value="7">Quận 7</option>
-                                    <option value="8">Quận 8</option>
-                                    <option value="9">Tp. Thủ Đức</option>
-                                    <option value="10">Quận 10</option>
-                                    <option value="11">Quận 11</option>
-                                    <option value="12">Quận 12</option>
-                                    <option value="13">Quận Bình Tân</option>
-                                    <option value="14">Quận Bình Thạnh</option>
-                                    <option value="15">Quận Gò Vấp</option>
-                                    <option value="16">Quận Phú Nhuận</option>
-                                    <option value="17">Quận Tân Bình</option>
-                                    <option value="18">Quận Tân Phú</option>
-                                    <option value="19">Quận Bình Chánh</option>
-                                    <option value="20">Quận Cần Giờ</option>
-                                    <option value="21">Quận Củ Chi</option>
-                                    <option value="22">Quận Hóc Môn</option>
-                                    <option value="23">Quận Nhà Bè</option>
-                                </select>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select id="province" class="form-control">
+                                        <option value="-1">Tỉnh/Thành phố</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4 ">
+                                    <label>Quận/Huyện</label>
+                                    <select id="district" class="form-control">
+                                        <option value="-1">Quận/Huyện</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label>Xã/Phường</label>
+                                    <select id="ward" class="form-control">
+                                        <option value="-1">Xã phường</option>
+                                    </select>
+                                </div>
                             </div>
-                            <input type="number" th:value="${userId}" hidden name="userId">
+                            <div class="form-group">
+                                <label for="detail">Địa chỉ chi tiết</label>
+                                <textarea name="addressDetail" class="form-control" id="detail"
+                                          placeholder="VD: Số nhà, tên đường..." required></textarea>
+                            </div>
                             <input type="checkbox" value="true" required>
                             <label>Bạn đã đọc và đồng ý các chính sách</label>
                             <br>
@@ -99,7 +91,6 @@
                         </form>
                     </div>
                 </div>
-
 
             </div>
             <div class="br"></div>
@@ -120,5 +111,6 @@
 </footer>
 <th:block th:replace="fragments :: js_block">
 </th:block>
+<script src="/js/province_data.js"></script>
 </body>
 </html>

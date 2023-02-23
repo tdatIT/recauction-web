@@ -15,16 +15,13 @@ public class UserAddress {
     @Id
     @Column(name = "address_id", nullable = false)
     private int addressId;
-    
-    @Column(name = "city", nullable = false, length = 255)
-    private int city;
-    
-    @Column(name = "country", nullable = false, length = 255)
-    private int country;
-    
+
+    @Column(name = "province", nullable = false)
+    private int province;
+
     @Column(name = "district", nullable = false)
     private int district;
-    
+
     @Column(name = "address_detail", nullable = false)
     private String addressDetail;
     @ManyToOne

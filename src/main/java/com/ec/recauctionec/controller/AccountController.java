@@ -126,14 +126,12 @@ public class AccountController {
             us.setEmail(email);
             us.setPhoneNumber(phone);
             userService.updateUser(us);
-            return "redirect:/tai-khoan ";
+            return "redirect:/tai-khoan";
         } catch (Exception e) {
             return "redirect:/tai-khoan/chinh-sua?error=1";
         }
 
     }
-
-
 
 
 }

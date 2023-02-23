@@ -60,8 +60,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<AuctionSession> auctionSessions;
 
-    @OneToMany(mappedBy = "user")
-    private Collection<Supplier> suppliers;
+    @OneToOne(mappedBy = "user")
+    private Supplier suppliers;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

@@ -22,25 +22,21 @@ public class Orders {
     @Id
     @Column(name = "order_id", nullable = false)
     private int orderId;
-    
+
     @Column(name = "createDate", nullable = false)
     private Timestamp createDate;
-    
+
     @Column(name = "updateDate", nullable = false)
     private Date updateDate;
-    
+
     @Column(name = "shipping_price", nullable = false, precision = 0)
     private double shippingPrice;
-    
+
     @Column(name = "status", nullable = false)
     private int status;
-    
+
     @Column(name = "total_price", nullable = false, precision = 0)
     private double totalPrice;
-
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    @JoinColumn(name = "commission_id", referencedColumnName = "order_id")
-    private Commission commission;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -58,7 +54,11 @@ public class Orders {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "win_auct_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "win_auct_id", referencedColumnName = "id")
     private AuctSessJoin winAuction;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "commission_id", referencedColumnName = "order_id")
+    private Commission commission;
 }
