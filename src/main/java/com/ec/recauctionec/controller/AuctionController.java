@@ -1,7 +1,7 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.dto.AuctionSessionDTO;
-import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.entities.*;
 import com.ec.recauctionec.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,12 +62,12 @@ public class AuctionController {
         try {
             AuctionSession auction = auctionService.findById(auctionId);
             Product product = productService.findById(productId);
-            if (product.getSupplierBySupplierId()
-                    .getUserByOwnerId().getUserId() != auction.getUserId()) {
+            if (product.getSupplier()
+                    .getUser().getUserId() != auction.getUser().getUserId()) {
                 AuctSessJoin auctSessJoin = new AuctSessJoin();
                 auctSessJoin.setPrice(price);
-                auctSessJoin.setProductId(productId);
-                auctSessJoin.setAuctionSessId(auctionId);
+                /*auctSessJoin.setProductId(productId);*/
+                /*auctSessJoin.setAuctionSession(auctionId);*/
                 auctSessJoin.setTime(new Timestamp(new java.util.Date().getTime()));
                 auctSessJoin.setStatus(AuctSessJoin.ACTIVE);
                 joinService.joinAuction(auctSessJoin);
@@ -99,11 +99,11 @@ public class AuctionController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User us = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         AuctionSession auction = auctionService.findById(auctionId);
-        List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
+        List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctionSessId());
         for (AuctSessJoin j : joins) {
-            if (j.getProductByProductId()
-                    .getSupplierBySupplierId()
-                    .getUserByOwnerId().getUserId() == us.getUserId()) {
+            if (j.getProduct()
+                    .getSupplier()
+                    .getUser().getUserId() == us.getUserId()) {
                 j.setPrice(price);
                 joinService.updateJoin(j);
                 return new ResponseEntity(HttpStatus.OK);

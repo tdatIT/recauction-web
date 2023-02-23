@@ -1,7 +1,6 @@
 package com.ec.recauctionec.service;
 
-import com.ec.recauctionec.dto.ProductDTO;
-import com.ec.recauctionec.entity.Product;
+import com.ec.recauctionec.entities.Product;
 
 import java.util.List;
 

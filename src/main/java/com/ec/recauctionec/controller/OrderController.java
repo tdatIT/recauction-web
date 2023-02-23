@@ -1,10 +1,10 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.dto.OrderDTO;
-import com.ec.recauctionec.entity.CustomUserDetails;
-import com.ec.recauctionec.entity.Orders;
-import com.ec.recauctionec.entity.User;
-import com.ec.recauctionec.entity.UserAddress;
+import com.ec.recauctionec.entities.CustomUserDetails;
+import com.ec.recauctionec.entities.Orders;
+import com.ec.recauctionec.entities.User;
+import com.ec.recauctionec.entities.UserAddress;
 import com.ec.recauctionec.repositories.UserAddressRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.OrderService;
@@ -53,12 +53,12 @@ public class OrderController {
             Orders order = orderService.findById(orderId);
             if (order != null) {
                 modelMap.addAttribute("order", order);
-                modelMap.addAttribute("address", userAddressRepo.findByUserByUserId(user));
+                modelMap.addAttribute("address", userAddressRepo.findByUser(user));
                 modelMap.addAttribute("balance", walletRepo
                         .findByUserId(user.getUserId()).iterator().next()
                         .getAccountBalance());
                 modelMap.addAttribute("location", order.getProduct()
-                        .getSupplierBySupplierId().getLocation());
+                        .getSupplier().getLocation());
             }
         } catch (Exception e) {
             e.printStackTrace();

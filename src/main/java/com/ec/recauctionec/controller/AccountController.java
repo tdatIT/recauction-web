@@ -1,12 +1,11 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.entities.*;
 import com.ec.recauctionec.repositories.UserAddressRepo;
 import com.ec.recauctionec.repositories.WalletHistoryRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.SupplierService;
 import com.ec.recauctionec.service.UserService;
-import com.ec.recauctionec.variable.RoleConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -84,7 +83,7 @@ public class AccountController {
                              ModelMap modelMap) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
-        address.setUserByUserId(user);
+        address.setUser(user);
         addressRepo.save(address);
         return "redirect:/tai-khoan";
     }
@@ -133,6 +132,8 @@ public class AccountController {
         }
 
     }
+
+
 
 
 }

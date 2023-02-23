@@ -1,9 +1,9 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.configs.UrlUtils;
-import com.ec.recauctionec.entity.User;
-import com.ec.recauctionec.entity.Wallet;
-import com.ec.recauctionec.entity.WalletHistory;
+import com.ec.recauctionec.entities.User;
+import com.ec.recauctionec.entities.Wallet;
+import com.ec.recauctionec.entities.WalletHistory;
 import com.ec.recauctionec.paypal.PaypalPaymentIntent;
 import com.ec.recauctionec.paypal.PaypalPaymentMethod;
 import com.ec.recauctionec.repositories.WalletHistoryRepo;
@@ -89,7 +89,7 @@ public class PaymentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         User user = userService.findByEmail(email);
-        Wallet wallet = user.getWalletsByUserId().iterator().next();
+        Wallet wallet = user.getWallets().iterator().next();
         try {
 
             Payment payment = paypalService.executePayment(paymentId, payerId);

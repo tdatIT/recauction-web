@@ -1,6 +1,6 @@
 package com.ec.recauctionec.service;
 
-import com.ec.recauctionec.entity.Category;
+import com.ec.recauctionec.entities.Category;
 
 import java.util.List;
 

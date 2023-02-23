@@ -1,6 +1,6 @@
 package com.ec.recauctionec.service.impl;
 
-import com.ec.recauctionec.entity.ProductTag;
+import com.ec.recauctionec.entities.ProductTag;
 import com.ec.recauctionec.repositories.ProductTagRepo;
 import com.ec.recauctionec.service.ProductTagService;
 import org.springframework.beans.factory.annotation.Autowired;

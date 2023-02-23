@@ -1,17 +1,15 @@
 package com.ec.recauctionec.dto;
 
-import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.entities.*;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
 public class OrderDTO {
 

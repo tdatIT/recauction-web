@@ -1,7 +1,7 @@
 package com.ec.recauctionec.controller.supplier;
 
 import com.ec.recauctionec.dto.ProductDTO;
-import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.entities.*;
 import com.ec.recauctionec.service.CategoryService;
 import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.StorageImage;
@@ -84,7 +84,7 @@ public class SProductController {
         if (SupplierLevel.checkingAvailableProduct(sup)) {
             int supplierId = sup.getSupplierId();
             Product product = productDTO.mapping();
-            product.setSupplierId(supplierId);
+            product.setSupplier(productDTO.mapping().getSupplier());
             List<ProductImg> imgs = new ArrayList<>();
             List<String> filenames = storageImage.storageMultiImage(productDTO.getImages_file());
             for (String name : filenames) {
@@ -122,7 +122,7 @@ public class SProductController {
         Product p = productService.findById(productDTO.getProductId());
         p.setProductName(productDTO.getProductName());
         p.setStatus(productDTO.getStatus());
-        p.setCategoryId(productDTO.getCategoryId());
+        p.setCategory(productDTO.mapping().getCategory());
         p.setDefaultPrice(productDTO.getDefaultPrice());
         p.setMinPrice(productDTO.getMinPrice());
         p.setDetail(productDTO.getDetail());

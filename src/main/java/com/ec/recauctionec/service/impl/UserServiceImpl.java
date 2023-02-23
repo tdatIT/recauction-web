@@ -1,13 +1,13 @@
 package com.ec.recauctionec.service.impl;
 
-import com.ec.recauctionec.entity.User;
-import com.ec.recauctionec.entity.Wallet;
+import com.ec.recauctionec.entities.Role;
+import com.ec.recauctionec.entities.User;
+import com.ec.recauctionec.entities.Wallet;
 import com.ec.recauctionec.repositories.RoleRepo;
 import com.ec.recauctionec.repositories.UserRepo;
 import com.ec.recauctionec.repositories.VerificationTokenRepo;
 import com.ec.recauctionec.service.EmailService;
 import com.ec.recauctionec.service.UserService;
-import com.ec.recauctionec.variable.RoleConst;
 import com.ec.recauctionec.verification.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,8 +40,7 @@ UserServiceImpl implements UserService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encrypt_pass = encoder.encode(user.getPassword());
         user.setPassword(encrypt_pass);
-        user.setRoleId(RoleConst.USER);
-        user.setRoleByRoleId(roleRepo.findByRoleId(RoleConst.USER));
+        user.setRole(roleRepo.findByRoleId(Role.ROLE_USER));
         user.setCreateDate(new Date(new java.util.Date().getTime()));
         user.setLevelUser(1);
         return userRepo.save(user);
@@ -107,7 +106,7 @@ UserServiceImpl implements UserService {
         wallet.setUser(user);
         List<Wallet> wallets = new ArrayList<>();
         wallets.add(wallet);
-        user.setWalletsByUserId(wallets);
+        user.setWallets(wallets);
         userRepo.save(user);
         VerificationToken token = verificationTokenRepo.findByUser(user);
         verificationTokenRepo.delete(token);
@@ -129,6 +128,7 @@ UserServiceImpl implements UserService {
     public User findById(int id) {
         return userRepo.findById(id).orElseThrow();
     }
+
     @Override
     public List<User> findAllUser() {
         return userRepo.findAllUserNotAdmin();

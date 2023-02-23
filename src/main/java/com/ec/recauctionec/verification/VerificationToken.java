@@ -1,16 +1,14 @@
 package com.ec.recauctionec.verification;
 
-import com.ec.recauctionec.entity.User;
-import lombok.Getter;
-import lombok.Setter;
+import com.ec.recauctionec.entities.User;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class VerificationToken {
     private static final int EXPIRATION = 60 * 24;

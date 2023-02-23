@@ -1,6 +1,6 @@
 package com.ec.recauctionec.service.impl;
 
-import com.ec.recauctionec.entity.AuctSessJoin;
+import com.ec.recauctionec.entities.AuctSessJoin;
 import com.ec.recauctionec.repositories.AuctSessJoinRepo;
 import com.ec.recauctionec.service.AuctSessJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import java.util.List;
 public class AuctSessJoinServiceImpl implements AuctSessJoinService {
     @Autowired
     private AuctSessJoinRepo joinRepo;
-
     @Override
     public List<AuctSessJoin> findAllByAuctionId(int auctionId) {
         return joinRepo.findAllByAuctionId(auctionId);
@@ -20,7 +19,7 @@ public class AuctSessJoinServiceImpl implements AuctSessJoinService {
 
     @Override
     public AuctSessJoin findBestPriceAuctionJoinByAuction(int auctionId) {
-        return joinRepo.findTop1ByAuctionSessIdOrderByPriceAsc(auctionId);
+        return null;
     }
 
     @Override

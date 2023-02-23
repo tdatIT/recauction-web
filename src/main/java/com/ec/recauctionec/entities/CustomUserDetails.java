@@ -1,7 +1,6 @@
-package com.ec.recauctionec.entity;
+package com.ec.recauctionec.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,8 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-@Getter
-@Setter
+@Data
 public class CustomUserDetails implements UserDetails {
     @Autowired
     User user;
@@ -27,7 +25,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(
-                user.getRoleByRoleId().getName()));
+                user.getRole().getName()));
     }
 
     @Override

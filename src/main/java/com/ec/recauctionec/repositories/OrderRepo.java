@@ -1,6 +1,6 @@
 package com.ec.recauctionec.repositories;
 
-import com.ec.recauctionec.entity.Orders;
+import com.ec.recauctionec.entities.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

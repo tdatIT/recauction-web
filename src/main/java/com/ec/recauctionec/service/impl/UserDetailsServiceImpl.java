@@ -1,7 +1,7 @@
 package com.ec.recauctionec.service.impl;
 
-import com.ec.recauctionec.entity.CustomUserDetails;
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entities.CustomUserDetails;
+import com.ec.recauctionec.entities.User;
 import com.ec.recauctionec.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

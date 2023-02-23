@@ -1,18 +1,16 @@
-package com.ec.recauctionec.entity;
+package com.ec.recauctionec.entities;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
-@Table(name = "orders", schema = "reauction_db")
+@Table(name = "orders")
 public class Orders {
     public static final int NOT_CONFIRM = 1;
     public static final int CONFIRM = 2;
@@ -24,22 +22,19 @@ public class Orders {
     @Id
     @Column(name = "order_id", nullable = false)
     private int orderId;
-    @Basic
+    
     @Column(name = "createDate", nullable = false)
     private Timestamp createDate;
-    @Basic
+    
     @Column(name = "updateDate", nullable = false)
     private Date updateDate;
-    @Basic
-    @Column(name = "delivery_id", nullable = false)
-    private int deliveryId;
-    @Basic
+    
     @Column(name = "shipping_price", nullable = false, precision = 0)
     private double shippingPrice;
-    @Basic
+    
     @Column(name = "status", nullable = false)
     private int status;
-    @Basic
+    
     @Column(name = "total_price", nullable = false, precision = 0)
     private double totalPrice;
 
@@ -53,7 +48,7 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "delivery_id", nullable = false, insertable = false, updatable = false)
-    private Delivery deliveryByDeliveryId;
+    private Delivery delivery;
 
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)

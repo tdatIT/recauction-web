@@ -1,6 +1,6 @@
 package com.ec.recauctionec.variable;
 
-import com.ec.recauctionec.entity.Supplier;
+import com.ec.recauctionec.entities.Supplier;
 
 public class SupplierLevel {
     public static final int STANDDARD = 1;
@@ -12,7 +12,7 @@ public class SupplierLevel {
     private static final int NOL_PRODUCT = 20;
 
     public static boolean checkingAvailableProduct(Supplier supplier) {
-        int noProduct = supplier.getProductsBySupplierId().size();
+        int noProduct = supplier.getProducts().size();
         switch (supplier.getLevelSupp()) {
             case STANDDARD:
                 return (noProduct < ST_PRODUCT ? true : false);

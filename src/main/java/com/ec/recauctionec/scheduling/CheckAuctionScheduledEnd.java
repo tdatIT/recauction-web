@@ -2,10 +2,10 @@ package com.ec.recauctionec.scheduling;
 
 import com.ec.recauctionec.dto.OrderDTO;
 import com.ec.recauctionec.email.EmailDetails;
-import com.ec.recauctionec.entity.AuctSessJoin;
-import com.ec.recauctionec.entity.AuctionSession;
-import com.ec.recauctionec.entity.Orders;
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entities.AuctSessJoin;
+import com.ec.recauctionec.entities.AuctionSession;
+import com.ec.recauctionec.entities.Orders;
+import com.ec.recauctionec.entities.User;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.EmailService;
 import com.ec.recauctionec.service.OrderService;
@@ -47,10 +47,10 @@ public class CheckAuctionScheduledEnd {
             if (auction.getEndDate().getTime() <= calendar.getTimeInMillis()) {
                 AuctSessJoin win = auctionService.setWinAuctionSession(auction.getAuctionSessId());
                 OrderDTO dto = new OrderDTO();
-                User us = auction.getUserByUserId();
+                User us = auction.getUser();
                 dto.setUser(us);
                 //set default address
-                dto.setProduct(win.getProductByProductId());
+                dto.setProduct(win.getProduct());
                 dto.setTotalPrice(win.getPrice());
                 dto.setStatus(Orders.NOT_CONFIRM);
                 dto.setWinAuction(win);
@@ -59,7 +59,7 @@ public class CheckAuctionScheduledEnd {
                 log.info("Create order of Auction ID:  " + auction.getAuctionSessId());
             } else if (auction.getEndDate().getTime() <= calendar.getTimeInMillis() + (MIN_NOTIFY * MILLISECOND)) {
                 EmailDetails email = new EmailDetails();
-                email.setRecipient(auction.getUserByUserId().getEmail());
+                email.setRecipient(auction.getUser().getEmail());
                 email.setSubject("Phiên Đấu Giá Sắp Kết Thúc");
                 email.setMsgBody("Phiên đấu giá ID:[" + auction.getAuctionSessId() +
                         "] của bạn còn 30p nữa là hết hạn]");

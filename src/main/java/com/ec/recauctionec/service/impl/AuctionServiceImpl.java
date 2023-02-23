@@ -1,7 +1,7 @@
 package com.ec.recauctionec.service.impl;
 
 import com.ec.recauctionec.dto.AuctionSessionDTO;
-import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.entities.*;
 import com.ec.recauctionec.repositories.AuctSessJoinRepo;
 import com.ec.recauctionec.repositories.AuctionRepo;
 import com.ec.recauctionec.repositories.UserRepo;
@@ -59,7 +59,7 @@ public class AuctionServiceImpl implements AuctionService {
             Wallet w_us = walletRepo.findByUserId(us.getUserId()).get(0);
             if (w_us.getAccountBalance() >= (dto.getReservePrice() * CHECK_AVAILABLE)
                     && auctionRepo.findActiveAuction(us.getUserId()).size() < CHECK_TOTAL_AUCTION) {
-                auction.setUserId(us.getUserId());
+                auction.setUser(us);
                 if (dto.isAuto()) {
                     //business logic process
                 }
@@ -88,9 +88,8 @@ public class AuctionServiceImpl implements AuctionService {
     public AuctSessJoin setWinAuctionSession(int auctionId) {
         AuctionSession auction = auctionRepo.findById(auctionId).orElseThrow();
         if (auction != null) {
-            AuctSessJoin winner =
-                    joinRepo.findTop1ByAuctionSessIdOrderByPriceAsc(auction.getAuctionSessId());
-            for (AuctSessJoin join : auction.getAuctSessJoinsByAuctionSessId()) {
+            AuctSessJoin winner = new AuctSessJoin();
+            for (AuctSessJoin join : auction.getAuctSessJoins()) {
                 join.setStatus(AuctSessJoin.LOSS);
                 joinRepo.save(join);
             }
@@ -109,7 +108,7 @@ public class AuctionServiceImpl implements AuctionService {
     public boolean cancelAuction(int auctionId) {
         AuctionSession auction = auctionRepo.findById(auctionId).orElseThrow();
         if (auction != null) {
-            for (AuctSessJoin join : auction.getAuctSessJoinsByAuctionSessId()) {
+            for (AuctSessJoin join : auction.getAuctSessJoins()) {
                 join.setStatus(AuctSessJoin.LOSS);
                 joinRepo.save(join);
             }

@@ -1,10 +1,7 @@
 package com.ec.recauctionec.service.impl;
 
 import com.ec.recauctionec.dto.OrderDTO;
-import com.ec.recauctionec.entity.Commission;
-import com.ec.recauctionec.entity.Orders;
-import com.ec.recauctionec.entity.Wallet;
-import com.ec.recauctionec.entity.WalletHistory;
+import com.ec.recauctionec.entities.*;
 import com.ec.recauctionec.location.Location;
 import com.ec.recauctionec.location.Shipping;
 import com.ec.recauctionec.repositories.*;
@@ -65,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void createOrderNotConfirm(OrderDTO dto) {
         Orders order = dto.mapping();
-        order.setDeliveryId(DEFAULT_SHIPPING);
+        order.setDelivery(new Delivery(DEFAULT_SHIPPING));
         order.setStatus(Orders.NOT_CONFIRM);
         order.setCreateDate(new Timestamp(new Date().getTime()));
         orderRepo.save(order);
@@ -76,11 +73,11 @@ public class OrderServiceImpl implements OrderService {
     public boolean confirmOrder(OrderDTO dto) {
         try {
             Orders order = dto.mapping();
-            Wallet user_wallet = dto.getUser().getWalletsByUserId().iterator().next();
+            Wallet user_wallet = dto.getUser().getWallets().iterator().next();
             if (user_wallet.getAccountBalance() >= order.getTotalPrice()) {
                 //Calculate Shipping Cost
                 Location src = Location.values()
-                        [order.getProduct().getSupplierBySupplierId().getLocation()];
+                        [order.getProduct().getSupplier().getLocation()];
                 Location des = Location.values()
                         [order.getAddress().getDistrict()];
                 order.setShippingPrice(Shipping.calculateShipping(src, des,
@@ -115,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean cancelOrder(OrderDTO dto) {
         try {
             Orders order = dto.mapping();
-            Wallet user_wallet = dto.getUser().getWalletsByUserId().iterator().next();
+            Wallet user_wallet = dto.getUser().getWallets().iterator().next();
             if (order.getStatus() != Orders.CANCEL && order.getStatus() != Orders.COMPLETE) {
                 order.setStatus(Orders.CANCEL);
                 order.setUpdateDate(new java.sql.Date(new Date().getTime()));
@@ -158,9 +155,9 @@ public class OrderServiceImpl implements OrderService {
     public boolean completedOrder(Orders order) {
         try {
             Wallet user_wallet = order.getProduct().
-                    getSupplierBySupplierId().
-                    getUserByOwnerId()
-                    .getWalletsByUserId().iterator().next();
+                    getSupplier().
+                    getUser()
+                    .getWallets().iterator().next();
             if (order.getStatus() == Orders.DELIVERY) {
                 order.setStatus(Orders.COMPLETE);
                 order.setUpdateDate(new java.sql.Date(new Date().getTime()));
@@ -169,7 +166,7 @@ public class OrderServiceImpl implements OrderService {
                 double realValue = order.getTotalPrice() - order.getShippingPrice();
                 commission.setAmountFromSupplier(realValue * FROM_SUPPLIER);
                 double profit = order.getWinAuction()
-                        .getAuctionSessionByAuctionSessId()
+                        .getAuctionSession()
                         .getReservePrice() - order.getTotalPrice();
                 commission.setAmountFromBuyer(profit * FROM_BUYER);
                 commission.setOrder(order);

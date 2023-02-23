@@ -1,9 +1,9 @@
 package com.ec.recauctionec.controller.admin;
 
 import com.ec.recauctionec.dto.ProductDTO;
-import com.ec.recauctionec.entity.Category;
-import com.ec.recauctionec.entity.Product;
-import com.ec.recauctionec.entity.ProductImg;
+import com.ec.recauctionec.entities.Category;
+import com.ec.recauctionec.entities.Product;
+import com.ec.recauctionec.entities.ProductImg;
 import com.ec.recauctionec.service.CategoryService;
 import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.StorageImage;
@@ -59,7 +59,7 @@ public class AProductController {
         Product p = productService.findById(productDTO.getProductId());
         p.setProductName(productDTO.getProductName());
         p.setStatus(productDTO.getStatus());
-        p.setCategoryId(productDTO.getCategoryId());
+        p.setCategory(productDTO.mapping().getCategory());
         p.setDefaultPrice(productDTO.getDefaultPrice());
         p.setMinPrice(productDTO.getMinPrice());
         p.setDetail(productDTO.getDetail());

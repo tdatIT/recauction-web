@@ -1,22 +1,20 @@
-package com.ec.recauctionec.entity;
+package com.ec.recauctionec.entities;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
-@Table(name = "product_img", schema = "recauction_db", catalog = "")
+@Table(name = "product_img")
 public class ProductImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "img_id", nullable = false)
     private int imgId;
-    @Basic
+    
     @Column(name = "img_name", nullable = false)
     private String imgName;
 

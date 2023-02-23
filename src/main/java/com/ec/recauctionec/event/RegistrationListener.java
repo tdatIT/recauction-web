@@ -1,6 +1,6 @@
 package com.ec.recauctionec.event;
 
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entities.User;
 import com.ec.recauctionec.service.UserService;
 import com.ec.recauctionec.variable.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;

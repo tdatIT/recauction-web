@@ -1,13 +1,11 @@
 package com.ec.recauctionec.dto;
 
-import com.ec.recauctionec.entity.AuctSessJoin;
-import com.ec.recauctionec.entity.AuctionSession;
-import com.ec.recauctionec.entity.Category;
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entities.AuctSessJoin;
+import com.ec.recauctionec.entities.AuctionSession;
+import com.ec.recauctionec.entities.Category;
+import com.ec.recauctionec.entities.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
@@ -18,8 +16,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-@Getter
-@Setter
 @Data
 @EqualsAndHashCode
 public class AuctionSessionDTO {
@@ -54,7 +50,7 @@ public class AuctionSessionDTO {
 
     private String productTagStr;
 
-    private Collection<AuctSessJoin> auctSessJoinsByAuctionSessId;
+    private Collection<AuctSessJoin> auctSessJoins;
 
     private Category categoryByCategoryId;
 
@@ -78,7 +74,6 @@ public class AuctionSessionDTO {
         Timestamp endTime = new Timestamp(startDate.getTimeInMillis());
         //Mapping into object
         auction.setProductKey(productKey);
-        auction.setCategoryId(categoryId);
         auction.setReservePrice(reservePrice);
         auction.setCreateDate(new Timestamp(new Date().getTime()));
         auction.setStartDate(startTime);

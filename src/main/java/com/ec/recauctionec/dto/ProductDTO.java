@@ -1,17 +1,13 @@
 package com.ec.recauctionec.dto;
 
-import com.ec.recauctionec.entity.Product;
-import com.ec.recauctionec.entity.ProductImg;
+import com.ec.recauctionec.entities.Product;
+import com.ec.recauctionec.entities.ProductImg;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
-@Getter
-@Setter
 @Data
 public class ProductDTO {
 

@@ -1,20 +1,16 @@
 package com.ec.recauctionec.dto;
 
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entities.User;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public class UserDTO {
     private int userId;
     @NotEmpty

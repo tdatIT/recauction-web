@@ -1,12 +1,8 @@
 package com.ec.recauctionec.email;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class EmailDetails {
     private String recipient;

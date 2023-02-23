@@ -1,7 +1,7 @@
 package com.ec.recauctionec.repositories;
 
-import com.ec.recauctionec.entity.Wallet;
-import com.ec.recauctionec.entity.WalletHistory;
+import com.ec.recauctionec.entities.Wallet;
+import com.ec.recauctionec.entities.WalletHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

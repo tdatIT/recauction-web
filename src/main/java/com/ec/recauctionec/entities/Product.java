@@ -1,15 +1,13 @@
-package com.ec.recauctionec.entity;
+package com.ec.recauctionec.entities;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
 @Table(name = "product", schema = "recauction_db")
 public class Product {
@@ -21,44 +19,38 @@ public class Product {
     @Id
     @Column(name = "product_id", nullable = false)
     private int productId;
-    @Basic
-    @Column(name = "category_id", nullable = false)
-    private int categoryId;
-    @Basic
+    
     @Column(name = "detail", nullable = true, length = 255)
     private String detail;
-    @Basic
+    
     @Column(name = "product_name", nullable = false, length = 255)
     private String productName;
-    @Basic
+    
     @Column(name = "status", nullable = false)
     private int status;
-    @Basic
+    
     @Column(name = "default_price", nullable = false, precision = 0)
     private double defaultPrice;
-    @Basic
+    
     @Column(name = "min_price", nullable = false, precision = 0)
     private double minPrice;
-    @Basic
-    @Column(name = "supplier_id", nullable = false)
-    private int supplierId;
-    @Basic
+
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
-    @Basic
+    
     @Column(name = "product_tag")
     private String productTag;
 
-    @OneToMany(mappedBy = "productByProductId")
-    private Collection<AuctSessJoin> auctSessJoinsByProductId;
+    @OneToMany(mappedBy = "product")
+    private Collection<AuctSessJoin> auctSessJoins;
+
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false,
-            insertable = false, updatable = false)
-    private Category categoryByCategoryId;
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @ManyToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "supplier_id", nullable = false,
-            insertable = false, updatable = false)
-    private Supplier supplierBySupplierId;
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)

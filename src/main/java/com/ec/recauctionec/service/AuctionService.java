@@ -1,10 +1,9 @@
 package com.ec.recauctionec.service;
 
 import com.ec.recauctionec.dto.AuctionSessionDTO;
-import com.ec.recauctionec.entity.AuctSessJoin;
-import com.ec.recauctionec.entity.AuctionSession;
-import com.ec.recauctionec.entity.User;
-import org.springframework.data.domain.Pageable;
+import com.ec.recauctionec.entities.AuctSessJoin;
+import com.ec.recauctionec.entities.AuctionSession;
+import com.ec.recauctionec.entities.User;
 
 import java.sql.Date;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.ec.recauctionec.location;
 
-import com.ec.recauctionec.entity.Delivery;
-import com.ec.recauctionec.entity.UserAddress;
+import com.ec.recauctionec.entities.Delivery;
+import com.ec.recauctionec.entities.UserAddress;
 import com.ec.recauctionec.repositories.DeliveryRepo;
 import com.ec.recauctionec.repositories.UserAddressRepo;
 import com.ec.recauctionec.service.ProductService;

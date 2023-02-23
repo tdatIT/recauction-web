@@ -1,6 +1,6 @@
 package com.ec.recauctionec.service;
 
-import com.ec.recauctionec.entity.AuctSessJoin;
+import com.ec.recauctionec.entities.AuctSessJoin;
 
 import java.util.List;
 

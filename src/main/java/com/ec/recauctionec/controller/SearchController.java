@@ -1,6 +1,6 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.Product;
+import com.ec.recauctionec.entities.Product;
 import com.ec.recauctionec.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.Column;
 import java.util.List;
 
 @Controller

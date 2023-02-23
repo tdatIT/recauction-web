@@ -1,6 +1,6 @@
 package com.ec.recauctionec.repositories;
 
-import com.ec.recauctionec.entity.Category;
+import com.ec.recauctionec.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

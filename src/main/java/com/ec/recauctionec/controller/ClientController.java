@@ -1,8 +1,9 @@
 package com.ec.recauctionec.controller;
 
 import com.ec.recauctionec.dto.UserDTO;
-import com.ec.recauctionec.entity.*;
+import com.ec.recauctionec.entities.*;
 import com.ec.recauctionec.event.OnRegistrationCompleteEvent;
+import com.ec.recauctionec.paypal.CheckUser;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.UserService;
@@ -131,7 +132,7 @@ public class ClientController {
         try {
             AuctionSession auction = auctionService.findById(auctionId);
             if (auction != null) {
-                List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoinsByAuctionSessId());
+                List<AuctSessJoin> joins = new ArrayList<>(auction.getAuctSessJoins());
                 List<AuctionSession> top10Auction = auctionService.findTop10AuctionForDay();
                 List<Product> products = new ArrayList<>();
                 modelMap.addAttribute("top10Auction", top10Auction);
@@ -153,9 +154,9 @@ public class ClientController {
                             getProductTagStr());
 
                     for (AuctSessJoin j : joins) {
-                        if (j.getProductByProductId()
-                                .getSupplierBySupplierId()
-                                .getUserByOwnerId().getUserId() == us.getUserId()) {
+                        if (j.getProduct()
+                                .getSupplier()
+                                .getUser().getUserId() == us.getUserId()) {
                             modelMap.addAttribute("joined", true);
                             modelMap.addAttribute("supp_price", j.getPrice());
                             break;
@@ -168,5 +169,22 @@ public class ClientController {
         } catch (Exception e) {
             return "redirect:/thong-bao?type=" + MessageController.NOT_FOUND_AUCTION;
         }
+    }
+
+    @GetMapping(value = "/check-email")
+    public ResponseEntity checkExistEmail(@RequestParam String email) {
+        User us = userService.findByEmail(email);
+        if (us != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new CheckUser(200,
+                            "Email already register for diff account",
+                            false));
+
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new CheckUser(200,
+                        "Email not exist",
+                        true));
+
     }
 }

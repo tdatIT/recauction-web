@@ -1,6 +1,6 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.User;
+import com.ec.recauctionec.entities.User;
 import com.ec.recauctionec.service.UserService;
 import com.ec.recauctionec.verification.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;

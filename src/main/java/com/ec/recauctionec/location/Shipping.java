@@ -1,7 +1,6 @@
 package com.ec.recauctionec.location;
 
-import com.ec.recauctionec.entity.Delivery;
-import org.springframework.context.annotation.Bean;
+import com.ec.recauctionec.entities.Delivery;
 
 
 public class Shipping {

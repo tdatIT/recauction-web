@@ -1,7 +1,7 @@
 package com.ec.recauctionec.controller;
 
-import com.ec.recauctionec.entity.AuctionSession;
-import com.ec.recauctionec.entity.Product;
+import com.ec.recauctionec.entities.AuctionSession;
+import com.ec.recauctionec.entities.Product;
 import com.ec.recauctionec.service.AuctionService;
 import com.ec.recauctionec.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

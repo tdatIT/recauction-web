@@ -1,31 +1,35 @@
-package com.ec.recauctionec.entity;
+package com.ec.recauctionec.entities;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
-@Table(name="delivery", schema = "reauction_db")
+@NoArgsConstructor
+@Table(name = "delivery")
 public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "delivery_id", nullable = false)
     private int deliveryId;
-    @Basic
+
+    
     @Column(name = "discount", nullable = false)
     private int discount;
-    @Basic
+
+    
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @OneToMany(mappedBy = "deliveryByDeliveryId")
-    private Collection<Orders> ordersByDeliveryId;
 
+    @OneToMany(mappedBy = "delivery")
+    private Collection<Orders> orders;
 
+    public Delivery(int deliveryId) {
+        this.deliveryId = deliveryId;
+    }
 }

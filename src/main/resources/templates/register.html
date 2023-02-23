@@ -31,6 +31,10 @@
                     <form class="row login_form" th:action="@{/dang-ky}" method="post" id="register_form"
                           th:object="${register}">
                         <div class="row">
+                            <div class="col-md-12 form-group"
+                                 th:if="${(param.error != null) && (param.error[0] == true)}">
+                                <div class="alert alert-danger">Đăng ký thất bại kiểm tra lại thông tin</div>
+                            </div>
                             <div class="col-md-6 form-group">
                                 <input th:field="*{lastName}" type="text" class="form-control" placeholder="Họ"
                                        required>
@@ -41,7 +45,9 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input th:field="*{email}" type="text" class="form-control" placeholder="Email" required>
+                            <label for="email" id="email-status"></label>
+                            <input id="email" th:field="*{email}" type="text" class="form-control" placeholder="Email"
+                                   required>
                         </div>
                         <div class="col-md-12 form-group">
                             <input th:field="*{password}" type="password" class="form-control"
@@ -71,7 +77,24 @@
 <footer th:replace="fragments :: footer">
     <!--================ End footer Area  =================-->
 </footer>
-    <th:block th:replace="fragments :: js_block">
-    </th:block>
+<th:block th:replace="fragments :: js_block">
+</th:block>
+<script>
+    $('#email').change(function () {
+        var email = $(this).val()
+        $.ajax({
+            url: '/check-email',
+            method: 'get',
+            data: {"email": email},
+            success: function (data) {
+                if (data.status == true) {
+                    $('#email-status').text('Email có thể đăng ký');
+                } else {
+                    $('#email-status').text('Email không hợp lệ hoặc có thể đã đăng ký');
+                }
+            }
+        })
+    })
+</script>
 </body>
 </html>
