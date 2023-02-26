@@ -5,7 +5,8 @@
 <head>
     <th:block th:replace="fragments :: head">
     </th:block>
-    <link rel="stylesheet" th:href="@{/vendors/nice-select/nice-select.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.css"/>-->
     <title id="pageTitle">RecAuction - Your Price We Recommend</title>
 </head>
 <body>
@@ -116,7 +117,8 @@
                         <h3>Tham gia với vai trò là người bán</h3>
                         <h4>Bạn có sản phẩm tham gia đấu giá</h4>
                         <p>Chỉ cần 1 tài khoản được cấp quyền bạn sẽ trở thành nhà cung cấp</p>
-                        <a class="button button--active mt-3 mt-xl-4" href="/tai-khoan/dang-ky-nha-cung-cap">Đăng ký ngay</a>
+                        <a class="button button--active mt-3 mt-xl-4" href="/tai-khoan/dang-ky-nha-cung-cap">Đăng ký
+                            ngay</a>
                     </div>
                 </div>
             </div>
@@ -166,6 +168,6 @@
 </footer>
 <th:block th:replace="fragments :: js_block">
 </th:block>
-<script th:src="@{/vendors/nice-select/jquery.nice-select.min.js}" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 </body>
 </html>
