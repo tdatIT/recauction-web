@@ -19,25 +19,25 @@ public class Product {
     @Id
     @Column(name = "product_id", nullable = false)
     private int productId;
-    
-    @Column(name = "detail", nullable = true, length = 255)
+
+    @Column(name = "detail", nullable = true, length = 500)
     private String detail;
-    
+
     @Column(name = "product_name", nullable = false, length = 255)
     private String productName;
-    
+
     @Column(name = "status", nullable = false)
     private int status;
-    
+
     @Column(name = "default_price", nullable = false, precision = 0)
     private double defaultPrice;
-    
+
     @Column(name = "min_price", nullable = false, precision = 0)
     private double minPrice;
 
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
-    
+
     @Column(name = "product_tag")
     private String productTag;
 

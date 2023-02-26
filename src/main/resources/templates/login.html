@@ -29,6 +29,9 @@
                 <div class="login_form_inner">
                     <h3>Đăng nhập vào tài khoản</h3>
                     <form class="row login_form" method="post" action="/dang-nhap" id="contactForm">
+                        <div class="col-md-12 form-group" th:if="${(param.error != null) &&(param.error[0]=='true')}">
+                            <div class="alert alert-danger">Sai tài khoản và mật khẩu !</div>
+                        </div>
                         <div class="col-md-12 form-group">
                             <input type="email" class="form-control" name="email" placeholder="Tài khoản Email">
                         </div>

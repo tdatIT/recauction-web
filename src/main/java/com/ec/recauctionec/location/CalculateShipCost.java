@@ -1,7 +1,7 @@
 package com.ec.recauctionec.location;
 
+import com.ec.recauctionec.entities.AddressData;
 import com.ec.recauctionec.entities.Delivery;
-import com.ec.recauctionec.entities.UserAddress;
 import com.ec.recauctionec.repositories.DeliveryRepo;
 import com.ec.recauctionec.repositories.UserAddressRepo;
 import com.ec.recauctionec.service.ProductService;
@@ -27,14 +27,13 @@ public class CalculateShipCost {
                                                             @RequestParam("location") int srcId) {
         ShipCostObject obj;
         try {
-            UserAddress add = userAddressRepo.findById(desId).orElseThrow();
+            AddressData src = userAddressRepo.findById(srcId).orElseThrow();
+            AddressData des = userAddressRepo.findById(desId).orElseThrow();
             Delivery delivery = deliveryRepo.findById(1).orElseThrow();
             //Set default Viettel Post
-            double ship_cost = Shipping.calculateShipping(
-                    Location.values()[add.getDistrict()],
-                    Location.values()[srcId], delivery);
+            double ship_cost = Shipping.calculateShipping(src, des, delivery);
             obj = new ShipCostObject("Tinh thanh cong "
-                    + Location.values()[add.getDistrict()].name() + "->" + Location.values()[srcId].name(),
+                    + src.getAddressDetailInfo() + "->" + des.getAddressDetailInfo(),
                     (int) ship_cost);
         } catch (Exception e) {
             obj = new ShipCostObject("FAILS", 0);

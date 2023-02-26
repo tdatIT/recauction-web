@@ -48,7 +48,7 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
-    private UserAddress address;
+    private AddressData address;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

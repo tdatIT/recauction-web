@@ -2,7 +2,6 @@ package com.ec.recauctionec.service.impl;
 
 import com.ec.recauctionec.dto.OrderDTO;
 import com.ec.recauctionec.entities.*;
-import com.ec.recauctionec.location.Location;
 import com.ec.recauctionec.location.Shipping;
 import com.ec.recauctionec.repositories.*;
 import com.ec.recauctionec.service.AuctSessJoinService;
@@ -76,10 +75,8 @@ public class OrderServiceImpl implements OrderService {
             Wallet user_wallet = dto.getUser().getWallets().iterator().next();
             if (user_wallet.getAccountBalance() >= order.getTotalPrice()) {
                 //Calculate Shipping Cost
-                Location src = Location.values()
-                        [order.getProduct().getSupplier().getLocation()];
-                Location des = Location.values()
-                        [order.getAddress().getDistrict()];
+                AddressData src = order.getProduct().getSupplier().getAddresses().get(0);
+                AddressData des = order.getAddress();
                 order.setShippingPrice(Shipping.calculateShipping(src, des,
                         deliveryRepo.findById(DEFAULT_SHIPPING).orElseThrow()));
                 //Calculate commission of transaction

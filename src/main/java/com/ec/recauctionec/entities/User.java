@@ -68,7 +68,7 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Collection<UserAddress> userAddresses;
+    private Collection<AddressData> userAddresses;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Wallet> wallets;

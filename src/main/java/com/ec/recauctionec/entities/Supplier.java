@@ -1,15 +1,19 @@
 package com.ec.recauctionec.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+@Setter
 @Entity
 @Data
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "supplier")
 public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +30,6 @@ public class Supplier {
     @Column(name = "level_supp", nullable = false)
     private int levelSupp;
 
-    @Column(name = "location", nullable = false)
-    private int location;
-
     @Column(name = "rating", nullable = false)
     private int rating;
 
@@ -38,4 +39,7 @@ public class Supplier {
     @OneToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AddressData> addresses;
 }

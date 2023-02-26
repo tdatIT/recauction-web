@@ -4,7 +4,7 @@ import com.ec.recauctionec.dto.OrderDTO;
 import com.ec.recauctionec.entities.CustomUserDetails;
 import com.ec.recauctionec.entities.Orders;
 import com.ec.recauctionec.entities.User;
-import com.ec.recauctionec.entities.UserAddress;
+import com.ec.recauctionec.entities.AddressData;
 import com.ec.recauctionec.repositories.UserAddressRepo;
 import com.ec.recauctionec.repositories.WalletRepo;
 import com.ec.recauctionec.service.OrderService;
@@ -57,8 +57,7 @@ public class OrderController {
                 modelMap.addAttribute("balance", walletRepo
                         .findByUserId(user.getUserId()).iterator().next()
                         .getAccountBalance());
-                modelMap.addAttribute("location", order.getProduct()
-                        .getSupplier().getLocation());
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +75,7 @@ public class OrderController {
             if (order != null &&
                     order.getUser().getUserId() == user.getUserId()) {
 
-                UserAddress address = userAddressRepo.findById(addressId)
+                AddressData address = userAddressRepo.findById(addressId)
                         .orElseThrow();
                 OrderDTO dto = new OrderDTO();
                 BeanUtils.copyProperties(order, dto);

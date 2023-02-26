@@ -43,6 +43,7 @@ UserServiceImpl implements UserService {
         user.setRole(roleRepo.findByRoleId(Role.ROLE_USER));
         user.setCreateDate(new Date(new java.util.Date().getTime()));
         user.setLevelUser(1);
+        user.setAvatar("default");
         return userRepo.save(user);
     }
 

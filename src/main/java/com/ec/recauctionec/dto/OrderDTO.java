@@ -33,7 +33,7 @@ public class OrderDTO {
 
     private Product product;
 
-    private UserAddress address;
+    private AddressData address;
     @NotNull
     private User user;
 

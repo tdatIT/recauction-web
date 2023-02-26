@@ -1,5 +1,7 @@
 package com.ec.recauctionec.service.impl;
 
+import com.ec.recauctionec.entities.AddressData;
+import com.ec.recauctionec.entities.Role;
 import com.ec.recauctionec.entities.Supplier;
 import com.ec.recauctionec.entities.User;
 import com.ec.recauctionec.repositories.SupplierRepo;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SupplierServiceImpl implements SupplierService {
@@ -26,20 +30,21 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     @Transactional
-    public boolean insertNewSupplier(int userId, int location) {
-        User us = userRepo.findById(userId).orElseThrow();
-        if (us != null && us.getRole().getRoleId() == RoleConst.USER) {
+    public boolean insertNewSupplier(User user, AddressData address) {
+        if (user != null && user.getRole().getRoleId() == RoleConst.USER) {
             Supplier supplier = new Supplier();
             supplier.setActive(true);
-            supplier.setLocation(location);
             supplier.setCreateDate(new Date(new java.util.Date().getTime()));
             supplier.setLevelSupp(1);
             supplier.setRating(0);
-
-            supplier.setUser(us);
+            List<AddressData> dataList = new ArrayList<>();
+            dataList.add(address);
+            supplier.setAddresses(dataList);
+            supplier.setUser(user);
             //update into db
             supplierRepo.save(supplier);
-            userRepo.save(us);
+            user.setRole(new Role(Role.ROLE_SUPPLIER));
+            userRepo.save(user);
             return true;
         }
         return false;

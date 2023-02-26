@@ -31,10 +31,11 @@ public class AccountController {
     @Autowired
     private SupplierService supplierService;
 
+    private Authentication auth;
 
     @RequestMapping(value = {"/thong-tin", ""}, method = RequestMethod.GET)
     public String viewInfo(ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         User user = userService.findByEmail(email);
         if (user != null) {
@@ -47,7 +48,7 @@ public class AccountController {
 
     @RequestMapping(value = {"/chinh-sua"}, method = RequestMethod.GET)
     public String viewUpdate(ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
         modelMap.addAttribute("user", user);
         return "user/update-info";
@@ -55,17 +56,18 @@ public class AccountController {
 
     @RequestMapping(value = {"/dang-ky-nha-cung-cap"}, method = RequestMethod.GET)
     public String viewRegisterSupp(ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
-        modelMap.addAttribute("userId", user.getUserId());
-        return "user/supplier-register";
+        if (user.getRole().getRoleId() == Role.ROLE_USER)
+            return "user/supplier-register";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/quan-ly-vi")
     public String getWalletPage(@RequestParam(value = "filter", required = false)
                                 @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
                                 ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth = SecurityContextHolder.getContext().getAuthentication();
         User us = ((CustomUserDetails) auth.getPrincipal()).getUser();
         Wallet wallet = walletRepo.findByUserId(us.getUserId()).get(0);
         WalletHistory recent = historyRepo.findTop1ByWalletOrderByCreateDateDesc(wallet);
@@ -79,9 +81,9 @@ public class AccountController {
     }
 
     @PostMapping(value = "/them-dia-chi")
-    public String addAddress(@ModelAttribute UserAddress address,
+    public String addAddress(@ModelAttribute AddressData address,
                              ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth = SecurityContextHolder.getContext().getAuthentication();
         User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
         address.setUser(user);
         addressRepo.save(address);
@@ -89,13 +91,12 @@ public class AccountController {
     }
 
     @RequestMapping(value = {"/dang-ky-nha-cung-cap"}, method = RequestMethod.POST)
-    public String registerSupplier(@RequestParam("userId") int userId,
-                                   @RequestParam("location") int location,
+    public String registerSupplier(@ModelAttribute AddressData address,
                                    ModelMap modelMap) {
-        User us = userService.findById(userId);
+        User us = ((CustomUserDetails) auth.getPrincipal()).getUser();
         if (us != null) {
-            supplierService.insertNewSupplier(userId, location);
-            return "redirect:/dang-xuat";
+            supplierService.insertNewSupplier(us, address);
+            return "redirect:/thong-bao?type=" + MessageController.LOGOUT_MESS;
         }
         return "redirect:/thong-bao?type=3";
 
@@ -118,7 +119,7 @@ public class AccountController {
                              @RequestParam("email") String email,
                              @RequestParam("phone") String phone,
                              ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth = SecurityContextHolder.getContext().getAuthentication();
         User us = ((CustomUserDetails) auth.getPrincipal()).getUser();
         try {
             us.setFirstName(firstname);

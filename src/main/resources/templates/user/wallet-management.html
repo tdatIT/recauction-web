@@ -62,7 +62,7 @@
                                                         <tr>
                                                             <td>GD gần nhất:</td>
                                                             <td th:if="${recent != null}"
-                                                                th:text="${recent.createDate}"></td>
+                                                                th:text="${#dates.format(recent.createDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
                                                             <td th:if="${recent == null}">Không có</td>
                                                         </tr>
                                                     </table>
@@ -70,7 +70,8 @@
                                             </div>
                                             <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3 btn-payment">
                                                 <div class="mt-2">
-                                                    <a href="/thanh-toan" class="btn btn-primary btn-load" type="button">
+                                                    <a href="/thanh-toan" class="btn btn-primary btn-load"
+                                                       type="button">
                                                         <span>Nạp tiền vào ví</span>
                                                     </a>
                                                 </div>
