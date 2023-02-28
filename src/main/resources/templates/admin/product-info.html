@@ -71,11 +71,6 @@
                                                     <option th:value="${c.categoryId}" th:text="${c.categoryName}">
 
                                                     </option>
-                                                    <option th:if="${c.categoryId == productDTO.categoryId}"
-                                                            th:value="${c.categoryId}" th:text="${c.categoryName}"
-                                                            selected hidden>
-
-                                                    </option>
                                                 </th:block>
 
                                             </select>
@@ -85,7 +80,6 @@
                                             <label class="form-label">Giá tiền mặc định</label>
                                             <input name="price" class="form-control  mb-2" type="number"
                                                    placeholder="Ví dụ: 25000"
-                                                   th:value="${#numbers.formatDecimal(productDTO.defaultPrice, 2, 1,'COMMA')}"
                                                    th:field="*{defaultPrice}">
                                         </div>
 
@@ -93,7 +87,6 @@
                                             <label class="form-label">Giá tiền thấp nhất</label>
                                             <input name="promotionalPrice" class="form-control mb-2" type="number"
                                                    placeholder="Giá tiền thấp nhất mà sản phẩm có thể đấu giá"
-                                                   th:value="${#numbers.formatDecimal(productDTO.minPrice, 2, 1,'COMMA')}"
                                                    th:field="*{minPrice}">
                                         </div>
                                     </div>
@@ -121,8 +114,15 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label class="form-label">Mô tả tóm tắt</label>
+                                            <textarea name="description" class="form-control mb-2" type="text"
+                                                      placeholder="Chi tiết" th:value="*{detail}"
+                                                      th:field="*{subDetail}"></textarea>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="form-label">Mô tả sản phẩm</label>
-                                            <textarea id="summernote" name="description" class="form-control mb-2" type="text"
+                                            <textarea id="summernote" name="description" class="form-control mb-2"
+                                                      type="text"
                                                       placeholder="Chi tiết" th:value="*{detail}"
                                                       th:field="*{detail}"></textarea>
                                         </div>
@@ -163,13 +163,12 @@
     <!-- // Main Content -->
 </div>
 
-
 <!-- If you prefer jQuery these are the required scripts -->
 <th:block th:replace="admin/admin-fragments :: script-block"></th:block>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#summernote').summernote();
     });
     var choices = new Choices('.js-choice');

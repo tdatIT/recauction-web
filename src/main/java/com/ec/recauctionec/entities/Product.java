@@ -20,8 +20,11 @@ public class Product {
     @Column(name = "product_id", nullable = false)
     private int productId;
 
-    @Column(name = "detail", nullable = true, length = 500)
+    @Column(name = "detail", nullable = true, columnDefinition = "TEXT")
     private String detail;
+
+    @Column(length = 255)
+    private String subDetail;
 
     @Column(name = "product_name", nullable = false, length = 255)
     private String productName;

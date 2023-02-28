@@ -4754,12 +4754,12 @@ a {
 
 .footer-area {
     background: #002347;
-    padding: 50px 0px 50px
+    padding: 20px 0px 20px
 }
 
 @media (min-width: 1000px) {
     .footer-area {
-        padding: 140px 0px 80px
+        padding: 50px 0px 20px
     }
 }
 
@@ -4858,7 +4858,7 @@ a {
 
 .footer-bottom {
     background: rgba(0, 35, 71, 0.980392);
-    padding: 32px
+    padding: 18px
 }
 
 .footer-bottom .footer-text {

@@ -7,6 +7,7 @@ import com.ec.recauctionec.service.ProductService;
 import com.ec.recauctionec.service.StorageImage;
 import com.ec.recauctionec.service.SupplierService;
 import com.ec.recauctionec.variable.SupplierLevel;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/supplier/san-pham")
@@ -38,14 +39,20 @@ public class SProductController {
     @Autowired
     StorageImage storageImage;
 
+    @Autowired
+    ModelMapper modelMapper;
+
+    private Authentication auth;
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getProductList(ModelMap modelMap, HttpServletRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
-        Supplier sup = supplierService.findByOwnerId(userId);
-        int supplierId = sup.getSupplierId();
-        List<Product> products = productService.findBySupplierId(supplierId);
+        //get user session and supplier from user
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
+        Supplier sup = user.getSuppliers();
+        //get product list
+        List<Product> products = productService.findBySupplierId(sup.getSupplierId());
         if (SupplierLevel.checkingAvailableProduct(sup)) {
             int available = SupplierLevel.getNumberProductAvailable(sup.getLevelSupp()) - products.size();
             modelMap.addAttribute("message", "Bạn thể thêm  [" + available
@@ -57,9 +64,10 @@ public class SProductController {
 
     @RequestMapping(value = "/them", method = RequestMethod.GET)
     public String getInsertProduct(ModelMap modelMap) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
-        Supplier sup = supplierService.findByOwnerId(userId);
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
+        Supplier sup = user.getSuppliers();
+
         if (SupplierLevel.checkingAvailableProduct(sup)) {
             List<Category> categories = categoryService.findAll();
             ProductDTO productDTO = new ProductDTO();
@@ -67,33 +75,30 @@ public class SProductController {
             modelMap.addAttribute("categories", categories);
             modelMap.addAttribute("productDTO", productDTO);
             modelMap.addAttribute("action", "them");
-
             return "supplier/product-info";
         }
         return "forward:/supplier/san-pham";
     }
 
 
-    @Transactional
     @RequestMapping(value = "/them", method = RequestMethod.POST)
     public String insertNewProduct(@ModelAttribute ProductDTO productDTO,
                                    ModelMap modelMap) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userId = ((CustomUserDetails) authentication.getPrincipal()).getUserId();
-        Supplier sup = supplierService.findByOwnerId(userId);
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((CustomUserDetails) auth.getPrincipal()).getUser();
+        Supplier sup = user.getSuppliers();
+
         if (SupplierLevel.checkingAvailableProduct(sup)) {
-            int supplierId = sup.getSupplierId();
-            Product product = productDTO.mapping();
-            product.setSupplier(productDTO.mapping().getSupplier());
-            List<ProductImg> imgs = new ArrayList<>();
+            Product product = modelMapper.map(productDTO, Product.class);
+            product.setSupplier(sup);
             List<String> filenames = storageImage.storageMultiImage(productDTO.getImages_file());
-            for (String name : filenames) {
-                ProductImg img = new ProductImg();
-                img.setImgName(name);
-                img.setProduct(product);
-                imgs.add(img);
-            }
-            product.setImages(imgs);
+            product.setImages(filenames.stream().map(
+                    t -> {
+                        ProductImg img = new ProductImg();
+                        img.setImgName(t);
+                        img.setProduct(product);
+                        return img;
+                    }).collect(Collectors.toList()));
             productService.insertProduct(product);
         }
         return "redirect:/supplier/san-pham";
@@ -106,8 +111,8 @@ public class SProductController {
 
         List<Category> categories = categoryService.findAll();
         Product p = productService.findById(id);
-        ProductDTO productDTO = new ProductDTO();
-        BeanUtils.copyProperties(p, productDTO);
+        ProductDTO productDTO = modelMapper.map(p, ProductDTO.class);
+
         modelMap.addAttribute("action", "/supplier/san-pham/chinh-sua");
         modelMap.addAttribute("productDTO", productDTO);
         modelMap.addAttribute("categories", categories);
@@ -116,29 +121,22 @@ public class SProductController {
 
     @Transactional
     @RequestMapping(value = "/chinh-sua", method = RequestMethod.POST)
-    public String updateProduct(@ModelAttribute ProductDTO productDTO
-            , ModelMap modelMap) {
+    public String updateProduct(@ModelAttribute ProductDTO productDTO,
+                                ModelMap modelMap) {
 
         Product p = productService.findById(productDTO.getProductId());
-        p.setProductName(productDTO.getProductName());
-        p.setStatus(productDTO.getStatus());
-        p.setCategory(productDTO.mapping().getCategory());
-        p.setDefaultPrice(productDTO.getDefaultPrice());
-        p.setMinPrice(productDTO.getMinPrice());
-        p.setDetail(productDTO.getDetail());
-
+        BeanUtils.copyProperties(productDTO, p);
         if (productDTO.getImages_file() != null) {
-            List<ProductImg> imgs = new ArrayList<>();
             List<String> filenames = storageImage.storageMultiImage(productDTO.getImages_file());
-            for (String name : filenames) {
-                ProductImg img = new ProductImg();
-                img.setImgName(name);
-                img.setProduct(p);
-                imgs.add(img);
-            }
-            p.setImages(imgs);
+            p.setImages(filenames.stream().map(
+                    t -> {
+                        ProductImg img = new ProductImg();
+                        img.setProduct(p);
+                        img.setImgName(t);
+                        return img;
+                    }
+            ).collect(Collectors.toList()));
         }
-
         productService.updateProduct(p);
         return "redirect:/supplier/san-pham";
     }

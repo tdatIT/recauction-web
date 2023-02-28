@@ -17,8 +17,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/san-pham")
@@ -31,7 +31,7 @@ public class AProductController {
     StorageImage storageImage;
 
     @GetMapping(value = {""})
-    public String getProductList(ModelMap modelMap, HttpServletRequest request){
+    public String getProductList(ModelMap modelMap, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Product> productList = productService.findAllProduct();
         modelMap.addAttribute("productList", productList);
@@ -53,27 +53,21 @@ public class AProductController {
 
     @Transactional
     @RequestMapping(value = "/chinh-sua", method = RequestMethod.POST)
-    public String updateProduct(@ModelAttribute ProductDTO productDTO
-            , ModelMap modelMap) {
+    public String updateProduct(@ModelAttribute ProductDTO productDTO,
+                                ModelMap modelMap) {
 
         Product p = productService.findById(productDTO.getProductId());
-        p.setProductName(productDTO.getProductName());
-        p.setStatus(productDTO.getStatus());
-        p.setCategory(productDTO.mapping().getCategory());
-        p.setDefaultPrice(productDTO.getDefaultPrice());
-        p.setMinPrice(productDTO.getMinPrice());
-        p.setDetail(productDTO.getDetail());
-
+        BeanUtils.copyProperties(productDTO, p);
         if (productDTO.getImages_file() != null) {
-            List<ProductImg> imgs = new ArrayList<>();
             List<String> filenames = storageImage.storageMultiImage(productDTO.getImages_file());
-            for (String name : filenames) {
-                ProductImg img = new ProductImg();
-                img.setImgName(name);
-                img.setProduct(p);
-                imgs.add(img);
-            }
-            p.setImages(imgs);
+            p.setImages(filenames.stream().map(
+                    t -> {
+                        ProductImg img = new ProductImg();
+                        img.setProduct(p);
+                        img.setImgName(t);
+                        return img;
+                    }
+            ).collect(Collectors.toList()));
         }
 
         productService.updateProduct(p);

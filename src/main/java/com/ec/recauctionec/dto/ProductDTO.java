@@ -1,9 +1,7 @@
 package com.ec.recauctionec.dto;
 
-import com.ec.recauctionec.entities.Product;
 import com.ec.recauctionec.entities.ProductImg;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
@@ -20,7 +18,7 @@ public class ProductDTO {
     private String productName;
 
     private int status;
-
+    private String subDetail;
     private double defaultPrice;
 
     private double minPrice;
@@ -33,9 +31,4 @@ public class ProductDTO {
     private Collection<ProductImg> images;
     private boolean isDeleted;
 
-    public Product mapping() {
-        Product p = new Product();
-        BeanUtils.copyProperties(this, p);
-        return p;
-    }
 }

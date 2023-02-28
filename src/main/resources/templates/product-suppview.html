@@ -4,7 +4,7 @@
 <head>
     <th:block th:replace="fragments :: head">
     </th:block>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.css"/>
     <title id="pageTitle" th:text="${product.productName}"></title>
 </head>
 <body>
@@ -49,12 +49,16 @@
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
                         <h1 th:text="*{productName}"></h1>
+                        <div class="card_area d-flex align-items-center mb-2">
+                            <a class="icon_btn" href="#"><i class="fa fa-message"></i></a>
+                            <a class="icon_btn" href="#"><i class="fa fa-heart"></i></a>
+                        </div>
                         <br>
                         <h3>Giá mặc định</h3>
                         <h2 th:text="*{#numbers.formatDecimal(defaultPrice, 0, 'POINT', 0, 'COMMA')+'₫'} "></h2>
                         <ul class="list">
                             <li><a class="active" href="#"><span>Category</span> :
-                                <th:block th:text="*{categoryByCategoryId.categoryName}"></th:block>
+                                <th:block th:text="*{category.categoryName}"></th:block>
                             </a></li>
                             <li><a href="#"><span>Trạng thái:</span>
                                 <th:block th:switch="*{status}">
@@ -63,18 +67,14 @@
                                     <th:block th:case="3">Dừng hoạt động</th:block>
                                 </th:block>
                             </a></li>
-                        </ul>
+                            <p th:text="*{subDetail}"></p>
 
-                        <p th:if="*{detail.length()>100}" th:text="*{#strings.substring(detail,0,100)+'...'}"></p>
-                        <p th:if="*{detail.length()<=100}" th:text="*{detail}"></p>
+                        </ul>
                         <div class="product_count">
                             <a class="button primary-btn" href="/dau-gia/tao-phien">Tạo phiên đấu giá sản phẩm tương
                                 tự</a>
                         </div>
-                        <div class="card_area d-flex align-items-center">
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -98,15 +98,15 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <p th:text="${product.detail}"></p>
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="table-responsive">
 
+                    <th:block th:utext="${product.detail}"></th:block>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="table-responsive">
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!--================End Product Description Area =================-->
 
@@ -168,7 +168,7 @@
 </footer>
 <th:block th:replace="fragments :: js_block">
 </th:block>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 <script>
     function changeImage(element) {
         let main = document.querySelectorAll("ul#thumbnail li img");

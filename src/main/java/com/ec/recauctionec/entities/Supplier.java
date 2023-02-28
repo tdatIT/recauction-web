@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class Supplier {
     @Column(name = "rating", nullable = false)
     private int rating;
 
-    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER)
     private Collection<Product> products;
 
     @OneToOne
