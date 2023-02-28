@@ -89,7 +89,7 @@ public class PaymentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         User user = userService.findByEmail(email);
-        Wallet wallet = user.getWallets().iterator().next();
+        Wallet wallet = user.getWallet();
         try {
 
             Payment payment = paypalService.executePayment(paymentId, payerId);

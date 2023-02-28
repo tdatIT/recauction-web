@@ -38,6 +38,7 @@ public class SupplierServiceImpl implements SupplierService {
             supplier.setLevelSupp(1);
             supplier.setRating(0);
             List<AddressData> dataList = new ArrayList<>();
+            address.setSupplier(supplier);
             dataList.add(address);
             supplier.setAddresses(dataList);
             supplier.setUser(user);

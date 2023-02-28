@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean confirmOrder(OrderDTO dto) {
         try {
             Orders order = dto.mapping();
-            Wallet user_wallet = dto.getUser().getWallets().iterator().next();
+            Wallet user_wallet = dto.getUser().getWallet();
             if (user_wallet.getAccountBalance() >= order.getTotalPrice()) {
                 //Calculate Shipping Cost
                 AddressData src = order.getProduct().getSupplier().getAddresses().get(0);
@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean cancelOrder(OrderDTO dto) {
         try {
             Orders order = dto.mapping();
-            Wallet user_wallet = dto.getUser().getWallets().iterator().next();
+            Wallet user_wallet = dto.getUser().getWallet();
             if (order.getStatus() != Orders.CANCEL && order.getStatus() != Orders.COMPLETE) {
                 order.setStatus(Orders.CANCEL);
                 order.setUpdateDate(new java.sql.Date(new Date().getTime()));
@@ -154,7 +154,7 @@ public class OrderServiceImpl implements OrderService {
             Wallet user_wallet = order.getProduct().
                     getSupplier().
                     getUser()
-                    .getWallets().iterator().next();
+                    .getWallet();
             if (order.getStatus() == Orders.DELIVERY) {
                 order.setStatus(Orders.COMPLETE);
                 order.setUpdateDate(new java.sql.Date(new Date().getTime()));

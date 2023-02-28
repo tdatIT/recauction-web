@@ -42,7 +42,8 @@
                                                     <table class="order-rable">
                                                         <tr>
                                                             <td>Mã ví:</td>
-                                                            <td th:text="${wallet.getWalletId()}"></td>
+                                                            <td class="text-uppercase"
+                                                                th:text="${wallet.wallet_number.substring(0,6)+'-XXX-'+wallet.wallet_number.substring(7,11)}"></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Số dư:</td>
@@ -68,14 +69,17 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3 btn-payment">
-                                                <div class="mt-2">
-                                                    <a href="/thanh-toan" class="btn btn-primary btn-load"
+                                            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+                                                <div class="confirmation-card">
+                                                    <h3 class="billing-title">Chức năng</h3>
+                                                    <a href="/thanh-toan" class="btn btn-primary justify-content-center"
                                                        type="button">
-                                                        <span>Nạp tiền vào ví</span>
+                                                        Nạp tiền thông qua Paypal
+                                                        <i class="fa fa-brands fa-paypal"></i>
                                                     </a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

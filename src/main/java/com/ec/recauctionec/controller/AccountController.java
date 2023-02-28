@@ -91,8 +91,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = {"/dang-ky-nha-cung-cap"}, method = RequestMethod.POST)
-    public String registerSupplier(@ModelAttribute AddressData address,
-                                   ModelMap modelMap) {
+    public String registerSupplier(@ModelAttribute AddressData address) {
         User us = ((CustomUserDetails) auth.getPrincipal()).getUser();
         if (us != null) {
             supplierService.insertNewSupplier(us, address);

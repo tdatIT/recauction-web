@@ -56,17 +56,16 @@
                                                             giá</a>
                                                     </li>
                                                 </ul>
-
                                                 <div class="tab-content tab-payment" id="myTabContent">
                                                     <div class="tab-pane fade show active " id="updateUser"
                                                          role="tabpanel" aria-labelledby="updateUser-tab">
                                                         <div class="tab-content pt-3 inside">
                                                             <div class="active">
-                                                                <form class="form mb-lg-5" method="post" action="/thanh-toan">
+                                                                <form class="form mb-lg-5" method="post"
+                                                                      action="/thanh-toan">
                                                                     <div class="row">
                                                                         <div class="col">
                                                                             <label>Chọn mệnh giá có sẵn</label>
-
                                                                             <div class="ui selection dropdown">
                                                                                 <input type="hidden" name="amount">
                                                                                 <i class="dropdown icon"></i>
@@ -117,7 +116,8 @@
                                                          aria-labelledby="updatePassword-tab">
                                                         <div class="tab-content pt-3 inside">
                                                             <div class="tab-pane active">
-                                                                <form class="form mb-lg-5" method="post" action="/thanh-toan">
+                                                                <form class="form mb-lg-5" method="post"
+                                                                      action="/thanh-toan">
                                                                     <div class="row">
                                                                         <div class="col">
                                                                             <div class="form-group">
@@ -125,19 +125,26 @@
                                                                                 <input class="form-control"
                                                                                        type="number"
                                                                                        name="amount"
-                                                                                       placeholder="Tối thiểu 100.000đ" required
-                                                                                min="100000">
+                                                                                       placeholder="Tối thiểu 100.000đ"
+                                                                                       required
+                                                                                       min="100000"
+                                                                                       id="currency-input">
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="col">
                                                                             <p class="guide">Hướng dẫn nạp thẻ: hãy điền
                                                                                 mệnh giá bạn mong muốn và nhấn vào nút
                                                                                 thanh toán bên dưới</p>
+                                                                            <p>Số tiền thanh toán:
+                                                                                <span id="currency-convert"
+                                                                                      class="text-success"></span>
+                                                                            </p>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="d-flex justify-content-center mb-3 btn-payment">
-                                                                            <div class="mt-2">
+                                                                    <div class="row mb-3">
+                                                                        <div class="d-flex justify-content-center ">
+                                                                            <div class="col-md-12">
                                                                                 <button class="ui primary button"
                                                                                         type="submit">
                                                                                     <span>Thanh toán Paypal</span>
@@ -172,6 +179,11 @@
 </th:block>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script>
+    $('#currency-input').keypress(function (e) {
+        var value = $(this).val();
+        console.log(value)
+        $('#currency-convert').text(formatter.format(value))
+    })
     $('.ui.dropdown').dropdown();
 </script>
 </body>

@@ -6,8 +6,8 @@ $(function () {
         forceHeight: false
     });
 
-    //------- Active Nice Select --------//
-    $('select').niceSelect();
+ /*   //------- Active Nice Select --------//
+    $('select').niceSelect();*/
 
     //------- hero carousel -------//
     $(".hero-carousel").owlCarousel({
@@ -162,4 +162,5 @@ $("#confirm-order").on('click', function () {
     } else
         alert('Vui lòng chọn đầy đủ thông tin')
 })
+
 

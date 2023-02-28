@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -103,11 +102,12 @@ UserServiceImpl implements UserService {
 
     @Override
     public void updateConfirmUser(User user) {
+        //Create new wallet
         Wallet wallet = new Wallet();
         wallet.setUser(user);
-        List<Wallet> wallets = new ArrayList<>();
-        wallets.add(wallet);
-        user.setWallets(wallets);
+        wallet.setWallet_number(Wallet.generatorWalletNumber());
+        user.setWallet(wallet);
+        //update user info and delete token
         userRepo.save(user);
         VerificationToken token = verificationTokenRepo.findByUser(user);
         verificationTokenRepo.delete(token);

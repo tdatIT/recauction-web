@@ -139,10 +139,8 @@
                             <img class="img-fluid" th:src="${p.images[0].imgName}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li>
-                                    <button><i class="ti-search"></i></button>
-                                </li>
-                                <li>
-                                    <button><i class="ti-shopping-cart"></i></button>
+                                    <a th:href="@{/chi-tiet-san-pham/supp-view/{id}(id=${p.productId})}"><i
+                                            class="fa fa-light fa-eye"></i></a>
                                 </li>
                             </ul>
                         </div>
